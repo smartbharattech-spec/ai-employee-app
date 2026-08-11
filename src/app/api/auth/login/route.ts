@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { SignJWT } from 'jose';
 
 export async function POST(request: Request) {
   try {
@@ -14,15 +13,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
     }
 
-    const user = { id: 1, email: 'nikhil@gmail.com' };
-
-    // Create JWT
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'secret');
-    const token = await new SignJWT({ id: user.id, email: user.email })
-      .setProtectedHeader({ alg: 'HS256' })
-      .setIssuedAt()
-      .setExpirationTime('24h')
-      .sign(secret);
+    // Fake token bypass
+    const token = 'fake_nikhil_token_12345';
 
     // Set HTTP-only cookie
     const response = NextResponse.json({ success: true, message: 'Logged in successfully' });
