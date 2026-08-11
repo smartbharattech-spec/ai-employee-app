@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
-import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
 
 export async function POST(request: Request) {
@@ -11,17 +9,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'Email and password are required' }, { status: 400 });
     }
 
-    const [rows]: any = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-    if (!rows || rows.length === 0) {
+    // HARDCODED VERCEL LOGIN (No DB Required)
+    if (email !== 'nikhil@gmail.com' || password !== 'nikhil123') {
       return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
     }
 
-    const user = rows[0];
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
-    }
+    const user = { id: 1, email: 'nikhil@gmail.com' };
 
     // Create JWT
     const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'secret');
