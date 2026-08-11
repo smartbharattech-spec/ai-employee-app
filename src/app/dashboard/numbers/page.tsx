@@ -70,21 +70,26 @@ export default function NumbersPage() {
   const checkLiveStatus = async () => {
     setLiveStatus(prev => ({ ...prev, loading: true }));
     try {
-      const res = await fetch('/api/whatsapp/subscribers');
+      const res = await fetch('/api/pipeline');
       const data = await res.json();
       if (data.success) {
+        const mappedSubscribers = (data.leads || []).map((lead: any) => ({
+          first_name: lead.data?.name || 'Unknown Lead',
+          chat_id: lead.phone,
+          unseen_count: 0
+        }));
         setLiveStatus({
           connected: true,
-          subscribers: data.subscribers || [],
+          subscribers: mappedSubscribers,
           loading: false,
-          message: 'Connected to WhatsMarketing API'
+          message: 'Connected to CRM'
         });
       } else {
         setLiveStatus({
           connected: false,
           subscribers: [],
           loading: false,
-          message: data.message || 'Invalid API Credentials'
+          message: data.message || 'Error fetching data'
         });
       }
     } catch (err) {
