@@ -70,19 +70,14 @@ export default function NumbersPage() {
   const checkLiveStatus = async () => {
     setLiveStatus(prev => ({ ...prev, loading: true }));
     try {
-      const res = await fetch('/api/pipeline');
+      const res = await fetch('/api/whatsapp/subscribers');
       const data = await res.json();
       if (data.success) {
-        const mappedSubscribers = (data.leads || []).map((lead: any) => ({
-          first_name: lead.data?.name || 'Unknown Lead',
-          chat_id: lead.phone,
-          unseen_count: 0
-        }));
         setLiveStatus({
           connected: true,
-          subscribers: mappedSubscribers,
+          subscribers: data.subscribers || [],
           loading: false,
-          message: 'Connected to CRM'
+          message: 'Connected to WhatsMarketing API'
         });
       } else {
         setLiveStatus({
