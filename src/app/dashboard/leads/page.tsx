@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function LeadsPage() {
   const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterService, setFilterService] = useState('Ghar/Office ka Vastu issue solve karwana hai');
+  const [filterService, setFilterService] = useState('All');
   const [selectedLead, setSelectedLead] = useState<any | null>(null);
 
   useEffect(() => {
