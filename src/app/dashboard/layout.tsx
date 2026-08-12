@@ -22,10 +22,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   return (
-    <div className="flex h-screen bg-gray-950 font-sans text-gray-100 selection:bg-indigo-500/30">
+    <div className="flex h-screen bg-slate-50 font-sans text-gray-900 selection:bg-indigo-500/30">
       
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900/80 backdrop-blur-xl border-r border-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900/95 backdrop-blur-xl border-r border-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between h-20 px-6 border-b border-gray-800">
           <Link href="/dashboard" className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
@@ -66,14 +66,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-gray-950">
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
         
         {/* Mobile header */}
-        <header className="lg:hidden flex items-center justify-between h-16 px-4 border-b border-gray-800 bg-gray-900/50 backdrop-blur-md">
-          <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-400 hover:text-white">
+        <header className="lg:hidden flex items-center justify-between h-16 px-4 border-b border-gray-200 bg-white/80 backdrop-blur-md">
+          <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-600 hover:text-gray-900">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <span className="font-bold text-white">AI Sales</span>
+          <span className="font-bold text-gray-900">AI Sales</span>
           <div className="w-6"></div> {/* Spacer for centering */}
         </header>
 
