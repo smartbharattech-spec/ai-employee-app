@@ -27,6 +27,7 @@ export default function NumbersPage() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<any>(null);
   const [chatHistory, setChatHistory] = useState<any[]>([]);
+  const messagesEndRef = React.useRef<HTMLDivElement>(null);
   const [loadingChat, setLoadingChat] = useState(false);
   const [loadingMoreChat, setLoadingMoreChat] = useState(false);
   const [chatOffset, setChatOffset] = useState(1);
@@ -37,6 +38,16 @@ export default function NumbersPage() {
     checkLiveStatus();
     fetchNotes();
   }, []);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (chatHistory.length > 0 && chatOffset === 1) {
+      scrollToBottom();
+    }
+  }, [chatHistory, chatOffset]);
 
   const fetchNotes = async () => {
     try {
@@ -531,15 +542,15 @@ export default function NumbersPage() {
             </div>
             
             {/* Drawer Body (Chat Messages) */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#efeae2]">
               {loadingChat ? (
                 <div className="flex items-center justify-center h-full text-gray-500 flex-col gap-3">
-                  <svg className="animate-spin h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  <svg className="animate-spin h-8 w-8 text-[#00a884]" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                   <span>Loading history...</span>
                 </div>
               ) : chatHistory.length === 0 ? (
                 <div className="flex items-center justify-center h-full text-gray-500">
-                  <p>No messages found.</p>
+                  <p className="bg-white/80 px-4 py-2 rounded-lg text-sm shadow-sm">No messages found.</p>
                 </div>
               ) : (
                 <>
@@ -548,7 +559,7 @@ export default function NumbersPage() {
                       <button 
                         onClick={loadMoreChat}
                         disabled={loadingMoreChat}
-                        className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-medium rounded-full transition-colors disabled:opacity-50"
+                        className="px-4 py-1.5 bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-medium rounded-full transition-colors disabled:opacity-50"
                       >
                         {loadingMoreChat ? 'Loading...' : 'Load older messages'}
                       </button>
@@ -562,21 +573,31 @@ export default function NumbersPage() {
                     if (isSystem) {
                       return (
                         <div key={msg.id} className="flex justify-center my-4">
-                          <span className="bg-red-500/10 text-red-400 px-3 py-1 rounded-lg text-xs border border-red-500/20">{msg.text}</span>
+                          <span className="bg-[#ffeaa7] text-gray-700 px-3 py-1 rounded-lg text-xs shadow-sm">{msg.text}</span>
                         </div>
                       );
                     }
 
                     return (
                       <div key={msg.id} className={`flex ${!isUser ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[85%] rounded-2xl px-4 py-2 shadow-sm ${
+                        <div className={`max-w-[85%] rounded-lg px-2.5 py-1.5 shadow-[0_1px_0.5px_rgba(11,20,26,0.13)] relative ${
                           !isUser 
-                            ? 'bg-indigo-600 text-white rounded-br-sm' 
-                            : 'bg-white text-gray-800 rounded-bl-sm border border-gray-200'
+                            ? 'bg-[#d9fdd3] text-gray-900 rounded-tr-none' 
+                            : 'bg-white text-gray-900 rounded-tl-none'
                         }`}>
-                          <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                          {!isUser && (
+                            <svg viewBox="0 0 8 13" width="8" height="13" className="absolute top-0 -right-[7px] text-[#d9fdd3]">
+                              <path opacity="1" fill="currentColor" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            </svg>
+                          )}
+                          {isUser && (
+                            <svg viewBox="0 0 8 13" width="8" height="13" className="absolute top-0 -left-[7px] text-white">
+                              <path opacity="1" fill="currentColor" d="M1.533 3.568L8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            </svg>
+                          )}
+                          <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap pr-12">{msg.text}</p>
                           {msg.time && (
-                            <p className={`text-[10px] mt-1 text-right ${!isUser ? 'text-indigo-200' : 'text-gray-500'}`}>
+                            <p className="text-[10.5px] text-gray-500 absolute bottom-1 right-2">
                               {new Date(msg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </p>
                           )}
@@ -584,10 +605,11 @@ export default function NumbersPage() {
                       </div>
                     );
                   })}
+                  <div ref={messagesEndRef} />
                   
                   {chatHistory.filter(m => !chatSearchTerm || m.text?.toLowerCase().includes(chatSearchTerm.toLowerCase())).length === 0 && (
                     <div className="flex items-center justify-center py-8 text-gray-500">
-                      <p>No matching messages found.</p>
+                      <p className="bg-white/80 px-4 py-2 rounded-lg text-sm shadow-sm">No matching messages found.</p>
                     </div>
                   )}
                 </>
