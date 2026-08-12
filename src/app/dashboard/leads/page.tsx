@@ -29,7 +29,18 @@ export default function LeadsPage() {
 
   const filteredLeads = leads.filter(lead => {
     if (filterService === 'All') return true;
-    return lead.data?.service_type === filterService;
+    if (!lead.data?.service_type) return false;
+
+    const serviceStr = lead.data.service_type.toLowerCase();
+    
+    if (filterService.includes('issue') && (serviceStr.includes('issue') || serviceStr === '1' || serviceStr.includes('1.'))) return true;
+    if (filterService.includes('planning') && (serviceStr.includes('planning') || serviceStr === '2' || serviceStr.includes('2.'))) return true;
+    if (filterService.includes('Astrology') && (serviceStr.includes('astrology') || serviceStr.includes('numerology') || serviceStr === '3' || serviceStr.includes('3.'))) return true;
+    if (filterService.includes('seekhna') && (serviceStr.includes('seekhna') || serviceStr === '4' || serviceStr.includes('4.'))) return true;
+    if (filterService.includes('tool') && (serviceStr.includes('tool') || serviceStr.includes('app') || serviceStr === '5' || serviceStr.includes('5.'))) return true;
+
+    // Fallback exact match
+    return serviceStr.includes(filterService.toLowerCase());
   });
 
   return (
