@@ -8,6 +8,9 @@ export default function LeadsPage() {
   const [loading, setLoading] = useState(true);
   const [filterService, setFilterService] = useState('All');
   const [selectedLead, setSelectedLead] = useState<any | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     fetchLeads();
@@ -27,21 +30,40 @@ export default function LeadsPage() {
     }
   };
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterService, searchQuery]);
+
   const filteredLeads = leads.filter(lead => {
-    if (filterService === 'All') return true;
-    if (!lead.data?.service_type) return false;
+    let serviceMatch = true;
+    if (filterService !== 'All') {
+      if (!lead.data?.service_type) serviceMatch = false;
+      else {
+        const serviceStr = lead.data.service_type.toLowerCase();
+        serviceMatch = false;
+        if (filterService.includes('issue') && (serviceStr.includes('issue') || serviceStr === '1' || serviceStr.includes('1.'))) serviceMatch = true;
+        else if (filterService.includes('planning') && (serviceStr.includes('planning') || serviceStr === '2' || serviceStr.includes('2.'))) serviceMatch = true;
+        else if (filterService.includes('Astrology') && (serviceStr.includes('astrology') || serviceStr.includes('numerology') || serviceStr === '3' || serviceStr.includes('3.'))) serviceMatch = true;
+        else if (filterService.includes('seekhna') && (serviceStr.includes('seekhna') || serviceStr === '4' || serviceStr.includes('4.'))) serviceMatch = true;
+        else if (filterService.includes('tool') && (serviceStr.includes('tool') || serviceStr.includes('app') || serviceStr === '5' || serviceStr.includes('5.'))) serviceMatch = true;
+        else if (serviceStr.includes(filterService.toLowerCase())) serviceMatch = true;
+      }
+    }
 
-    const serviceStr = lead.data.service_type.toLowerCase();
-    
-    if (filterService.includes('issue') && (serviceStr.includes('issue') || serviceStr === '1' || serviceStr.includes('1.'))) return true;
-    if (filterService.includes('planning') && (serviceStr.includes('planning') || serviceStr === '2' || serviceStr.includes('2.'))) return true;
-    if (filterService.includes('Astrology') && (serviceStr.includes('astrology') || serviceStr.includes('numerology') || serviceStr === '3' || serviceStr.includes('3.'))) return true;
-    if (filterService.includes('seekhna') && (serviceStr.includes('seekhna') || serviceStr === '4' || serviceStr.includes('4.'))) return true;
-    if (filterService.includes('tool') && (serviceStr.includes('tool') || serviceStr.includes('app') || serviceStr === '5' || serviceStr.includes('5.'))) return true;
+    let searchMatch = true;
+    if (searchQuery.trim() !== '') {
+      const q = searchQuery.toLowerCase();
+      const nameMatch = lead.data?.name?.toLowerCase().includes(q);
+      const phoneMatch = lead.phone_number?.includes(q);
+      const cityMatch = lead.data?.city?.toLowerCase().includes(q);
+      searchMatch = !!(nameMatch || phoneMatch || cityMatch);
+    }
 
-    // Fallback exact match
-    return serviceStr.includes(filterService.toLowerCase());
+    return serviceMatch && searchMatch;
   });
+
+  const totalPages = Math.ceil(filteredLeads.length / itemsPerPage);
+  const currentLeads = filteredLeads.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto min-h-screen">
@@ -51,20 +73,33 @@ export default function LeadsPage() {
           <p className="text-gray-500 mt-2">Manage and view all your qualified leads and their information.</p>
         </div>
         
-        <div className="flex items-center gap-3 bg-white p-2 rounded-xl shadow-sm border border-gray-100">
-          <span className="text-sm text-gray-500 font-medium pl-2">Filter:</span>
-          <select 
-            value={filterService}
-            onChange={(e) => setFilterService(e.target.value)}
-            className="text-sm bg-gray-50 border border-gray-200 text-gray-700 py-1.5 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500"
-          >
-            <option value="All">All Leads</option>
-            <option value="Ghar/Office ka Vastu issue solve karwana hai">Vastu Issue (Ghar/Office)</option>
-            <option value="Naya ghar bana raha/rahi hoon — planning chahiye">New House Planning</option>
-            <option value="Astrology ya Numerology se related sawal hai">Astrology / Numerology</option>
-            <option value="Vastu khud seekhna chahta/chahti hoon">Learn Vastu</option>
-            <option value="Vastu check karne wala tool/app chahiye">Vastu Tool/App</option>
-          </select>
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+          <div className="relative w-full sm:w-auto">
+            <input 
+              type="text" 
+              placeholder="Search name, phone, city..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 w-full sm:w-64"
+            />
+            <svg className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          </div>
+          
+          <div className="flex items-center gap-3 bg-white p-2 rounded-xl shadow-sm border border-gray-100 w-full sm:w-auto">
+            <span className="text-sm text-gray-500 font-medium pl-2 hidden sm:inline">Filter:</span>
+            <select 
+              value={filterService}
+              onChange={(e) => setFilterService(e.target.value)}
+              className="text-sm bg-gray-50 border border-gray-200 text-gray-700 py-1.5 px-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 w-full sm:w-auto"
+            >
+              <option value="All">All Leads</option>
+              <option value="Ghar/Office ka Vastu issue solve karwana hai">Vastu Issue</option>
+              <option value="Naya ghar bana raha/rahi hoon — planning chahiye">New House Planning</option>
+              <option value="Astrology ya Numerology se related sawal hai">Astrology / Numerology</option>
+              <option value="Vastu khud seekhna chahta/chahti hoon">Learn Vastu</option>
+              <option value="Vastu check karne wala tool/app chahiye">Vastu Tool/App</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -91,14 +126,14 @@ export default function LeadsPage() {
                     </div>
                   </td>
                 </tr>
-              ) : filteredLeads.length === 0 ? (
+              ) : currentLeads.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
-                    No leads found for this filter.
+                    No leads found for this filter or search.
                   </td>
                 </tr>
               ) : (
-                filteredLeads.map((lead, idx) => (
+                currentLeads.map((lead, idx) => (
                   <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4 font-medium text-gray-900">
                       {lead.data?.name || <span className="text-gray-400 italic">Unknown</span>}
@@ -137,6 +172,30 @@ export default function LeadsPage() {
             </tbody>
           </table>
         </div>
+        
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100 bg-gray-50/50">
+            <span className="text-sm text-gray-500">
+              Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredLeads.length)} of {filteredLeads.length} leads
+            </span>
+            <div className="flex gap-2">
+              <button 
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(p => p - 1)}
+                className="px-3 py-1.5 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+              >
+                Previous
+              </button>
+              <button 
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(p => p + 1)}
+                className="px-3 py-1.5 text-sm bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Modal */}
