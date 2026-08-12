@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { phone } = await request.json();
+    const { phone, type = 'all' } = await request.json();
 
     if (!phone) {
       return NextResponse.json({ success: false, message: 'Phone number is required' }, { status: 400 });
     }
 
-    const response = await fetch(`https://myvastutool.com/api_wipe.php?phone=${phone}`);
+    const response = await fetch(`https://myvastutool.com/api_wipe.php?phone=${phone}&type=${type}`);
     const data = await response.json();
 
     if (data.success) {

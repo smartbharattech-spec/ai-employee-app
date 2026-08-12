@@ -149,13 +149,17 @@ export default function NumbersPage() {
     setChatHistory([]);
   };
 
-  const wipeMemory = async (phone: string) => {
-    if (!confirm('Are you sure you want to wipe memory for +' + phone + '?')) return;
+  const wipeMemory = async (phone: string, type: 'chat' | 'ai' | 'all' = 'all') => {
+    let confirmMsg = 'Are you sure you want to wipe memory for +' + phone + '?';
+    if (type === 'chat') confirmMsg = 'Are you sure you want to delete WhatsApp chat history for +' + phone + '?';
+    if (type === 'ai') confirmMsg = 'Are you sure you want to clear AI Gatekeeper memory for +' + phone + '?';
+    
+    if (!confirm(confirmMsg)) return;
     try {
       const res = await fetch('/api/clear-memory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone })
+        body: JSON.stringify({ phone, type })
       });
       const data = await res.json();
       if (data.success) {
@@ -338,19 +342,29 @@ export default function NumbersPage() {
                             <span className="text-gray-500 text-sm">None</span>
                           )}
                         </td>
-                        <td className="px-6 py-4 text-right hidden md:table-cell space-x-2">
-                          <button 
-                            onClick={() => wipeMemory(sub.chat_id)}
-                            className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-red-500/10 whitespace-nowrap border border-red-500/20"
-                          >
-                            Delete Chat History
-                          </button>
-                          <button 
-                            onClick={() => openChat(sub)}
-                            className="text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-500/10 whitespace-nowrap"
-                          >
-                            View Chat
-                          </button>
+                        <td className="px-6 py-4 text-right hidden md:table-cell">
+                          <div className="flex items-center justify-end space-x-2">
+                            <button 
+                              onClick={() => wipeMemory(sub.chat_id, 'chat')}
+                              className="text-red-400 hover:text-red-300 transition-colors text-xs font-medium px-2 py-1.5 rounded-lg hover:bg-red-500/10 whitespace-nowrap border border-red-500/20"
+                              title="Delete WhatsApp Chat History"
+                            >
+                              Delete Chat
+                            </button>
+                            <button 
+                              onClick={() => wipeMemory(sub.chat_id, 'ai')}
+                              className="text-orange-400 hover:text-orange-300 transition-colors text-xs font-medium px-2 py-1.5 rounded-lg hover:bg-orange-500/10 whitespace-nowrap border border-orange-500/20"
+                              title="Delete AI Gatekeeper Memory"
+                            >
+                              Delete AI Memory
+                            </button>
+                            <button 
+                              onClick={() => openChat(sub)}
+                              className="text-indigo-400 hover:text-indigo-300 transition-colors text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-indigo-500/10 whitespace-nowrap border border-indigo-500/20"
+                            >
+                              View Chat
+                            </button>
+                          </div>
                         </td>
                         <td className="px-6 py-4 text-right md:hidden">
                           <button 
@@ -424,16 +438,22 @@ export default function NumbersPage() {
                                 
                                 <div className="flex items-center gap-2">
                                   <button 
-                                    onClick={() => wipeMemory(sub.chat_id)}
-                                    className="text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-colors text-sm font-medium px-3 py-2 rounded-lg border border-red-500/20"
+                                    onClick={() => wipeMemory(sub.chat_id, 'chat')}
+                                    className="text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-colors text-[10px] font-medium px-2 py-1.5 rounded border border-red-500/20"
                                   >
-                                    Delete Chat History
+                                    Del Chat
+                                  </button>
+                                  <button 
+                                    onClick={() => wipeMemory(sub.chat_id, 'ai')}
+                                    className="text-orange-400 bg-orange-500/10 hover:bg-orange-500/20 transition-colors text-[10px] font-medium px-2 py-1.5 rounded border border-orange-500/20"
+                                  >
+                                    Del AI Memory
                                   </button>
                                   <button 
                                     onClick={() => openChat(sub)}
-                                    className="text-white bg-indigo-600 hover:bg-indigo-700 transition-colors text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-500/30"
+                                    className="text-white bg-indigo-600 hover:bg-indigo-700 transition-colors text-xs font-medium px-3 py-1.5 rounded shadow-lg shadow-indigo-500/30"
                                   >
-                                    Open Chat
+                                    Open
                                   </button>
                                 </div>
                               </div>
@@ -494,7 +514,7 @@ export default function NumbersPage() {
                 </div>
                 <div className="flex gap-2">
                   <button 
-                    onClick={() => wipeMemory(selectedContact.chat_id)}
+                    onClick={() => wipeMemory(selectedContact.chat_id, 'chat')}
                     className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors flex items-center justify-center border border-red-500/20"
                     title="Delete Chat History"
                   >
