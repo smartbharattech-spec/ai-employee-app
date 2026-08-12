@@ -108,6 +108,7 @@ export default function LeadsPage() {
           <table className="w-full text-sm text-left">
             <thead className="bg-gray-50/50 text-gray-500 font-medium border-b border-gray-100">
               <tr>
+                <th className="px-6 py-4 whitespace-nowrap">Date & Time</th>
                 <th className="px-6 py-4 whitespace-nowrap">Name</th>
                 <th className="px-6 py-4 whitespace-nowrap">Phone Number</th>
                 <th className="px-6 py-4 whitespace-nowrap">City</th>
@@ -119,7 +120,7 @@ export default function LeadsPage() {
             <tbody className="divide-y divide-gray-50">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
                     <div className="animate-pulse flex flex-col items-center">
                       <div className="h-6 w-6 border-2 border-green-500 border-t-transparent rounded-full animate-spin mb-3"></div>
                       Loading leads...
@@ -128,18 +129,26 @@ export default function LeadsPage() {
                 </tr>
               ) : currentLeads.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
                     No leads found for this filter or search.
                   </td>
                 </tr>
               ) : (
                 currentLeads.map((lead, idx) => (
                   <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                      {lead.last_updated ? (
+                        <div>
+                          <span className="font-semibold text-gray-700">{lead.last_updated.split(' ')[0]}</span>
+                          <span className="text-gray-400 block text-[11px]">{lead.last_updated.split(' ')[1] || ''}</span>
+                        </div>
+                      ) : '-'}
+                    </td>
                     <td className="px-6 py-4 font-medium text-gray-900">
                       {lead.data?.name || <span className="text-gray-400 italic">Unknown</span>}
                     </td>
-                    <td className="px-6 py-4 text-gray-600">
-                      {lead.phone_number}
+                    <td className="px-6 py-4 text-gray-600 font-mono text-xs">
+                      +{lead.phone_number}
                     </td>
                     <td className="px-6 py-4 text-gray-600">
                       {lead.data?.city ? <span className="capitalize">{lead.data.city}</span> : '-'}
@@ -161,7 +170,7 @@ export default function LeadsPage() {
                     <td className="px-6 py-4 text-right">
                       <button 
                         onClick={() => setSelectedLead(lead)}
-                        className="inline-flex items-center justify-center px-3 py-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
+                        className="inline-flex items-center justify-center px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
                       >
                         View Lead
                       </button>

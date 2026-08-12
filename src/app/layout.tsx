@@ -13,10 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'AI Employee CRM',
-  description: 'CRM Dashboard for AI Employee',
+  title: 'Vastu AI CRM - WhatsApp Sales Employee',
+  description: 'AI Automation & CRM Dashboard for WhatsApp Sales Pipeline',
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/icon.png',
+    apple: '/icon.png',
   },
 };
 

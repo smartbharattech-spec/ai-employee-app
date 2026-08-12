@@ -36,11 +36,72 @@ export default function NumbersPage() {
 
   const renderMessageText = (text: string) => {
     if (!text) return null;
+
+    const trimmed = text.trim();
+    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        
+        // 1. WhatsApp Image Object
+        if (parsed.type === 'image' || parsed.image) {
+          const imgUrl = parsed.image?.link || parsed.image?.url;
+          const caption = parsed.image?.caption;
+          if (imgUrl) {
+            return (
+              <div className="space-y-1 my-1">
+                <img 
+                  src={imgUrl} 
+                  alt="WhatsApp Media" 
+                  className="rounded-lg max-h-64 max-w-full object-cover border border-black/10 cursor-pointer hover:opacity-95 transition-opacity"
+                  onClick={() => window.open(imgUrl, '_blank')}
+                />
+                {caption && <p className="text-xs text-gray-700 mt-1">{caption}</p>}
+              </div>
+            );
+          }
+        }
+
+        // 2. WhatsApp Document Object
+        if (parsed.type === 'document' || parsed.document) {
+          const docUrl = parsed.document?.link || parsed.document?.url;
+          const filename = parsed.document?.filename || 'Document';
+          return (
+            <a href={docUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2 bg-black/5 rounded-lg text-blue-600 hover:underline text-xs my-1">
+              📄 {filename}
+            </a>
+          );
+        }
+
+        // 3. WhatsApp Text Object
+        if (parsed.text?.body) {
+          return renderPlainText(parsed.text.body);
+        }
+      } catch (e) {
+        // Fallback to normal text
+      }
+    }
+
+    // Direct Image URL detection
+    if (/^https?:\/\/.+\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(trimmed)) {
+      return (
+        <img 
+          src={trimmed} 
+          alt="Media" 
+          className="rounded-lg max-h-64 max-w-full object-cover border border-black/10 cursor-pointer hover:opacity-95 transition-opacity my-1"
+          onClick={() => window.open(trimmed, '_blank')}
+        />
+      );
+    }
+
+    return renderPlainText(text);
+  };
+
+  const renderPlainText = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, i) => {
       if (part.match(urlRegex)) {
         return (
-          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">
+          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline break-all font-medium">
             {part}
           </a>
         );
