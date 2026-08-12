@@ -29,55 +29,57 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex h-screen bg-slate-50 font-sans text-gray-900 selection:bg-indigo-500/30">
       
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-50 ${isCollapsed ? 'w-20' : 'w-64'} bg-white/95 backdrop-blur-xl border-r border-gray-200 transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex items-center justify-between h-20 px-6 border-b border-gray-200 relative">
+      <aside className={`fixed inset-y-0 left-0 z-50 ${isCollapsed ? 'w-20' : 'w-72'} bg-[#0f172a] border-r border-slate-800 transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="flex items-center justify-between h-20 px-6 border-b border-slate-800 relative bg-[#0f172a]">
           <div className="flex items-center gap-3 w-full">
             <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden">
-              <div className="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-sm">
+              <div className="w-8 h-8 shrink-0 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
                 <svg className="w-5 h-5 text-white shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.19.71 4.22 1.91 5.86L2.6 21.4l3.65-1.28A9.957 9.957 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.1 14.1c-.24.68-1.39 1.25-1.95 1.32-.52.06-1.19.16-3.41-.76-2.67-1.11-4.38-3.83-4.51-4.01-.13-.18-1.07-1.43-1.07-2.73 0-1.3.68-1.94.93-2.22.25-.28.55-.35.73-.35.18 0 .37 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.04.07.14.12.3.03.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.48-.15.15-.31.32-.14.61.17.3 1.3 2.14 2.97 3.63.81.72 1.55 1.05 1.85 1.19.3.15.48.12.66-.08.18-.2.78-.91.99-1.22.21-.31.41-.26.69-.15.28.1 1.76.83 2.06.98.3.15.5.22.58.35.07.13.07.76-.17 1.44z"/></svg>
               </div>
-              {!isCollapsed && <span className="font-bold text-lg text-gray-900 tracking-tight whitespace-nowrap">WhatsApp CRM</span>}
+              {!isCollapsed && <span className="font-bold text-lg text-white tracking-tight whitespace-nowrap">WhatsApp CRM</span>}
             </Link>
             {!isCollapsed && (
-              <button onClick={() => setIsCollapsed(true)} className="ml-auto hidden lg:flex items-center justify-center w-6 h-6 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors">
+              <button onClick={() => setIsCollapsed(true)} className="ml-auto hidden lg:flex items-center justify-center w-7 h-7 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
               </button>
             )}
             {isCollapsed && (
-              <button onClick={() => setIsCollapsed(false)} className="absolute -right-3 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-6 h-6 bg-white border border-gray-200 text-gray-400 hover:text-gray-600 rounded-full shadow-sm hover:shadow transition-all z-10">
+              <button onClick={() => setIsCollapsed(false)} className="absolute -right-3.5 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-7 h-7 bg-slate-800 border border-slate-700 text-slate-300 hover:text-white rounded-full shadow-lg hover:shadow-emerald-500/20 hover:border-emerald-500/50 transition-all z-10">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
               </button>
             )}
           </div>
-          <button onClick={() => setIsMobileMenuOpen(false)} className="lg:hidden text-gray-500 hover:text-gray-900">
+          <button onClick={() => setIsMobileMenuOpen(false)} className="lg:hidden text-slate-400 hover:text-white">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
         </div>
 
-        <nav className={`flex-1 ${isCollapsed ? 'px-2' : 'px-4'} py-6 space-y-2 overflow-y-auto`}>
+        <nav className={`flex-1 ${isCollapsed ? 'px-3' : 'px-4'} py-6 space-y-2 overflow-y-auto bg-[#0f172a]`}>
           {navItems.map((item) => {
             const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== '/dashboard');
             return (
               <Link 
                 key={item.name} 
                 href={item.href}
-                className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'px-4'} py-3 rounded-xl text-sm font-medium transition-all ${isActive ? 'bg-green-50 text-green-700 shadow-[inset_4px_0_0_0_#16a34a]' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+                className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'px-4'} py-3.5 rounded-xl text-sm font-medium transition-all duration-200 group ${isActive ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/25' : 'text-slate-400 hover:bg-slate-800/60 hover:text-white'}`}
                 title={isCollapsed ? item.name : undefined}
               >
-                {item.icon}
+                <div className={`${isActive ? 'text-white' : 'text-slate-500 group-hover:text-slate-300'} transition-colors`}>
+                  {item.icon}
+                </div>
                 {!isCollapsed && <span>{item.name}</span>}
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-slate-800 bg-[#0f172a]">
           <button 
             onClick={handleLogout}
-            className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'px-4'} w-full py-3 text-sm font-medium text-gray-600 rounded-xl hover:bg-red-50 hover:text-red-600 transition-colors`}
+            className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'px-4'} w-full py-3.5 text-sm font-medium text-slate-400 rounded-xl hover:bg-red-500/10 hover:text-red-400 transition-colors group`}
             title={isCollapsed ? "Sign Out" : undefined}
           >
-            <svg className={`w-5 h-5 shrink-0 ${!isCollapsed ? 'mr-3' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            <svg className={`w-5 h-5 shrink-0 ${!isCollapsed ? 'mr-3' : ''} text-slate-500 group-hover:text-red-400 transition-colors`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
             {!isCollapsed && <span>Sign Out</span>}
           </button>
         </div>
