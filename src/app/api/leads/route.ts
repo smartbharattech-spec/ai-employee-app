@@ -1,40 +1,40 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
 export async function GET() {
   try {
-    // Read the leads file directly from the other project folder in xampp
-    const leadsFilePath = 'C:\\xampp\\htdocs\\myvastutool\\crm_leads.json';
-    
-    if (!fs.existsSync(leadsFilePath)) {
-      return NextResponse.json({ success: true, leads: [] });
-    }
-
-    const fileContent = fs.readFileSync(leadsFilePath, 'utf-8');
-    const data = JSON.parse(fileContent);
-    
-    // Transform object into array of leads
-    const leadsList = Object.entries(data).map(([phoneNumber, leadInfo]: [string, any]) => {
-      return {
-        phone_number: phoneNumber,
-        ...leadInfo
-      };
+    const response = await fetch('https://myvastutool.com/get_leads.php', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 0 } // Disable caching to always get fresh leads
     });
 
-    // Sort by last_updated descending
-    leadsList.sort((a, b) => {
-      const dateA = new Date(a.last_updated || '2000-01-01').getTime();
-      const dateB = new Date(b.last_updated || '2000-01-01').getTime();
+    if (!response.ok) {
+      throw new Error(`Failed to fetch leads: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    // Convert object of leads to an array
+    const leadsArray = Object.keys(data.leads || {}).map((phone) => ({
+      phone_number: phone,
+      ...data.leads[phone]
+    }));
+
+    // Sort leads by last_updated descending
+    leadsArray.sort((a, b) => {
+      const dateA = new Date(a.last_updated || 0).getTime();
+      const dateB = new Date(b.last_updated || 0).getTime();
       return dateB - dateA;
     });
 
-    return NextResponse.json({ 
-      success: true, 
-      leads: leadsList
-    });
+    return NextResponse.json({ success: true, leads: leadsArray });
   } catch (error: any) {
-    console.error('Error fetching leads:', error);
-    return NextResponse.json({ success: false, message: 'Internal Server Error', error: error.message }, { status: 500 });
+    console.error('Error fetching leads API:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to read CRM data.' },
+      { status: 500 }
+    );
   }
 }
