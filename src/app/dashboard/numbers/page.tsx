@@ -343,7 +343,7 @@ export default function NumbersPage() {
                             onClick={() => wipeMemory(sub.chat_id)}
                             className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-red-500/10 whitespace-nowrap border border-red-500/20"
                           >
-                            Clear Memory
+                            Delete Chat History
                           </button>
                           <button 
                             onClick={() => openChat(sub)}
@@ -427,7 +427,7 @@ export default function NumbersPage() {
                                     onClick={() => wipeMemory(sub.chat_id)}
                                     className="text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-colors text-sm font-medium px-3 py-2 rounded-lg border border-red-500/20"
                                   >
-                                    Clear Memory
+                                    Delete Chat History
                                   </button>
                                   <button 
                                     onClick={() => openChat(sub)}
@@ -492,12 +492,22 @@ export default function NumbersPage() {
                     <p className="text-xs text-gray-400">+{selectedContact.chat_id}</p>
                   </div>
                 </div>
-                <button 
-                  onClick={closeChat}
-                  className="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => wipeMemory(selectedContact.chat_id)}
+                    className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors flex items-center justify-center border border-red-500/20"
+                    title="Delete Chat History"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  </button>
+                  <button 
+                    onClick={closeChat}
+                    className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors flex items-center justify-center"
+                    title="Close Chat"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                </div>
               </div>
 
               {/* Chat Search Bar */}
