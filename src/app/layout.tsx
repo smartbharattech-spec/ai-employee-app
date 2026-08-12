@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "WhatsApp CRM | Manage Leads & Automations",
-  description: "Advanced WhatsApp CRM with AI-powered sales automation and lead management.",
+  title: 'AI Employee CRM',
+  description: 'CRM Dashboard for AI Employee',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
