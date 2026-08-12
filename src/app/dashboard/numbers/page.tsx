@@ -34,6 +34,21 @@ export default function NumbersPage() {
   const [chatSearchTerm, setChatSearchTerm] = useState('');
   const [hasMoreChat, setHasMoreChat] = useState(true);
 
+  const renderMessageText = (text: string) => {
+    if (!text) return null;
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.split(urlRegex).map((part, i) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">
+            {part}
+          </a>
+        );
+      }
+      return <span key={i}>{part}</span>;
+    });
+  };
+
   useEffect(() => {
     checkLiveStatus();
     fetchNotes();
@@ -512,13 +527,6 @@ export default function NumbersPage() {
                 </div>
                 <div className="flex gap-2">
                   <button 
-                    onClick={() => wipeMemory(selectedContact.chat_id, 'all')}
-                    className="p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors flex items-center justify-center border border-red-200"
-                    title="Restart AI Chat"
-                  >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                  </button>
-                  <button 
                     onClick={closeChat}
                     className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors flex items-center justify-center"
                     title="Close Chat"
@@ -595,7 +603,7 @@ export default function NumbersPage() {
                               <path opacity="1" fill="currentColor" d="M1.533 3.568L8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
                             </svg>
                           )}
-                          <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap pr-12">{msg.text}</p>
+                          <p className="text-[14.5px] leading-relaxed whitespace-pre-wrap break-words pr-12">{renderMessageText(msg.text)}</p>
                           {msg.time && (
                             <p className="text-[10.5px] text-gray-500 absolute bottom-1 right-2">
                               {new Date(msg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
