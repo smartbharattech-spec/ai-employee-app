@@ -198,7 +198,7 @@ export default function NumbersPage() {
       const data = await res.json();
       if (data.success) {
         if (data.messages.length < 50) setHasMoreChat(false);
-        setChatHistory(data.messages);
+        setChatHistory(data.messages.reverse());
       } else {
         setChatHistory([{ id: 0, sender: 'system', text: 'Error loading chat history.' }]);
       }
@@ -220,8 +220,8 @@ export default function NumbersPage() {
       if (data.success) {
         if (data.messages.length < 50) setHasMoreChat(false);
         setChatOffset(nextOffset);
-        // Append old messages (flex-col-reverse pushes them to the top visually)
-        setChatHistory(prev => [...prev, ...data.messages]);
+        // Append older messages to the end of the array (which flex-col-reverse pushes to the top visually)
+        setChatHistory(prev => [...prev, ...data.messages.reverse()]);
       }
     } catch (err) {
       console.error(err);
