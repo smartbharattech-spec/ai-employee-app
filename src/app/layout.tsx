@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   description: 'AI Automation & CRM Dashboard for WhatsApp Sales Pipeline',
   icons: {
     icon: [
-      { url: '/icon.png', type: 'image/png' },
-      { url: '/favicon.png', type: 'image/png' },
-      { url: '/favicon.ico' },
+      { url: '/icon.png?v=2', type: 'image/png' },
+      { url: '/favicon.png?v=2', type: 'image/png' },
+      { url: '/favicon.ico?v=2' },
     ],
-    shortcut: '/icon.png',
-    apple: '/icon.png',
+    shortcut: '/icon.png?v=2',
+    apple: '/icon.png?v=2',
   },
 };
 

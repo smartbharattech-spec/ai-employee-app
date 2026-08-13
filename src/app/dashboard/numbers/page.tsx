@@ -76,8 +76,21 @@ export default function NumbersPage() {
         if (parsed.text?.body) {
           return renderPlainText(parsed.text.body);
         }
+
+        // 4. Interactive or structured objects
+        if (parsed.interactive?.body?.text) {
+          return renderPlainText(parsed.interactive.body.text);
+        }
+
+        // 5. Generic fallback for JSON so we don't show raw text
+        const fallback = parsed.text || parsed.body || parsed.caption;
+        if (typeof fallback === 'string') {
+          return renderPlainText(fallback);
+        }
+        
+        return <span className="text-gray-500 italic text-[11px] bg-black/5 px-2 py-1 rounded-md">Interactive Message</span>;
       } catch (e) {
-        // Fallback to normal text
+        // Not valid JSON, fallthrough
       }
     }
 
