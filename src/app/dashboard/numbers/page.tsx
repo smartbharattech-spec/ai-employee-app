@@ -198,7 +198,7 @@ export default function NumbersPage() {
       const data = await res.json();
       if (data.success) {
         if (data.messages.length < 50) setHasMoreChat(false);
-        setChatHistory(data.messages.reverse());
+        setChatHistory(data.messages);
       } else {
         setChatHistory([{ id: 0, sender: 'system', text: 'Error loading chat history.' }]);
       }
@@ -220,8 +220,8 @@ export default function NumbersPage() {
       if (data.success) {
         if (data.messages.length < 50) setHasMoreChat(false);
         setChatOffset(nextOffset);
-        // Prepend old messages (since reverse means oldest are at top)
-        setChatHistory(prev => [...data.messages.reverse(), ...prev]);
+        // Append old messages (flex-col-reverse pushes them to the top visually)
+        setChatHistory(prev => [...prev, ...data.messages]);
       }
     } catch (err) {
       console.error(err);
@@ -611,7 +611,7 @@ export default function NumbersPage() {
             </div>
             
             {/* Drawer Body (Chat Messages) */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#efeae2]">
+            <div className="flex-1 overflow-y-auto p-4 bg-[#efeae2] flex flex-col-reverse gap-4">
               {loadingChat ? (
                 <div className="flex items-center justify-center h-full text-gray-500 flex-col gap-3">
                   <svg className="animate-spin h-8 w-8 text-[#00a884]" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -623,18 +623,6 @@ export default function NumbersPage() {
                 </div>
               ) : (
                 <>
-                  {hasMoreChat && !chatSearchTerm && (
-                    <div className="flex justify-center my-4">
-                      <button 
-                        onClick={loadMoreChat}
-                        disabled={loadingMoreChat}
-                        className="px-4 py-1.5 bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-medium rounded-full transition-colors disabled:opacity-50"
-                      >
-                        {loadingMoreChat ? 'Loading...' : 'Load older messages'}
-                      </button>
-                    </div>
-                  )}
-
                   {chatHistory.filter(m => !chatSearchTerm || m.text?.toLowerCase().includes(chatSearchTerm.toLowerCase())).map((msg: any) => {
                     const isUser = msg.sender === 'user';
                     const isSystem = msg.sender === 'system';
@@ -674,7 +662,18 @@ export default function NumbersPage() {
                       </div>
                     );
                   })}
-                  <div ref={messagesEndRef} />
+                  
+                  {hasMoreChat && !chatSearchTerm && (
+                    <div className="flex justify-center my-4">
+                      <button 
+                        onClick={loadMoreChat}
+                        disabled={loadingMoreChat}
+                        className="px-4 py-1.5 bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-medium rounded-full transition-colors disabled:opacity-50"
+                      >
+                        {loadingMoreChat ? 'Loading...' : 'Load older messages'}
+                      </button>
+                    </div>
+                  )}
                   
                   {chatHistory.filter(m => !chatSearchTerm || m.text?.toLowerCase().includes(chatSearchTerm.toLowerCase())).length === 0 && (
                     <div className="flex items-center justify-center py-8 text-gray-500">
