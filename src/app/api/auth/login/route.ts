@@ -8,8 +8,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'Email and password are required' }, { status: 400 });
     }
 
-    // Fetch real users from backend
-    const usersRes = await fetch('http://localhost/myvastutool/database_bridge.php?action=get_users&key=kraya_bridge_key_2026');
+    const usersRes = await fetch('https://thesanatangurukul.com/database_bridge.php?action=get_users&key=kraya_bridge_key_2026', {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'application/json'
+      }
+    });
     const usersData = await usersRes.json();
     const users = usersData.data || [];
 

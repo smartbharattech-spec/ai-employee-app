@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const BRIDGE_URL = "http://localhost/myvastutool/database_bridge.php";
+const BRIDGE_URL = "https://thesanatangurukul.com/database_bridge.php";
 const BRIDGE_KEY = "kraya_bridge_key_2026";
 
 export async function GET(request: Request) {
@@ -8,7 +8,12 @@ export async function GET(request: Request) {
     const userRole = request.headers.get('x-user-role') || 'agent';
     const userEmail = request.headers.get('x-user-email') || '';
 
-    const res = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
+    const res = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'application/json'
+      }
+    });
     const data = await res.json();
     const crmData = data.data || {};
 
