@@ -121,6 +121,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true, message: 'Message sent and AI paused.' });
     }
 
+    if (action === 'reset_lead') {
+      crmData[phone_number].status = 'Cold';
+      crmData[phone_number].intent = '';
+      crmData[phone_number].name = '';
+      crmData[phone_number].city = '';
+      crmData[phone_number].service_type = '';
+      crmData[phone_number].data = {}; 
+
+      await fetch(BRIDGE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'save_crm', key: BRIDGE_KEY, data: crmData })
+      });
+
+      const appUrl = request.headers.get('host') || 'localhost:3000';
+      const protocol = appUrl.includes('localhost') ? 'http' : 'https';
+      try {
+        await fetch(`${protocol}://${appUrl}/api/clear-memory`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: phone_number })
+        });
+      } catch (e) {
+        console.error("Failed to call clear-memory:", e);
+      }
+
+      return NextResponse.json({ success: true, message: 'Lead state reset' });
+    }
+
     return NextResponse.json({ success: false, message: 'Invalid action' }, { status: 400 });
 
   } catch (error) {

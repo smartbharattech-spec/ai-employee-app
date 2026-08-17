@@ -209,6 +209,27 @@ export default function PipelinePage() {
     }
   };
 
+  const resetLeadState = async (phone: string) => {
+    if (!confirm('Are you sure you want to completely reset this lead? All chat history, progress, and names will be wiped.')) return;
+    try {
+      const res = await fetch('/api/pipeline', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reset_lead', phone_number: phone })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('Lead state reset. Starting from 0.');
+        fetchLeads();
+        setSelectedLead(null);
+      } else {
+        alert('Failed to reset lead.');
+      }
+    } catch (err) {
+      alert('Error resetting lead.');
+    }
+  };
+
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
@@ -343,7 +364,6 @@ export default function PipelinePage() {
                                 <span className="text-[10px] text-gray-400 font-medium">{lead.intent}</span>
                               )}
                             </div>
-                            <LeadProgressTracker lead={lead} />
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -460,6 +480,22 @@ export default function PipelinePage() {
                     <p className="text-gray-900 font-medium">{selectedLead.intent || '-'}</p>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-6 mb-2">
+                <h3 className="text-sm font-bold text-gray-700 mb-2">Pipeline Progress</h3>
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                  <LeadProgressTracker lead={selectedLead} />
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => resetLeadState(selectedLead.phone)}
+                  className="bg-red-50 hover:bg-red-100 text-red-600 font-medium px-4 py-2 rounded-lg transition-colors border border-red-200 shadow-sm"
+                >
+                  Clear Lead State (Reset to 0)
+                </button>
               </div>
             </div>
           </div>
