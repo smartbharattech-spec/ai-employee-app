@@ -331,28 +331,31 @@ export default function PipelinePage() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Contact</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status & Intent</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service details</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Activity</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Service details</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Last Activity</th>
                       <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {currentLeads.length > 0 ? currentLeads.map((lead) => (
                       <tr key={lead.phone} onClick={() => setSelectedLead(lead)} className="hover:bg-gray-50 transition-colors cursor-pointer">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">
                           <div className="flex items-center">
                             <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-600 font-bold border border-emerald-500/30">
                               {(lead.name || lead.data?.name || '?').charAt(0).toUpperCase()}
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">{lead.name || lead.data?.name || 'Unknown'}</div>
-                              <div className="text-sm text-gray-500 flex items-center mt-1">
-                                <Phone className="w-3 h-3 mr-1" /> +{lead.phone}
-                              </div>
                             </div>
                           </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                           <div className="text-sm text-gray-500 flex items-center">
+                              +{lead.phone}
+                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex flex-col gap-2 items-start w-48">
@@ -363,15 +366,21 @@ export default function PipelinePage() {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">
                           <div className="text-sm text-gray-800">{lead.service_type || lead.data?.service_type || '-'}</div>
                           <div className="text-xs text-gray-500 mt-1">{lead.city || lead.data?.city || '-'}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400 hidden md:table-cell">
                           {formatDate(lead.last_updated)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <span className="text-emerald-600 hover:text-emerald-800 flex items-center justify-end w-full">
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 flex items-center justify-end">
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); resetLeadState(lead.phone); }}
+                            className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-red-500/10 whitespace-nowrap border border-red-500/20"
+                          >
+                            Clear Memory
+                          </button>
+                          <span className="text-emerald-600 hover:text-emerald-800 cursor-pointer">
                             View Details &rarr;
                           </span>
                         </td>
