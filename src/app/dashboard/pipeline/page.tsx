@@ -27,6 +27,45 @@ type Lead = {
 const STAGES = ['Cold', 'Warm', 'Hot', 'Followed Up', 'Meeting', 'Won', 'Lost'];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#ffc658', '#d0ed57'];
 
+const LeadProgressTracker = ({ lead }: { lead: any }) => {
+  const steps = [
+    { id: 1, label: 'Started', active: true },
+    { id: 2, label: 'Info Collected', active: !!(lead.data?.name || lead.data?.city || lead.data?.service_type) },
+    { id: 3, label: 'Qualified', active: ['Hot', 'Qualified', 'Meeting', 'Won'].includes(lead.status) },
+    { id: 4, label: `Assigned${lead.assigned_to ? ' (' + (lead.assigned_to.split('@')[0]) + ')' : ''}`, active: !!lead.assigned_to || !!lead.auto_assigned },
+    { id: 5, label: 'Meeting Done', active: ['Meeting', 'Won', 'Lost'].includes(lead.status) },
+    { id: 6, label: 'Converted', active: ['Won', 'Lost', 'Followed Up'].includes(lead.status) }
+  ];
+
+  const currentStepIndex = steps.map(s => s.active).lastIndexOf(true);
+
+  return (
+    <div className="w-full mt-3 mb-1">
+      <div className="flex justify-between relative">
+        <div className="absolute top-1.5 left-0 w-full h-0.5 bg-gray-200 -z-10 rounded-full"></div>
+        <div 
+          className="absolute top-1.5 left-0 h-0.5 bg-teal-500 -z-10 rounded-full transition-all duration-500"
+          style={{ width: `${(currentStepIndex / (steps.length - 1)) * 100}%` }}
+        ></div>
+        
+        {steps.map((step, idx) => (
+          <div key={step.id} className="flex flex-col items-center group relative">
+            <div className={`w-3 h-3 rounded-full border-2 transition-colors duration-300 ${step.active ? 'bg-teal-500 border-teal-500' : 'bg-white border-gray-300'}`} />
+            
+            {/* Tooltip on Hover */}
+            <div className="opacity-0 group-hover:opacity-100 absolute -top-8 bg-gray-900 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap pointer-events-none transition-opacity z-10">
+              {step.label}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="text-center mt-1 text-[10px] font-medium text-teal-600 truncate">
+        {steps[currentStepIndex]?.label}
+      </div>
+    </div>
+  );
+};
+
 const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onClick: any }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'LEAD',
@@ -56,11 +95,13 @@ const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onCl
       <p className="text-gray-500 text-xs mt-1 font-mono">+{lead.phone}</p>
       
       {(lead.data?.service_type || lead.data?.city) && (
-        <div className="mt-3 text-xs text-gray-500 space-y-1">
+        <div className="mt-2 text-xs text-gray-500 space-y-1">
           {lead.data.service_type && <p><span className="text-gray-400">Service:</span> {lead.data.service_type}</p>}
           {lead.data.city && <p><span className="text-gray-400">City:</span> {lead.data.city}</p>}
         </div>
       )}
+      
+      <LeadProgressTracker lead={lead} />
     </div>
   );
 };
@@ -354,13 +395,16 @@ export default function PipelinePage() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex flex-col gap-1 items-start">
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 border border-indigo-500/20">
-                              {lead.status}
-                            </span>
-                            {lead.intent && (
-                              <span className="text-xs text-gray-400">{lead.intent}</span>
-                            )}
+                          <div className="flex flex-col gap-2 items-start w-48">
+                            <div className="flex gap-2 items-center">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 border border-indigo-500/20">
+                                {lead.status}
+                              </span>
+                              {lead.intent && (
+                                <span className="text-[10px] text-gray-400 font-medium">{lead.intent}</span>
+                              )}
+                            </div>
+                            <LeadProgressTracker lead={lead} />
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
