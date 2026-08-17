@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     }
 
     // Fetch real users from backend
-    const usersRes = await fetch('https://myvastutool.com/database_bridge.php?action=get_users&key=kraya_bridge_key_2026');
+    const usersRes = await fetch('https://thesanatangurukul.com/database_bridge.php?action=get_users&key=kraya_bridge_key_2026');
     const usersData = await usersRes.json();
     const users = usersData.data || [];
 

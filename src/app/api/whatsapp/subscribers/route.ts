@@ -24,7 +24,7 @@ export async function GET(request: Request) {
       const userEmail = request.headers.get('x-user-email') || '';
 
       if (userRole !== 'admin') {
-        const BRIDGE_URL = "https://myvastutool.com/database_bridge.php";
+        const BRIDGE_URL = "https://thesanatangurukul.com/database_bridge.php";
         const BRIDGE_KEY = "kraya_bridge_key_2026";
         const resCrm = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
         const crmDataJson = await resCrm.json();
