@@ -281,46 +281,7 @@ export default function PipelinePage() {
         </div>
 
         <div className="space-y-8">
-            {/* Analytics Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-2xl border border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Leads by Status</h3>
-                <div className="h-[250px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={statusData}>
-                      <XAxis dataKey="name" stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
-                      <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', color: '#fff' }} />
-                      <Bar dataKey="count" fill="#4f46e5" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-              <div className="bg-white p-6 rounded-2xl border border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900 mb-6">Lead Intents</h3>
-                <div className="h-[250px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={intentData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={80}
-                        paddingAngle={5}
-                        dataKey="value"
-                      >
-                        {intentData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', color: '#fff' }} />
-                      <Legend wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
+
 
             {/* Table Section */}
             <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
