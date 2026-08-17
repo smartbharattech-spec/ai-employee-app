@@ -149,6 +149,25 @@ export default function NumbersPage() {
     setChatHistory([]);
   };
 
+  const wipeMemory = async (phone: string) => {
+    if (!confirm('Are you sure you want to wipe memory for +' + phone + '?')) return;
+    try {
+      const res = await fetch('/api/clear-memory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('Memory wiped successfully for +' + phone);
+      } else {
+        alert('Failed to wipe memory: ' + data.message);
+      }
+    } catch (err) {
+      alert('Error wiping memory');
+    }
+  };
+
   const filteredSubscribers = liveStatus.subscribers.filter((sub: any) => 
     (sub.first_name && sub.first_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
     (sub.chat_id && sub.chat_id.includes(searchTerm))
@@ -263,10 +282,12 @@ export default function NumbersPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800">
-                  {currentItems.map((sub: any, idx: number) => (
-                    <React.Fragment key={idx}>
-                      <tr className="hover:bg-gray-800/30 transition-colors">
-                        <td className="px-6 py-4 hidden md:table-cell">
+                  {currentItems.map((sub: any, idx: number) => {
+                    const isTestNumber = sub.chat_id === '918707526283' || sub.chat_id === '917597571515';
+                    return (
+                      <React.Fragment key={idx}>
+                        <tr className={`transition-colors ${isTestNumber ? 'bg-yellow-500/10 hover:bg-yellow-500/20' : 'hover:bg-gray-800/30'}`}>
+                          <td className="px-6 py-4 hidden md:table-cell">
                           <div className="flex items-center gap-4">
                             <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex flex-shrink-0 items-center justify-center text-indigo-400 border border-indigo-500/20">
                               {sub.first_name ? sub.first_name.charAt(0).toUpperCase() : '?'}
@@ -317,7 +338,13 @@ export default function NumbersPage() {
                             <span className="text-gray-500 text-sm">None</span>
                           )}
                         </td>
-                        <td className="px-6 py-4 text-right hidden md:table-cell">
+                        <td className="px-6 py-4 text-right hidden md:table-cell space-x-2">
+                          <button 
+                            onClick={() => wipeMemory(sub.chat_id)}
+                            className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-red-500/10 whitespace-nowrap border border-red-500/20"
+                          >
+                            Clear Memory
+                          </button>
                           <button 
                             onClick={() => openChat(sub)}
                             className="text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-500/10 whitespace-nowrap"
@@ -395,19 +422,28 @@ export default function NumbersPage() {
                                   )}
                                 </div>
                                 
-                                <button 
-                                  onClick={() => openChat(sub)}
-                                  className="text-white bg-indigo-600 hover:bg-indigo-700 transition-colors text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-500/30"
-                                >
-                                  Open Chat
-                                </button>
+                                <div className="flex items-center gap-2">
+                                  <button 
+                                    onClick={() => wipeMemory(sub.chat_id)}
+                                    className="text-red-400 bg-red-500/10 hover:bg-red-500/20 transition-colors text-sm font-medium px-3 py-2 rounded-lg border border-red-500/20"
+                                  >
+                                    Clear Memory
+                                  </button>
+                                  <button 
+                                    onClick={() => openChat(sub)}
+                                    className="text-white bg-indigo-600 hover:bg-indigo-700 transition-colors text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-500/30"
+                                  >
+                                    Open Chat
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </td>
                         </tr>
                       )}
                     </React.Fragment>
-                  ))}
+                  );
+                })}
                 </tbody>
               </table>
             )}
@@ -456,12 +492,22 @@ export default function NumbersPage() {
                     <p className="text-xs text-gray-400">+{selectedContact.chat_id}</p>
                   </div>
                 </div>
-                <button 
-                  onClick={closeChat}
-                  className="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => wipeMemory(selectedContact.chat_id)}
+                    className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors flex items-center justify-center border border-red-500/20"
+                    title="Delete Chat History"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  </button>
+                  <button 
+                    onClick={closeChat}
+                    className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors flex items-center justify-center"
+                    title="Close Chat"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                </div>
               </div>
 
               {/* Chat Search Bar */}
