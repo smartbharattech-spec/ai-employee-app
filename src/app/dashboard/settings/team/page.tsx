@@ -8,6 +8,8 @@ export default function TeamSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
 
+  const [currentUserEmail, setCurrentUserEmail] = useState('');
+
   // New user form state
   const [newUser, setNewUser] = useState({ name: '', email: '', password: '', role: 'agent' });
 
@@ -18,6 +20,7 @@ export default function TeamSettingsPage() {
         if (data.success) {
           setUsers(data.users || []);
           setDefaultReceiver(data.default_receiver || '');
+          setCurrentUserEmail(data.currentUserEmail || '');
         }
         setLoading(false);
       })
@@ -101,31 +104,44 @@ export default function TeamSettingsPage() {
         </div>
       )}
 
-      {/* Auto-Assignment Settings */}
-      <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl space-y-6">
-        <h3 className="text-xl font-medium text-white border-b border-gray-800 pb-3">Lead Assignment Rule</h3>
-        <div className="flex flex-col sm:flex-row gap-4 items-end">
-          <div className="flex-1 w-full">
-            <label className="block text-sm font-medium text-gray-400 mb-2">Default Team Member to Receive New Leads</label>
-            <select 
-              value={defaultReceiver}
-              onChange={(e) => setDefaultReceiver(e.target.value)}
-              className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+      {/* Auto-Assignment Settings - SUPER ADMIN ONLY */}
+      {(currentUserEmail === 'vastuwithnikhil@gmail.com' || currentUserEmail === 'nikhil@gmail.com') ? (
+        <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl space-y-6">
+          <h3 className="text-xl font-medium text-white border-b border-gray-800 pb-3 flex items-center">
+            <svg className="w-5 h-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            Super Admin: Lead Assignment Rule
+          </h3>
+          <p className="text-sm text-yellow-500/80 mb-2">Only Super Admins can see and edit this setting.</p>
+          <div className="flex flex-col sm:flex-row gap-4 items-end">
+            <div className="flex-1 w-full">
+              <label className="block text-sm font-medium text-gray-400 mb-2">Default Team Member to Receive New Leads</label>
+              <select 
+                value={defaultReceiver}
+                onChange={(e) => setDefaultReceiver(e.target.value)}
+                className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <option value="">-- Select Member --</option>
+                {users.map(u => (
+                  <option key={u.email} value={u.email}>{u.name} ({u.email})</option>
+                ))}
+              </select>
+            </div>
+            <button 
+              onClick={handleSaveReceiver}
+              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all shadow-lg"
             >
-              <option value="">-- Select Member --</option>
-              {users.map(u => (
-                <option key={u.email} value={u.email}>{u.name} ({u.email})</option>
-              ))}
-            </select>
+              Save Rule
+            </button>
           </div>
-          <button 
-            onClick={handleSaveReceiver}
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all shadow-lg"
-          >
-            Save Rule
-          </button>
         </div>
-      </div>
+      ) : (
+        <div className="bg-gray-900/20 border border-gray-800/50 rounded-2xl p-6 flex items-center justify-center">
+          <p className="text-gray-500 text-sm flex items-center">
+            <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            Lead assignment rules can only be modified by the Super Admin.
+          </p>
+        </div>
+      )}
 
       {/* Users List */}
       <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl space-y-6">

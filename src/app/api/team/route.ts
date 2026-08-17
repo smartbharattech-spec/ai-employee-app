@@ -11,10 +11,13 @@ export async function GET(request: Request) {
     const resSettings = await fetch(`${BRIDGE_URL}?action=get_settings&key=${API_KEY}`);
     const dataSettings = await resSettings.json();
 
+    const userEmail = request.headers.get('x-user-email') || '';
+
     return NextResponse.json({
       success: true,
       users: dataUsers.data || [],
-      default_receiver: dataSettings.data?.default_receiver || ''
+      default_receiver: dataSettings.data?.default_receiver || '',
+      currentUserEmail: userEmail
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
@@ -35,6 +38,15 @@ export async function POST(request: Request) {
     }
 
     if (action === 'save_settings') {
+      const userEmail = request.headers.get('x-user-email') || '';
+      // TODO: Change this to the exact vastuwithnikhil email once provided by user
+      const SUPER_ADMIN_EMAIL = 'vastuwithnikhil@gmail.com'; 
+      const FALLBACK_ADMIN = 'nikhil@gmail.com';
+
+      if (userEmail !== SUPER_ADMIN_EMAIL && userEmail !== FALLBACK_ADMIN) {
+        return NextResponse.json({ success: false, message: 'Super Admin access required to change assignment rules.' }, { status: 403 });
+      }
+
       const resSettings = await fetch(`${BRIDGE_URL}?action=get_settings&key=${API_KEY}`);
       const dataSettings = await resSettings.json();
       const currentSettings = dataSettings.data || {};
