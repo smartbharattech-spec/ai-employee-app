@@ -245,7 +245,11 @@ export default function PipelinePage() {
       (l.name || l.data?.name || '').toLowerCase().includes(lowerSearch) ||
       (l.service_type || l.data?.service_type || '').toLowerCase().includes(lowerSearch) ||
       (l.intent || '').toLowerCase().includes(lowerSearch)
-    ).sort((a, b) => new Date(b.last_updated || 0).getTime() - new Date(a.last_updated || 0).getTime());
+    ).sort((a, b) => {
+      const dateA = new Date((a.created_at || a.last_updated || '').replace(' ', 'T')).getTime() || 0;
+      const dateB = new Date((b.created_at || b.last_updated || '').replace(' ', 'T')).getTime() || 0;
+      return dateB - dateA;
+    });
   }, [leads, searchTerm]);
 
   const indexOfLastLead = currentPage * leadsPerPage;
