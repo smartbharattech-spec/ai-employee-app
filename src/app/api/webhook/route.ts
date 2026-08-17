@@ -87,9 +87,10 @@ export async function POST(request: Request) {
       reply_text: { type: "STRING", description: "The message to send to the user." },
       intent: { type: "STRING", description: "Inquiry, Booking, Support, or Off-topic" },
       lead_status: { type: "STRING", description: "Cold, Warm, Hot" },
-      needs_human: { type: "BOOLEAN", description: "Set true if user demands a real manager right now" },
+      needs_human: { type: "BOOLEAN", description: "Set true if user demands a real manager/expert right now OR wants consultation" },
       extracted_name: { type: "STRING", description: "User's true first and last name if provided, else null" },
-      extracted_service_type: { type: "STRING", description: "The exact service name, else null" }
+      extracted_service_type: { type: "STRING", description: "The exact service name, else null" },
+      wants_consultation: { type: "BOOLEAN", description: "Set true if user explicitly wants to talk to an expert or book a consultation" }
     };
 
     const payload = {
@@ -150,6 +151,31 @@ export async function POST(request: Request) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'set_handoff', key: BRIDGE_KEY, phone: sender_number, reason: 'User requested human' })
         });
+      }
+
+      // AUTO-ASSIGN: When lead is Hot or wants consultation, assign to default team member
+      const shouldAutoAssign = (args.lead_status === 'Hot' || args.needs_human || args.wants_consultation);
+      const alreadyAssigned = crm_data_all[sender_number]?.auto_assigned;
+
+      if (shouldAutoAssign && !alreadyAssigned) {
+        try {
+          const resSettings = await fetch(`${BRIDGE_URL}?action=get_settings&key=${BRIDGE_KEY}`);
+          const settingsData = await resSettings.json();
+          const defaultReceiver = settingsData.data?.default_receiver || 'nikhil@gmail.com';
+
+          crm_data_all[sender_number].assigned_to = defaultReceiver;
+          crm_data_all[sender_number].auto_assigned = true;
+
+          await fetch(BRIDGE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'save_crm', key: BRIDGE_KEY, data: crm_data_all })
+          });
+
+          console.log(`[AutoAssign] Lead ${sender_number} assigned to ${defaultReceiver}`);
+        } catch (assignErr) {
+          console.error('[AutoAssign] Error:', assignErr);
+        }
       }
 
       history.push({ role: "model", parts: [{ text: ai_response_text }] });
