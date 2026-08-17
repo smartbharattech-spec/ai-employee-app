@@ -285,21 +285,21 @@ export default function NumbersPage() {
                     <th className="px-6 py-4 text-right md:hidden"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-800">
+                <tbody className="divide-y divide-gray-200">
                   {currentItems.map((sub: any, idx: number) => {
                     const isTestNumber = sub.chat_id === '918707526283' || sub.chat_id === '917597571515';
                     return (
                       <React.Fragment key={idx}>
-                        <tr className={`transition-colors ${isTestNumber ? 'bg-yellow-500/10 hover:bg-yellow-500/20' : 'hover:bg-gray-800/30'}`}>
+                        <tr className={`transition-colors ${isTestNumber ? 'bg-yellow-50 hover:bg-yellow-100' : 'hover:bg-gray-50'}`}>
                           <td className="px-6 py-4 hidden md:table-cell">
                           <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex flex-shrink-0 items-center justify-center text-indigo-400 border border-indigo-500/20">
+                            <div className="w-10 h-10 rounded-full bg-indigo-50 flex flex-shrink-0 items-center justify-center text-indigo-600 border border-indigo-100">
                               {sub.first_name ? sub.first_name.charAt(0).toUpperCase() : '?'}
                             </div>
-                            <div className="font-medium text-white">{sub.first_name || 'Unknown User'}</div>
+                            <div className="font-medium text-gray-900">{sub.first_name || 'Unknown User'}</div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 font-mono text-gray-300">
+                        <td className="px-6 py-4 font-mono text-gray-700">
                           +{sub.chat_id}
                         </td>
                         <td className="px-6 py-4 max-w-[200px] md:max-w-xs hidden md:table-cell">
@@ -309,7 +309,7 @@ export default function NumbersPage() {
                                 type="text"
                                 value={editNoteText}
                                 onChange={(e) => setEditNoteText(e.target.value)}
-                                className="w-full bg-gray-950 border border-indigo-500 rounded-md px-2 py-1 text-sm text-white focus:outline-none"
+                                className="w-full bg-white border border-indigo-300 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                                 placeholder="Type note..."
                                 autoFocus
                               />
@@ -322,13 +322,13 @@ export default function NumbersPage() {
                             </div>
                           ) : (
                             <div 
-                              className="text-gray-400 text-sm truncate cursor-pointer hover:text-indigo-400 transition-colors flex items-center gap-2 group"
+                              className="text-gray-600 text-sm truncate cursor-pointer hover:text-indigo-600 transition-colors flex items-center gap-2 group"
                               onClick={() => {
                                 setEditingNoteFor(sub.chat_id);
                                 setEditNoteText(notes[sub.chat_id] || '');
                               }}
                             >
-                              <span>{notes[sub.chat_id] || <em className="text-gray-600">Add note...</em>}</span>
+                              <span>{notes[sub.chat_id] || <em className="text-gray-400">Add note...</em>}</span>
                               <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                             </div>
                           )}
