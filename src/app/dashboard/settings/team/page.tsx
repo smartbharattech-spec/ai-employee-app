@@ -94,31 +94,31 @@ export default function TeamSettingsPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-white">Team Management</h1>
-        <p className="mt-2 text-gray-400">Manage your CRM users and lead assignment rules.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Team Management</h1>
+        <p className="mt-2 text-gray-500">Manage your CRM users and lead assignment rules.</p>
       </div>
 
       {status && (
-        <div className={`p-4 rounded-xl backdrop-blur-md border ${status.type === 'success' ? 'bg-green-500/10 border-green-500/20 text-green-400' : 'bg-red-500/10 border-red-500/20 text-red-400'}`}>
+        <div className={`p-4 rounded-xl backdrop-blur-md border ${status.type === 'success' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'}`}>
           {status.msg}
         </div>
       )}
 
       {/* Auto-Assignment Settings - SUPER ADMIN ONLY */}
       {(currentUserEmail === 'vastuwithnikhil@gmail.com' || currentUserEmail === 'nikhil@gmail.com') ? (
-        <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl space-y-6">
-          <h3 className="text-xl font-medium text-white border-b border-gray-800 pb-3 flex items-center">
-            <svg className="w-5 h-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+        <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm space-y-6">
+          <h3 className="text-xl font-medium text-gray-900 border-b border-gray-200 pb-3 flex items-center">
+            <svg className="w-5 h-5 mr-2 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
             Super Admin: Lead Assignment Rule
           </h3>
-          <p className="text-sm text-yellow-500/80 mb-2">Only Super Admins can see and edit this setting.</p>
+          <p className="text-sm text-amber-600 mb-2">Only Super Admins can see and edit this setting.</p>
           <div className="flex flex-col sm:flex-row gap-4 items-end">
             <div className="flex-1 w-full">
-              <label className="block text-sm font-medium text-gray-400 mb-2">Default Team Member to Receive New Leads</label>
+              <label className="block text-sm font-medium text-gray-600 mb-2">Default Team Member to Receive New Leads</label>
               <select 
                 value={defaultReceiver}
                 onChange={(e) => setDefaultReceiver(e.target.value)}
-                className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               >
                 <option value="">-- Select Member --</option>
                 {users.map(u => (
@@ -135,7 +135,7 @@ export default function TeamSettingsPage() {
           </div>
         </div>
       ) : (
-        <div className="bg-gray-900/20 border border-gray-800/50 rounded-2xl p-6 flex items-center justify-center">
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 flex items-center justify-center">
           <p className="text-gray-500 text-sm flex items-center">
             <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
             Lead assignment rules can only be modified by the Super Admin.
@@ -144,15 +144,15 @@ export default function TeamSettingsPage() {
       )}
 
       {/* Users List */}
-      <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl space-y-6">
-        <h3 className="text-xl font-medium text-white border-b border-gray-800 pb-3">Team Members</h3>
+      <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm space-y-6">
+        <h3 className="text-xl font-medium text-gray-900 border-b border-gray-200 pb-3">Team Members</h3>
         
         <div className="space-y-4">
           {users.map((user, idx) => (
-            <div key={idx} className="flex flex-col sm:flex-row items-center justify-between p-4 bg-gray-800/30 border border-gray-700/50 rounded-2xl">
+            <div key={idx} className="flex flex-col sm:flex-row items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-2xl hover:bg-gray-100 transition-colors">
               <div>
-                <p className="text-white font-medium">{user.name} <span className="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded-md ml-2 uppercase">{user.role}</span></p>
-                <p className="text-sm text-gray-400">{user.email}</p>
+                <p className="text-gray-900 font-medium">{user.name} <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-md ml-2 uppercase border border-indigo-100">{user.role}</span></p>
+                <p className="text-sm text-gray-500">{user.email}</p>
               </div>
               {user.email !== 'nikhil@gmail.com' && (
                 <button 
@@ -167,8 +167,8 @@ export default function TeamSettingsPage() {
         </div>
 
         {/* Add User Form */}
-        <form onSubmit={handleAddUser} className="mt-8 pt-6 border-t border-gray-800 space-y-4">
-          <h4 className="text-lg font-medium text-gray-300">Add New Member</h4>
+        <form onSubmit={handleAddUser} className="mt-8 pt-6 border-t border-gray-200 space-y-4">
+          <h4 className="text-lg font-medium text-gray-700">Add New Member</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input 
               type="text" 
@@ -176,7 +176,7 @@ export default function TeamSettingsPage() {
               value={newUser.name}
               onChange={e => setNewUser({...newUser, name: e.target.value})}
               required
-              className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
             />
             <input 
               type="email" 
@@ -184,7 +184,7 @@ export default function TeamSettingsPage() {
               value={newUser.email}
               onChange={e => setNewUser({...newUser, email: e.target.value})}
               required
-              className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
             />
             <input 
               type="password" 
@@ -192,12 +192,12 @@ export default function TeamSettingsPage() {
               value={newUser.password}
               onChange={e => setNewUser({...newUser, password: e.target.value})}
               required
-              className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
             />
             <select 
               value={newUser.role}
               onChange={e => setNewUser({...newUser, role: e.target.value})}
-              className="w-full bg-gray-950/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
             >
               <option value="agent">Agent (Limited Access)</option>
               <option value="admin">Admin (Full Access)</option>

@@ -40,7 +40,7 @@ const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onCl
     <div
       ref={drag as any}
       onClick={() => onClick(lead)}
-      className={`bg-gray-800 border border-gray-700 p-4 rounded-xl mb-3 shadow-lg cursor-grab active:cursor-grabbing hover:border-indigo-500/50 transition-colors ${
+      className={`bg-white border border-gray-200 p-4 rounded-xl mb-3 shadow-sm cursor-grab active:cursor-grabbing hover:border-indigo-500 hover:shadow-md transition-all ${
         isDragging ? 'opacity-50' : 'opacity-100'
       }`}
     >
@@ -52,8 +52,8 @@ const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onCl
           <span className="text-[10px] font-bold bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded-full border border-indigo-500/20">{lead.intent}</span>
         )}
       </div>
-      <h3 className="font-bold text-white text-sm">{lead.data?.name || 'Unknown Lead'}</h3>
-      <p className="text-gray-400 text-xs mt-1 font-mono">+{lead.phone}</p>
+      <h3 className="font-bold text-gray-900 text-sm">{lead.data?.name || 'Unknown Lead'}</h3>
+      <p className="text-gray-500 text-xs mt-1 font-mono">+{lead.phone}</p>
       
       {(lead.data?.service_type || lead.data?.city) && (
         <div className="mt-3 text-xs text-gray-500 space-y-1">
@@ -77,13 +77,13 @@ const PipelineColumn = ({ title, leads, moveLead, onCardClick }: { title: string
   return (
     <div
       ref={drop as any}
-      className={`flex-shrink-0 w-72 bg-gray-900/50 rounded-2xl p-4 border ${
-        isOver ? 'border-indigo-500 bg-gray-800/50' : 'border-gray-800'
+      className={`flex-shrink-0 w-72 bg-gray-50 rounded-2xl p-4 border ${
+        isOver ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200'
       } transition-colors`}
     >
       <div className="flex justify-between items-center mb-4 px-2">
-        <h2 className="font-semibold text-gray-300">{title}</h2>
-        <span className="bg-gray-800 text-gray-400 text-xs px-2 py-1 rounded-md">{leads.length}</span>
+        <h2 className="font-semibold text-gray-800">{title}</h2>
+        <span className="bg-white border border-gray-200 text-gray-600 text-xs px-2 py-1 rounded-md shadow-sm">{leads.length}</span>
       </div>
       <div className="min-h-[200px]">
         {leads.map(lead => (

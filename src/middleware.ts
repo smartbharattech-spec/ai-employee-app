@@ -28,10 +28,9 @@ export async function middleware(request: NextRequest) {
       response.headers.set('x-user-role', payload.role || 'agent');
       return response;
     } catch (error) {
-      if (pathname.startsWith('/api/')) {
-        return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
-      }
-      return NextResponse.redirect(new URL('/login', request.url));
+      const response = NextResponse.redirect(new URL('/login', request.url));
+      response.cookies.delete('auth_token');
+      return response;
     }
   }
 

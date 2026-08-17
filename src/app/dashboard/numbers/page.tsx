@@ -216,12 +216,12 @@ export default function NumbersPage() {
 
       <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>
         {/* Main Content Area */}
-        <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+        <div className="bg-white backdrop-blur-xl border border-gray-200 rounded-3xl overflow-hidden shadow-lg flex flex-col">
           
           {/* Toolbar */}
-          <div className="p-6 border-b border-gray-800 bg-gray-900/30 flex flex-wrap items-center justify-between gap-4">
+          <div className="p-6 border-b border-gray-100 bg-white flex flex-wrap items-center justify-between gap-4">
             <div className="relative w-full max-w-md">
-              <svg className="absolute left-4 top-3 w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+              <svg className="absolute left-4 top-3 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
               <input 
                 type="text" 
                 placeholder="Search by name or number..." 
@@ -230,13 +230,13 @@ export default function NumbersPage() {
                   setSearchTerm(e.target.value);
                   setCurrentPage(1); // Reset to first page on search
                 }}
-                className="w-full bg-gray-950/50 border border-gray-700 rounded-xl pl-12 pr-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               />
             </div>
-            <div className="flex items-center gap-4 text-gray-400 text-sm font-medium">
+            <div className="flex items-center gap-4 text-gray-600 text-sm font-medium">
               <label>Rows per page: </label>
               <select 
-                className="bg-gray-950 border border-gray-700 rounded-lg px-2 py-1 focus:outline-none focus:border-indigo-500"
+                className="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:border-indigo-500"
                 value={itemsPerPage}
                 onChange={(e) => {
                   setItemsPerPage(Number(e.target.value));
@@ -247,7 +247,7 @@ export default function NumbersPage() {
                 <option value={20}>20</option>
                 <option value={50}>50</option>
               </select>
-              <span className="hidden sm:block pl-2 border-l border-gray-700">{filteredSubscribers.length} Total Contacts</span>
+              <span className="hidden sm:block pl-2 border-l border-gray-300">{filteredSubscribers.length} Total Contacts</span>
             </div>
           </div>
 
@@ -259,20 +259,20 @@ export default function NumbersPage() {
               </div>
             ) : !liveStatus.connected ? (
               <div className="flex flex-col items-center justify-center h-64 text-gray-500 p-6 text-center">
-                <svg className="w-12 h-12 text-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <p className="text-lg">{liveStatus.message}</p>
+                <svg className="w-12 h-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <p className="text-lg text-gray-900">{liveStatus.message}</p>
                 <p className="text-sm mt-1">Go to the Settings page to configure your API keys.</p>
               </div>
             ) : currentItems.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-64 text-gray-500 p-6 text-center">
-                <svg className="w-12 h-12 text-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                <p className="text-lg">No contacts found.</p>
+                <svg className="w-12 h-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <p className="text-lg text-gray-900">No contacts found.</p>
                 <p className="text-sm mt-1">Your search did not match any active subscribers.</p>
               </div>
             ) : (
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left border-collapse bg-white border-y border-gray-200">
                 <thead>
-                  <tr className="bg-gray-950/50 border-b border-gray-800 text-xs uppercase tracking-wider text-gray-400 font-semibold">
+                  <tr className="bg-gray-50 border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500 font-semibold">
                     <th className="px-6 py-4 hidden md:table-cell">Contact</th>
                     <th className="px-6 py-4">Phone Number</th>
                     <th className="px-6 py-4 hidden md:table-cell">Notes</th>
