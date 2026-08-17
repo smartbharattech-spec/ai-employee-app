@@ -263,52 +263,24 @@ export default function PipelinePage() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-6 md:p-10 max-w-full overflow-x-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 relative min-h-screen bg-[#0B1015]">
+      <div className="p-6 md:p-10 max-w-full overflow-x-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 relative min-h-screen bg-gray-50">
         
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">Leads Dashboard</h1>
-            <p className="mt-2 text-gray-400">Manage, track, and analyze your sales pipeline.</p>
+            <p className="mt-2 text-gray-500">Manage, track, and analyze your sales pipeline.</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex bg-gray-900 rounded-lg p-1 border border-gray-800">
-              <button 
-                onClick={() => setViewMode('kanban')}
-                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'kanban' ? 'bg-indigo-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
-              >
-                <KanbanSquare className="w-4 h-4 mr-2" /> Pipeline
-              </button>
-              <button 
-                onClick={() => setViewMode('list')}
-                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list' ? 'bg-indigo-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
-              >
-                <LayoutList className="w-4 h-4 mr-2" /> Analytics & List
-              </button>
-            </div>
             <button 
               onClick={fetchLeads}
-              className="flex items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors border border-gray-700"
+              className="flex items-center px-4 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-lg transition-colors border border-gray-200 shadow-sm"
             >
               <RefreshCw className="w-4 h-4 mr-2" /> Refresh
             </button>
           </div>
         </div>
 
-        {viewMode === 'kanban' ? (
-          <div className="flex gap-6 overflow-x-auto pb-8 snap-x">
-            {STAGES.map(stage => (
-              <div key={stage} className="snap-start">
-                <PipelineColumn 
-                  title={stage} 
-                  leads={leads.filter(l => l.status === stage)} 
-                  moveLead={moveLead}
-                  onCardClick={setSelectedLead}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="space-y-8">
+        <div className="space-y-8">
             {/* Analytics Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-2xl border border-gray-200">
@@ -351,36 +323,36 @@ export default function PipelinePage() {
             </div>
 
             {/* Table Section */}
-            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
               <div className="p-4 border-b border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <h3 className="text-lg font-semibold text-gray-900">All Leads Data</h3>
                 <div className="relative w-full sm:w-72">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-4 w-4 text-gray-500" />
+                    <Search className="h-4 w-4 text-gray-400" />
                   </div>
                   <input
                     type="text"
                     placeholder="Search leads..."
                     value={searchTerm}
                     onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg leading-5 bg-gray-950 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors"
                   />
                 </div>
               </div>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-800">
-                  <thead className="bg-gray-900/80">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Contact</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status & Intent</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Service details</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Last Activity</th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Action</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status & Intent</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service details</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Activity</th>
+                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-gray-900/30 divide-y divide-gray-800">
+                  <tbody className="bg-white divide-y divide-gray-200">
                     {currentLeads.length > 0 ? currentLeads.map((lead) => (
-                      <tr key={lead.phone} className="hover:bg-gray-800/50 transition-colors">
+                      <tr key={lead.phone} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="h-10 w-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
@@ -433,10 +405,10 @@ export default function PipelinePage() {
               
               {/* Pagination Controls */}
               {totalPages > 1 && (
-                <div className="bg-gray-900/80 px-4 py-3 flex items-center justify-between border-t border-gray-800 sm:px-6">
+                <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
                   <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-700">
                         Showing <span className="font-medium text-gray-900">{indexOfFirstLead + 1}</span> to <span className="font-medium text-gray-900">{Math.min(indexOfLastLead, filteredLeads.length)}</span> of{' '}
                         <span className="font-medium text-gray-900">{filteredLeads.length}</span> results
                       </p>
@@ -446,7 +418,7 @@ export default function PipelinePage() {
                         <button
                           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                           disabled={currentPage === 1}
-                          className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-800 text-sm font-medium text-gray-400 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <span className="sr-only">Previous</span>
                           &larr; Prev
@@ -457,10 +429,10 @@ export default function PipelinePage() {
                             <button
                               key={i}
                               onClick={() => setCurrentPage(i + 1)}
-                              className={`relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium ${
+                              className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium ${
                                 currentPage === i + 1 
-                                  ? 'z-10 bg-indigo-600 text-white border-indigo-500' 
-                                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                                  ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' 
+                                  : 'bg-white text-gray-500 hover:bg-gray-50'
                               }`}
                             >
                               {i + 1}
@@ -470,7 +442,7 @@ export default function PipelinePage() {
                         <button
                           onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                           disabled={currentPage === totalPages}
-                          className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-700 bg-gray-800 text-sm font-medium text-gray-400 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <span className="sr-only">Next</span>
                           Next &rarr;
