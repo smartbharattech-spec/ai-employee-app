@@ -1,8 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { 
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, 
+  PieChart, Pie, Cell, Legend 
+} from 'recharts';
+import { Search, LayoutList, KanbanSquare, RefreshCw, MessageSquare, Phone } from 'lucide-react';
 
 // Defining types for our data
 type Lead = {
@@ -20,6 +25,7 @@ type Lead = {
 };
 
 const STAGES = ['Cold', 'Warm', 'Hot', 'Followed Up', 'Meeting', 'Won', 'Lost'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#ffc658', '#d0ed57'];
 
 const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onClick: any }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -46,10 +52,10 @@ const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onCl
           <span className="text-[10px] font-bold bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded-full border border-indigo-500/20">{lead.intent}</span>
         )}
       </div>
-      <h3 className="font-bold text-white text-sm">{lead.data.name || 'Unknown Lead'}</h3>
+      <h3 className="font-bold text-white text-sm">{lead.data?.name || 'Unknown Lead'}</h3>
       <p className="text-gray-400 text-xs mt-1 font-mono">+{lead.phone}</p>
       
-      {(lead.data.service_type || lead.data.city) && (
+      {(lead.data?.service_type || lead.data?.city) && (
         <div className="mt-3 text-xs text-gray-500 space-y-1">
           {lead.data.service_type && <p><span className="text-gray-400">Service:</span> {lead.data.service_type}</p>}
           {lead.data.city && <p><span className="text-gray-400">City:</span> {lead.data.city}</p>}
@@ -91,7 +97,13 @@ const PipelineColumn = ({ title, leads, moveLead, onCardClick }: { title: string
 export default function PipelinePage() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'kanban' | 'list'>('kanban');
   
+  // Table state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const leadsPerPage = 10;
+
   // Modal State
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [customMsg, setCustomMsg] = useState('');
@@ -117,9 +129,7 @@ export default function PipelinePage() {
   };
 
   const moveLead = async (phone: string, newStatus: string) => {
-    // Optimistic update
     setLeads(prev => prev.map(l => l.phone === phone ? { ...l, status: newStatus } : l));
-    
     try {
       await fetch('/api/pipeline', {
         method: 'POST',
@@ -128,7 +138,7 @@ export default function PipelinePage() {
       });
     } catch (err) {
       console.error('Failed to update status', err);
-      fetchLeads(); // Revert on failure
+      fetchLeads();
     }
   };
 
@@ -144,7 +154,7 @@ export default function PipelinePage() {
       const data = await res.json();
       if (data.success) {
         alert('Message sent! AI is now paused (Handoff Mode) for this lead.');
-        fetchLeads(); // Refresh leads to show Handoff tag
+        fetchLeads();
         setSelectedLead(null);
         setCustomMsg('');
       } else {
@@ -158,6 +168,50 @@ export default function PipelinePage() {
     }
   };
 
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+    return new Intl.DateTimeFormat('en-IN', { 
+      day: 'numeric', month: 'short', year: 'numeric', 
+      hour: '2-digit', minute: '2-digit' 
+    }).format(date);
+  };
+
+  // Analytics Data Preparation
+  const statusData = useMemo(() => {
+    const counts: Record<string, number> = {};
+    leads.forEach(l => {
+      counts[l.status] = (counts[l.status] || 0) + 1;
+    });
+    return Object.keys(counts).map(key => ({ name: key, count: counts[key] }));
+  }, [leads]);
+
+  const intentData = useMemo(() => {
+    const counts: Record<string, number> = {};
+    leads.forEach(l => {
+      const intent = l.intent || 'Unknown';
+      counts[intent] = (counts[intent] || 0) + 1;
+    });
+    return Object.keys(counts).map(key => ({ name: key, value: counts[key] }));
+  }, [leads]);
+
+  // Filtering and Pagination
+  const filteredLeads = useMemo(() => {
+    const lowerSearch = searchTerm.toLowerCase();
+    return leads.filter(l => 
+      l.phone.includes(lowerSearch) || 
+      (l.data?.name || '').toLowerCase().includes(lowerSearch) ||
+      (l.data?.service_type || '').toLowerCase().includes(lowerSearch) ||
+      (l.intent || '').toLowerCase().includes(lowerSearch)
+    ).sort((a, b) => new Date(b.last_updated || 0).getTime() - new Date(a.last_updated || 0).getTime());
+  }, [leads, searchTerm]);
+
+  const indexOfLastLead = currentPage * leadsPerPage;
+  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
+  const currentLeads = filteredLeads.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math.ceil(filteredLeads.length / leadsPerPage);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen text-indigo-500">
@@ -170,39 +224,228 @@ export default function PipelinePage() {
     <DndProvider backend={HTML5Backend}>
       <div className="p-6 md:p-10 max-w-full overflow-x-hidden animate-in fade-in slide-in-from-bottom-4 duration-500 relative min-h-screen bg-[#0B1015]">
         
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-white">Visual Pipeline</h1>
-            <p className="mt-2 text-gray-400">Drag and drop leads to manage your sales stages.</p>
+            <h1 className="text-3xl font-bold tracking-tight text-white">Leads Dashboard</h1>
+            <p className="mt-2 text-gray-400">Manage, track, and analyze your sales pipeline.</p>
           </div>
-          <button 
-            onClick={fetchLeads}
-            className="flex items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl transition-colors border border-gray-700"
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-            Refresh
-          </button>
+          <div className="flex items-center gap-3">
+            <div className="flex bg-gray-900 rounded-lg p-1 border border-gray-800">
+              <button 
+                onClick={() => setViewMode('kanban')}
+                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'kanban' ? 'bg-indigo-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                <KanbanSquare className="w-4 h-4 mr-2" /> Pipeline
+              </button>
+              <button 
+                onClick={() => setViewMode('list')}
+                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list' ? 'bg-indigo-600 text-white shadow' : 'text-gray-400 hover:text-white'}`}
+              >
+                <LayoutList className="w-4 h-4 mr-2" /> Analytics & List
+              </button>
+            </div>
+            <button 
+              onClick={fetchLeads}
+              className="flex items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors border border-gray-700"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" /> Refresh
+            </button>
+          </div>
         </div>
 
-        <div className="flex gap-6 overflow-x-auto pb-8 snap-x">
-          {STAGES.map(stage => (
-            <div key={stage} className="snap-start">
-              <PipelineColumn 
-                title={stage} 
-                leads={leads.filter(l => l.status === stage)} 
-                moveLead={moveLead}
-                onCardClick={setSelectedLead}
-              />
+        {viewMode === 'kanban' ? (
+          <div className="flex gap-6 overflow-x-auto pb-8 snap-x">
+            {STAGES.map(stage => (
+              <div key={stage} className="snap-start">
+                <PipelineColumn 
+                  title={stage} 
+                  leads={leads.filter(l => l.status === stage)} 
+                  moveLead={moveLead}
+                  onCardClick={setSelectedLead}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-8">
+            {/* Analytics Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-gray-900/50 p-6 rounded-2xl border border-gray-800">
+                <h3 className="text-lg font-semibold text-white mb-6">Leads by Status</h3>
+                <div className="h-[250px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={statusData}>
+                      <XAxis dataKey="name" stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
+                      <YAxis stroke="#9ca3af" fontSize={12} tickLine={false} axisLine={false} />
+                      <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', color: '#fff' }} />
+                      <Bar dataKey="count" fill="#4f46e5" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+              <div className="bg-gray-900/50 p-6 rounded-2xl border border-gray-800">
+                <h3 className="text-lg font-semibold text-white mb-6">Lead Intents</h3>
+                <div className="h-[250px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={intentData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={60}
+                        outerRadius={80}
+                        paddingAngle={5}
+                        dataKey="value"
+                      >
+                        {intentData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', color: '#fff' }} />
+                      <Legend wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
+
+            {/* Table Section */}
+            <div className="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden">
+              <div className="p-4 border-b border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <h3 className="text-lg font-semibold text-white">All Leads Data</h3>
+                <div className="relative w-full sm:w-72">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-4 w-4 text-gray-500" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search leads..."
+                    value={searchTerm}
+                    onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg leading-5 bg-gray-950 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors"
+                  />
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-800">
+                  <thead className="bg-gray-900/80">
+                    <tr>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Contact</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status & Intent</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Service details</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Last Activity</th>
+                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-gray-900/30 divide-y divide-gray-800">
+                    {currentLeads.length > 0 ? currentLeads.map((lead) => (
+                      <tr key={lead.phone} className="hover:bg-gray-800/50 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="h-10 w-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
+                              {(lead.data?.name || '?').charAt(0).toUpperCase()}
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-white">{lead.data?.name || 'Unknown'}</div>
+                              <div className="text-sm text-gray-500 flex items-center mt-1">
+                                <Phone className="w-3 h-3 mr-1" /> +{lead.phone}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex flex-col gap-1 items-start">
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 border border-indigo-500/20">
+                              {lead.status}
+                            </span>
+                            {lead.intent && (
+                              <span className="text-xs text-gray-400">{lead.intent}</span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-300">{lead.data?.service_type || '-'}</div>
+                          <div className="text-xs text-gray-500 mt-1">{lead.data?.city || '-'}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(lead.last_updated)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <button onClick={() => setSelectedLead(lead)} className="text-indigo-400 hover:text-indigo-300 flex items-center justify-end w-full">
+                            <MessageSquare className="w-4 h-4 mr-1" /> Reply
+                          </button>
+                        </td>
+                      </tr>
+                    )) : (
+                      <tr>
+                        <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
+                          No leads found matching your criteria.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="bg-gray-900/80 px-4 py-3 flex items-center justify-between border-t border-gray-800 sm:px-6">
+                  <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-sm text-gray-400">
+                        Showing <span className="font-medium text-white">{indexOfFirstLead + 1}</span> to <span className="font-medium text-white">{Math.min(indexOfLastLead, filteredLeads.length)}</span> of{' '}
+                        <span className="font-medium text-white">{filteredLeads.length}</span> results
+                      </p>
+                    </div>
+                    <div>
+                      <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <button
+                          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                          disabled={currentPage === 1}
+                          className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-700 bg-gray-800 text-sm font-medium text-gray-400 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <span className="sr-only">Previous</span>
+                          &larr; Prev
+                        </button>
+                        {/* Simple page numbers */}
+                        <div className="hidden md:flex">
+                          {[...Array(totalPages)].map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => setCurrentPage(i + 1)}
+                              className={`relative inline-flex items-center px-4 py-2 border border-gray-700 text-sm font-medium ${
+                                currentPage === i + 1 
+                                  ? 'z-10 bg-indigo-600 text-white border-indigo-500' 
+                                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                              }`}
+                            >
+                              {i + 1}
+                            </button>
+                          ))}
+                        </div>
+                        <button
+                          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                          disabled={currentPage === totalPages}
+                          className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-700 bg-gray-800 text-sm font-medium text-gray-400 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <span className="sr-only">Next</span>
+                          Next &rarr;
+                        </button>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Modal for Quick Reply & Handoff */}
         {selectedLead && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl max-w-lg w-full shadow-2xl">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-white">Reply to {selectedLead.data.name || selectedLead.phone}</h2>
+                <h2 className="text-xl font-bold text-white">Reply to {selectedLead.data?.name || selectedLead.phone}</h2>
                 <button onClick={() => setSelectedLead(null)} className="text-gray-400 hover:text-white">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
