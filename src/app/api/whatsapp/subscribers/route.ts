@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const params = new URLSearchParams({
       apiToken: "22279|1Khrs6pJRdeatneNI2PVvZqjL8FjZwyqcyMUroyzb93231a3",
@@ -18,9 +18,27 @@ export async function GET() {
     const data = await response.json();
 
     if (data.status === "1") {
+      let subscribers = data.message || [];
+      
+      const userRole = request.headers.get('x-user-role') || 'agent';
+      const userEmail = request.headers.get('x-user-email') || '';
+
+      if (userRole !== 'admin') {
+        const BRIDGE_URL = "https://myvastutool.com/database_bridge.php";
+        const BRIDGE_KEY = "kraya_bridge_key_2026";
+        const resCrm = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
+        const crmDataJson = await resCrm.json();
+        const crmData = crmDataJson.data || {};
+
+        subscribers = subscribers.filter((sub: any) => {
+          const crmLead = crmData[sub.chat_id];
+          return crmLead && crmLead.assigned_to === userEmail;
+        });
+      }
+
       return NextResponse.json({ 
         success: true, 
-        subscribers: data.message || [] 
+        subscribers 
       });
     } else {
       return NextResponse.json({ success: false, message: 'Invalid API Response' });

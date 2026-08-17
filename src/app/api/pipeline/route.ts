@@ -3,8 +3,11 @@ import { NextResponse } from 'next/server';
 const BRIDGE_URL = "https://myvastutool.com/database_bridge.php";
 const BRIDGE_KEY = "kraya_bridge_key_2026";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const userRole = request.headers.get('x-user-role') || 'agent';
+    const userEmail = request.headers.get('x-user-email') || '';
+
     const res = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
     const data = await res.json();
     const crmData = data.data || {};
@@ -16,14 +19,20 @@ export async function GET() {
     // or we can fetch them if needed. 
     // Let's modify bridge later if we need bulk handoffs, but for now we map it.
 
-    const leads = Object.entries(crmData).map(([phone, leadData]: [string, any]) => {
-      return {
-        phone,
-        ...leadData,
-        status: leadData.status || 'Cold',
-        is_handoff: false // Optimization: fetch specific handoff when clicking, or assume false in overview
-      };
-    });
+    const leads = Object.entries(crmData)
+      .map(([phone, leadData]: [string, any]) => {
+        return {
+          phone,
+          ...leadData,
+          status: leadData.status || 'Cold',
+          is_handoff: false
+        };
+      })
+      .filter(lead => {
+        if (userRole === 'admin') return true;
+        // If agent, only show assigned leads
+        return lead.assigned_to === userEmail;
+      });
 
     return NextResponse.json({ success: true, leads });
   } catch (error) {
@@ -41,8 +50,15 @@ export async function POST(request: Request) {
     const resCrm = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
     const { data: crmData } = await resCrm.json();
 
+    const userRole = request.headers.get('x-user-role') || 'agent';
+    const userEmail = request.headers.get('x-user-email') || '';
+
     if (!crmData[phone_number]) {
       return NextResponse.json({ success: false, message: 'Lead not found' }, { status: 404 });
+    }
+
+    if (userRole !== 'admin' && crmData[phone_number].assigned_to !== userEmail) {
+      return NextResponse.json({ success: false, message: 'Unauthorized: Lead not assigned to you' }, { status: 403 });
     }
 
     if (action === 'update_status') {
@@ -55,6 +71,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true, message: 'Status updated' });
     }
     
+    if (action === 'assign_lead') {
+      if (userRole !== 'admin') {
+        return NextResponse.json({ success: false, message: 'Only admins can assign leads' }, { status: 403 });
+      }
+      const { assigned_to } = body;
+      crmData[phone_number].assigned_to = assigned_to;
+      await fetch(BRIDGE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'save_crm', key: BRIDGE_KEY, data: crmData })
+      });
+      return NextResponse.json({ success: true, message: 'Lead assigned successfully' });
+    }
+
     if (action === 'send_message') {
       // Send via WhatsApp API
       const wm_apiToken = "22279|1Khrs6pJRdeatneNI2PVvZqjL8FjZwyqcyMUroyzb93231a3";

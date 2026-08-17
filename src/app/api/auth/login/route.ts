@@ -8,16 +8,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'Email and password are required' }, { status: 400 });
     }
 
-    // HARDCODED VERCEL LOGIN (No DB Required)
-    if (email !== 'nikhil@gmail.com' || password !== 'nikhil123') {
+    // Fetch real users from backend
+    const usersRes = await fetch('https://myvastutool.com/database_bridge.php?action=get_users&key=kraya_bridge_key_2026');
+    const usersData = await usersRes.json();
+    const users = usersData.data || [];
+
+    const user = users.find((u: any) => u.email === email && u.password === password);
+
+    if (!user) {
       return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Fake token bypass
-    const token = 'fake_nikhil_token_12345';
+    // Create Base64 payload instead of generic fake token
+    const payload = { email: user.email, role: user.role, name: user.name };
+    const token = btoa(JSON.stringify(payload));
 
     // Set HTTP-only cookie
-    const response = NextResponse.json({ success: true, message: 'Logged in successfully' });
+    const response = NextResponse.json({ success: true, message: 'Logged in successfully', user: payload });
     response.cookies.set({
       name: 'auth_token',
       value: token,
