@@ -38,5 +38,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/settings', '/dashboard', '/numbers', '/api/config', '/api/whatsapp/:path*'],
+  matcher: ['/settings', '/dashboard/:path*', '/numbers', '/api/config', '/api/whatsapp/:path*', '/api/pipeline/:path*', '/api/pipeline'],
 };
