@@ -55,8 +55,13 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
+      <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 animate-pulse w-full">
+        <div className="h-8 bg-gray-200 rounded w-1/3 mb-2"></div>
+        <div className="h-4 bg-gray-200 rounded w-2/3 mb-8"></div>
+        <div className="space-y-6">
+          <div className="h-64 bg-gray-200 rounded-2xl w-full"></div>
+          <div className="h-64 bg-gray-200 rounded-2xl w-full"></div>
+        </div>
       </div>
     );
   }
