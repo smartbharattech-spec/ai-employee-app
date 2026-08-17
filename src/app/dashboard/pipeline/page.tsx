@@ -226,7 +226,7 @@ export default function PipelinePage() {
         
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-white">Leads Dashboard</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Leads Dashboard</h1>
             <p className="mt-2 text-gray-400">Manage, track, and analyze your sales pipeline.</p>
           </div>
           <div className="flex items-center gap-3">
@@ -270,8 +270,8 @@ export default function PipelinePage() {
           <div className="space-y-8">
             {/* Analytics Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-gray-900/50 p-6 rounded-2xl border border-gray-800">
-                <h3 className="text-lg font-semibold text-white mb-6">Leads by Status</h3>
+              <div className="bg-white p-6 rounded-2xl border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-6">Leads by Status</h3>
                 <div className="h-[250px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={statusData}>
@@ -283,8 +283,8 @@ export default function PipelinePage() {
                   </ResponsiveContainer>
                 </div>
               </div>
-              <div className="bg-gray-900/50 p-6 rounded-2xl border border-gray-800">
-                <h3 className="text-lg font-semibold text-white mb-6">Lead Intents</h3>
+              <div className="bg-white p-6 rounded-2xl border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-6">Lead Intents</h3>
                 <div className="h-[250px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -310,9 +310,9 @@ export default function PipelinePage() {
             </div>
 
             {/* Table Section */}
-            <div className="bg-gray-900/50 rounded-2xl border border-gray-800 overflow-hidden">
-              <div className="p-4 border-b border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <h3 className="text-lg font-semibold text-white">All Leads Data</h3>
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-4 border-b border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <h3 className="text-lg font-semibold text-gray-900">All Leads Data</h3>
                 <div className="relative w-full sm:w-72">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Search className="h-4 w-4 text-gray-500" />
@@ -346,7 +346,7 @@ export default function PipelinePage() {
                               {(lead.data?.name || '?').charAt(0).toUpperCase()}
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-white">{lead.data?.name || 'Unknown'}</div>
+                              <div className="text-sm font-medium text-gray-900">{lead.data?.name || 'Unknown'}</div>
                               <div className="text-sm text-gray-500 flex items-center mt-1">
                                 <Phone className="w-3 h-3 mr-1" /> +{lead.phone}
                               </div>
@@ -393,8 +393,8 @@ export default function PipelinePage() {
                   <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <div>
                       <p className="text-sm text-gray-400">
-                        Showing <span className="font-medium text-white">{indexOfFirstLead + 1}</span> to <span className="font-medium text-white">{Math.min(indexOfLastLead, filteredLeads.length)}</span> of{' '}
-                        <span className="font-medium text-white">{filteredLeads.length}</span> results
+                        Showing <span className="font-medium text-gray-900">{indexOfFirstLead + 1}</span> to <span className="font-medium text-gray-900">{Math.min(indexOfLastLead, filteredLeads.length)}</span> of{' '}
+                        <span className="font-medium text-gray-900">{filteredLeads.length}</span> results
                       </p>
                     </div>
                     <div>
@@ -442,11 +442,11 @@ export default function PipelinePage() {
 
         {/* Modal for Quick Reply & Handoff */}
         {selectedLead && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-gray-900 border border-gray-800 p-6 rounded-2xl max-w-lg w-full shadow-2xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white border border-gray-200 p-6 rounded-2xl max-w-lg w-full shadow-2xl">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-white">Reply to {selectedLead.data?.name || selectedLead.phone}</h2>
-                <button onClick={() => setSelectedLead(null)} className="text-gray-400 hover:text-white">
+                <h2 className="text-xl font-bold text-gray-900">Reply to {selectedLead.data?.name || selectedLead.phone}</h2>
+                <button onClick={() => setSelectedLead(null)} className="text-gray-500 hover:text-gray-900">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>
@@ -461,7 +461,7 @@ export default function PipelinePage() {
                 value={customMsg}
                 onChange={e => setCustomMsg(e.target.value)}
                 placeholder="Type a custom message..."
-                className="w-full bg-gray-950 border border-gray-700 rounded-xl p-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 mb-4 resize-none"
+                className="w-full bg-white border border-gray-300 rounded-xl p-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 mb-4 resize-none"
               />
               
               <button 

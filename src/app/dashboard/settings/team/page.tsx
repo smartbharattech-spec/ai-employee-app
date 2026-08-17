@@ -12,6 +12,7 @@ export default function TeamSettingsPage() {
 
   // New user form state
   const [newUser, setNewUser] = useState({ name: '', email: '', password: '', role: 'agent' });
+  const [mysqlTeam, setMysqlTeam] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/api/team')
@@ -25,6 +26,16 @@ export default function TeamSettingsPage() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+      
+    // Fetch external MySQL team members
+    fetch('https://thesanatangurukul.com/api/marketplace/get_expert_team.php?expert_id=19')
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success' && data.data) {
+          setMysqlTeam(data.data);
+        }
+      })
+      .catch(console.error);
   }, []);
 
   const handleSaveUsers = async (updatedUsers: any[]) => {
@@ -168,40 +179,30 @@ export default function TeamSettingsPage() {
 
         {/* Add User Form */}
         <form onSubmit={handleAddUser} className="mt-8 pt-6 border-t border-gray-200 space-y-4">
-          <h4 className="text-lg font-medium text-gray-700">Add New Member</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input 
-              type="text" 
-              placeholder="Full Name" 
-              value={newUser.name}
-              onChange={e => setNewUser({...newUser, name: e.target.value})}
-              required
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
-            />
-            <input 
-              type="email" 
-              placeholder="Email Address" 
-              value={newUser.email}
-              onChange={e => setNewUser({...newUser, email: e.target.value})}
-              required
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
-            />
-            <input 
-              type="password" 
-              placeholder="Password" 
-              value={newUser.password}
-              onChange={e => setNewUser({...newUser, password: e.target.value})}
-              required
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
-            />
-            <select 
-              value={newUser.role}
-              onChange={e => setNewUser({...newUser, role: e.target.value})}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="agent">Agent (Limited Access)</option>
-              <option value="admin">Admin (Full Access)</option>
-            </select>
+          <h4 className="text-lg font-medium text-gray-700">Add New Member (Select from Vastu Tool Team)</h4>
+          <div className="grid grid-cols-1 gap-4">
+             {mysqlTeam.length > 0 ? (
+               <select 
+                 className="w-full bg-white border border-gray-300 text-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500"
+                 onChange={(e) => {
+                   if(e.target.value) {
+                     const selected = mysqlTeam.find(m => m.user_id.toString() === e.target.value);
+                     if(selected) {
+                       setNewUser({ ...newUser, name: selected.name, email: selected.at_slug || selected.name.toLowerCase().replace(/\s+/g, '') + '@team.com', password: 'no_password_needed', role: 'agent' });
+                     }
+                   } else {
+                       setNewUser({ ...newUser, name: '', email: '', password: '', role: 'agent' });
+                   }
+                 }}
+               >
+                 <option value="">-- Select from Vastu Tool Team --</option>
+                 {mysqlTeam.map((m: any) => (
+                   <option key={m.user_id} value={m.user_id}>{m.name}</option>
+                 ))}
+               </select>
+             ) : (
+                <div className="text-gray-500 p-3 bg-gray-50 border border-gray-200 rounded-xl">No team members found in The Sanatan Gurukul database.</div>
+             )}
           </div>
           <button type="submit" className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-lg">
             Add Team Member

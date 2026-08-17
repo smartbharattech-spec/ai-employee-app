@@ -5,15 +5,15 @@ export default function DashboardHome() {
     <div className="p-6 md:p-10 max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       
       <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard Overview</h1>
-        <p className="mt-2 text-gray-400">Welcome to your AI Sales Employee command center.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard Overview</h1>
+        <p className="mt-2 text-gray-600">Welcome to your AI Sales Employee command center.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Quick Links Card */}
-        <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl hover:border-indigo-500/30 transition-colors">
+        <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm hover:border-teal-300 transition-colors">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-white flex items-center">
+            <h2 className="text-xl font-semibold text-gray-900 flex items-center">
               <svg className="w-6 h-6 mr-3 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
               Manage Contacts
             </h2>
