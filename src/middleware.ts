@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const protectedRoutes = ['/settings', '/dashboard', '/numbers', '/api/config', '/api/whatsapp'];
+const protectedRoutes = ['/settings', '/dashboard', '/numbers', '/api/config', '/api/whatsapp', '/api/pipeline'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
