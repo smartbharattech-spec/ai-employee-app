@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Rajdhani } from "next/font/google";
-
-const rajdhani = Rajdhani({
-  variable: "--font-rajdhani",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: 'Kriti AI CRM - WhatsApp Sales Employee',
@@ -26,7 +19,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${rajdhani.variable} font-sans h-full antialiased`}
+      className="font-sans h-full antialiased"
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

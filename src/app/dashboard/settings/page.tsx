@@ -95,50 +95,50 @@ export default function SettingsPage() {
           
           <div className="space-y-5">
             <h3 className="text-xl font-medium text-gray-900 border-b border-gray-200 pb-3 flex items-center">
-              <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+              <svg className="w-5 h-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
               WhatsMarketing Setup
             </h3>
             
             <div className="group">
-              <label className="block text-sm font-medium text-gray-400 mb-2 group-focus-within:text-indigo-400 transition-colors">API Token</label>
+              <label className="block text-sm font-medium text-gray-400 mb-2 group-focus-within:text-emerald-400 transition-colors">API Token</label>
               <input 
                 type="text" 
                 name="wm_api_token"
                 value={config.wm_api_token}
                 onChange={handleChange}
                 placeholder="Enter WhatsMarketing API Token"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all placeholder-gray-400"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder-gray-400"
               />
             </div>
             
             <div className="group">
-              <label className="block text-sm font-medium text-gray-600 mb-2 group-focus-within:text-indigo-600 transition-colors">Phone Number ID</label>
+              <label className="block text-sm font-medium text-gray-600 mb-2 group-focus-within:text-emerald-600 transition-colors">Phone Number ID</label>
               <input 
                 type="text" 
                 name="wm_phone_number_id"
                 value={config.wm_phone_number_id}
                 onChange={handleChange}
                 placeholder="Enter Phone Number ID"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all placeholder-gray-400"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder-gray-400"
               />
             </div>
           </div>
 
           <div className="space-y-5 pt-2">
             <h3 className="text-xl font-medium text-gray-900 border-b border-gray-200 pb-3 flex items-center">
-              <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+              <svg className="w-5 h-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
               Google Gemini AI
             </h3>
             
             <div className="group">
-              <label className="block text-sm font-medium text-gray-600 mb-2 group-focus-within:text-indigo-600 transition-colors">Gemini API Key</label>
+              <label className="block text-sm font-medium text-gray-600 mb-2 group-focus-within:text-emerald-600 transition-colors">Gemini API Key</label>
               <input 
                 type="password" 
                 name="gemini_api_key"
                 value={config.gemini_api_key}
                 onChange={handleChange}
                 placeholder="Enter your Gemini API key"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all placeholder-gray-400"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder-gray-400"
               />
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function SettingsPage() {
             <button 
               type="submit" 
               disabled={saving}
-              className="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)]"
+              className="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-medium text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)]"
             >
               {saving ? (
                 <>

@@ -197,7 +197,7 @@ export default function NumbersPage() {
         <div>
           {liveStatus.loading ? (
             <span className="flex items-center text-gray-400 text-sm bg-gray-900/50 px-4 py-2 rounded-xl border border-gray-800">
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-indigo-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
               Syncing Data...
             </span>
           ) : liveStatus.connected ? (
@@ -230,13 +230,13 @@ export default function NumbersPage() {
                   setSearchTerm(e.target.value);
                   setCurrentPage(1); // Reset to first page on search
                 }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
               />
             </div>
             <div className="flex items-center gap-4 text-gray-600 text-sm font-medium">
               <label>Rows per page: </label>
               <select 
-                className="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:border-indigo-500"
+                className="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:border-emerald-500"
                 value={itemsPerPage}
                 onChange={(e) => {
                   setItemsPerPage(Number(e.target.value));
@@ -293,7 +293,7 @@ export default function NumbersPage() {
                         <tr className={`transition-colors ${isTestNumber ? 'bg-yellow-50 hover:bg-yellow-100' : 'hover:bg-gray-50'}`}>
                           <td className="px-6 py-4 hidden md:table-cell">
                           <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-indigo-50 flex flex-shrink-0 items-center justify-center text-indigo-600 border border-indigo-100">
+                            <div className="w-10 h-10 rounded-full bg-emerald-50 flex flex-shrink-0 items-center justify-center text-emerald-600 border border-emerald-100">
                               {sub.first_name ? sub.first_name.charAt(0).toUpperCase() : '?'}
                             </div>
                             <div className="font-medium text-gray-900">{sub.first_name || 'Unknown User'}</div>
@@ -309,7 +309,7 @@ export default function NumbersPage() {
                                 type="text"
                                 value={editNoteText}
                                 onChange={(e) => setEditNoteText(e.target.value)}
-                                className="w-full bg-white border border-indigo-300 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                className="w-full bg-white border border-emerald-300 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                                 placeholder="Type note..."
                                 autoFocus
                               />
@@ -322,7 +322,7 @@ export default function NumbersPage() {
                             </div>
                           ) : (
                             <div 
-                              className="text-gray-600 text-sm truncate cursor-pointer hover:text-indigo-600 transition-colors flex items-center gap-2 group"
+                              className="text-gray-600 text-sm truncate cursor-pointer hover:text-emerald-600 transition-colors flex items-center gap-2 group"
                               onClick={() => {
                                 setEditingNoteFor(sub.chat_id);
                                 setEditNoteText(notes[sub.chat_id] || '');
@@ -335,7 +335,7 @@ export default function NumbersPage() {
                         </td>
                         <td className="px-6 py-4 hidden md:table-cell">
                           {sub.unseen_count > 0 ? (
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-500/30">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-500/30">
                               {sub.unseen_count} New
                             </span>
                           ) : (
@@ -351,7 +351,7 @@ export default function NumbersPage() {
                           </button>
                           <button 
                             onClick={() => openChat(sub)}
-                            className="text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-500/10 whitespace-nowrap"
+                            className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-emerald-500/10 whitespace-nowrap"
                           >
                             View Chat
                           </button>
@@ -374,7 +374,7 @@ export default function NumbersPage() {
                               <div className="flex items-center justify-between">
                                 <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Contact</span>
                                 <div className="font-medium text-white flex items-center gap-2">
-                                  <div className="w-6 h-6 rounded-full bg-indigo-500/10 flex flex-shrink-0 items-center justify-center text-indigo-400 border border-indigo-500/20 text-xs">
+                                  <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex flex-shrink-0 items-center justify-center text-emerald-400 border border-emerald-500/20 text-xs">
                                     {sub.first_name ? sub.first_name.charAt(0).toUpperCase() : '?'}
                                   </div>
                                   {sub.first_name || 'Unknown User'}
@@ -389,7 +389,7 @@ export default function NumbersPage() {
                                       type="text"
                                       value={editNoteText}
                                       onChange={(e) => setEditNoteText(e.target.value)}
-                                      className="flex-1 bg-gray-950 border border-indigo-500 rounded-md px-2 py-1 text-sm text-white focus:outline-none"
+                                      className="flex-1 bg-gray-950 border border-emerald-500 rounded-md px-2 py-1 text-sm text-white focus:outline-none"
                                       placeholder="Type note..."
                                       autoFocus
                                     />
@@ -402,7 +402,7 @@ export default function NumbersPage() {
                                   </div>
                                 ) : (
                                   <div 
-                                    className="text-gray-400 text-sm cursor-pointer hover:text-indigo-400 transition-colors flex items-center gap-2 bg-gray-950/50 p-3 rounded-lg border border-gray-800"
+                                    className="text-gray-400 text-sm cursor-pointer hover:text-emerald-400 transition-colors flex items-center gap-2 bg-gray-950/50 p-3 rounded-lg border border-gray-800"
                                     onClick={() => {
                                       setEditingNoteFor(sub.chat_id);
                                       setEditNoteText(notes[sub.chat_id] || '');
@@ -418,7 +418,7 @@ export default function NumbersPage() {
                                 <div className="flex items-center gap-2">
                                   <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Status:</span>
                                   {sub.unseen_count > 0 ? (
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-500/30">
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-500/30">
                                       {sub.unseen_count} New
                                     </span>
                                   ) : (
@@ -435,7 +435,7 @@ export default function NumbersPage() {
                                   </button>
                                   <button 
                                     onClick={() => openChat(sub)}
-                                    className="text-white bg-indigo-600 hover:bg-indigo-700 transition-colors text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-500/30"
+                                    className="text-white bg-emerald-600 hover:bg-emerald-700 transition-colors text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-emerald-500/30"
                                   >
                                     Open Chat
                                   </button>
@@ -488,7 +488,7 @@ export default function NumbersPage() {
             <div className="p-4 border-b border-gray-800 bg-gray-900/50 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
+                  <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold border border-emerald-500/30">
                     {selectedContact.first_name ? selectedContact.first_name.charAt(0).toUpperCase() : '?'}
                   </div>
                   <div>
@@ -522,7 +522,7 @@ export default function NumbersPage() {
                   placeholder="Search in conversation..." 
                   value={chatSearchTerm}
                   onChange={(e) => setChatSearchTerm(e.target.value)}
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full bg-gray-950 border border-gray-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -531,7 +531,7 @@ export default function NumbersPage() {
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0B1015]">
               {loadingChat ? (
                 <div className="flex items-center justify-center h-full text-gray-500 flex-col gap-3">
-                  <svg className="animate-spin h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  <svg className="animate-spin h-8 w-8 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                   <span>Loading history...</span>
                 </div>
               ) : chatHistory.length === 0 ? (
@@ -568,12 +568,12 @@ export default function NumbersPage() {
                       <div key={msg.id} className={`flex ${!isUser ? 'justify-end' : 'justify-start'}`}>
                         <div className={`max-w-[85%] rounded-2xl px-4 py-2 shadow-sm ${
                           !isUser 
-                            ? 'bg-indigo-600 text-white rounded-br-sm' 
+                            ? 'bg-emerald-600 text-white rounded-br-sm' 
                             : 'bg-gray-800 text-gray-100 rounded-bl-sm border border-gray-700'
                         }`}>
                           <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
                           {msg.time && (
-                            <p className={`text-[10px] mt-1 text-right ${!isUser ? 'text-indigo-200' : 'text-gray-500'}`}>
+                            <p className={`text-[10px] mt-1 text-right ${!isUser ? 'text-emerald-200' : 'text-gray-500'}`}>
                               {new Date(msg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </p>
                           )}

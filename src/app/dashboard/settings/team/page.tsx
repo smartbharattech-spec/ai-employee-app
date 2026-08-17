@@ -95,7 +95,7 @@ export default function TeamSettingsPage() {
   if (loading) {
     return (
       <div className="flex h-full items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
@@ -129,7 +129,7 @@ export default function TeamSettingsPage() {
               <select 
                 value={defaultReceiver}
                 onChange={(e) => setDefaultReceiver(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
               >
                 <option value="">-- Select Member --</option>
                 {users.map(u => (
@@ -139,7 +139,7 @@ export default function TeamSettingsPage() {
             </div>
             <button 
               onClick={handleSaveReceiver}
-              className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-all shadow-lg"
+              className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-lg"
             >
               Save Rule
             </button>
@@ -162,7 +162,7 @@ export default function TeamSettingsPage() {
           {users.map((user, idx) => (
             <div key={idx} className="flex flex-col sm:flex-row items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-2xl hover:bg-gray-100 transition-colors">
               <div>
-                <p className="text-gray-900 font-medium">{user.name} <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-md ml-2 uppercase border border-indigo-100">{user.role}</span></p>
+                <p className="text-gray-900 font-medium">{user.name} <span className="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded-md ml-2 uppercase border border-emerald-100">{user.role}</span></p>
                 <p className="text-sm text-gray-500">{user.email}</p>
               </div>
               {user.email !== 'nikhil@gmail.com' && (
@@ -183,7 +183,7 @@ export default function TeamSettingsPage() {
           <div className="grid grid-cols-1 gap-4">
              {mysqlTeam.length > 0 ? (
                <select 
-                 className="w-full bg-white border border-gray-300 text-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500"
+                 className="w-full bg-white border border-gray-300 text-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
                  onChange={(e) => {
                    if(e.target.value) {
                      const selected = mysqlTeam.find(m => m.user_id.toString() === e.target.value);

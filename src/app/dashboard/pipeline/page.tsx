@@ -79,7 +79,7 @@ const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onCl
     <div
       ref={drag as any}
       onClick={() => onClick(lead)}
-      className={`bg-white border border-gray-200 p-4 rounded-xl mb-3 shadow-sm cursor-grab active:cursor-grabbing hover:border-indigo-500 hover:shadow-md transition-all ${
+      className={`bg-white border border-gray-200 p-4 rounded-xl mb-3 shadow-sm cursor-grab active:cursor-grabbing hover:border-emerald-500 hover:shadow-md transition-all ${
         isDragging ? 'opacity-50' : 'opacity-100'
       }`}
     >
@@ -88,7 +88,7 @@ const LeadCard = ({ lead, moveLead, onClick }: { lead: Lead, moveLead: any, onCl
           <span className="text-[10px] font-bold bg-red-500/20 text-red-400 px-2 py-1 rounded-full border border-red-500/20">AI Paused</span>
         )}
         {lead.intent && (
-          <span className="text-[10px] font-bold bg-indigo-500/20 text-indigo-400 px-2 py-1 rounded-full border border-indigo-500/20">{lead.intent}</span>
+          <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/20">{lead.intent}</span>
         )}
       </div>
       <h3 className="font-bold text-gray-900 text-sm">{lead.data?.name || 'Unknown Lead'}</h3>
@@ -119,7 +119,7 @@ const PipelineColumn = ({ title, leads, moveLead, onCardClick }: { title: string
     <div
       ref={drop as any}
       className={`flex-shrink-0 w-72 bg-gray-50 rounded-2xl p-4 border ${
-        isOver ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200'
+        isOver ? 'border-emerald-500 bg-emerald-50' : 'border-gray-200'
       } transition-colors`}
     >
       <div className="flex justify-between items-center mb-4 px-2">
@@ -323,7 +323,7 @@ export default function PipelinePage() {
                     placeholder="Search leads..."
                     value={searchTerm}
                     onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-colors"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-colors"
                   />
                 </div>
               </div>
@@ -343,7 +343,7 @@ export default function PipelinePage() {
                       <tr key={lead.phone} onClick={() => setSelectedLead(lead)} className="hover:bg-gray-50 transition-colors cursor-pointer">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="h-10 w-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-600 font-bold border border-indigo-500/30">
+                            <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-600 font-bold border border-emerald-500/30">
                               {(lead.name || lead.data?.name || '?').charAt(0).toUpperCase()}
                             </div>
                             <div className="ml-4">
@@ -357,12 +357,9 @@ export default function PipelinePage() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex flex-col gap-2 items-start w-48">
                             <div className="flex gap-2 items-center">
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 border border-indigo-500/20">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 border border-emerald-500/20">
                                 {lead.status}
                               </span>
-                              {lead.intent && (
-                                <span className="text-[10px] text-gray-400 font-medium">{lead.intent}</span>
-                              )}
                             </div>
                           </div>
                         </td>
@@ -374,7 +371,7 @@ export default function PipelinePage() {
                           {formatDate(lead.last_updated)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <span className="text-indigo-600 hover:text-indigo-800 flex items-center justify-end w-full">
+                          <span className="text-emerald-600 hover:text-emerald-800 flex items-center justify-end w-full">
                             View Details &rarr;
                           </span>
                         </td>
@@ -418,7 +415,7 @@ export default function PipelinePage() {
                               onClick={() => setCurrentPage(i + 1)}
                               className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium ${
                                 currentPage === i + 1 
-                                  ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' 
+                                  ? 'z-10 bg-emerald-50 border-emerald-500 text-emerald-600' 
                                   : 'bg-white text-gray-500 hover:bg-gray-50'
                               }`}
                             >
@@ -473,7 +470,7 @@ export default function PipelinePage() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Status</p>
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">{selectedLead.status}</span>
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">{selectedLead.status}</span>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Intent</p>
