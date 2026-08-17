@@ -44,7 +44,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-emerald-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-emerald-500/30 overflow-x-hidden">
       
       {/* Dynamic Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
@@ -55,13 +55,13 @@ export default function Home() {
       </div>
 
       {/* 1. Header / Navbar - Glassmorphism */}
-      <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[#020617]/50 backdrop-blur-2xl border-b border-white/[0.05]">
+      <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-gray-50/50 backdrop-blur-2xl border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-12 h-12 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-amber-400 rounded-xl blur-md opacity-40 group-hover:opacity-70 transition-opacity duration-500" />
               <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-amber-400 p-[1px] shadow-2xl">
-                <div className="w-full h-full bg-[#020617] rounded-[10px] flex items-center justify-center">
+                <div className="w-full h-full bg-gray-50 rounded-[10px] flex items-center justify-center">
                   <svg className="w-5 h-5 text-transparent bg-clip-text bg-gradient-to-tr from-emerald-400 to-amber-300" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12c0 2.19.71 4.22 1.91 5.86L2.6 21.4l3.65-1.28A9.957 9.957 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.1 14.1c-.24.68-1.39 1.25-1.95 1.32-.52.06-1.19.16-3.41-.76-2.67-1.11-4.38-3.83-4.51-4.01-.13-.18-1.07-1.43-1.07-2.73 0-1.3.68-1.94.93-2.22.25-.28.55-.35.73-.35.18 0 .37 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.04.07.14.12.3.03.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.48-.15.15-.31.32-.14.61.17.3 1.3 2.14 2.97 3.63.81.72 1.55 1.05 1.85 1.19.3.15.48.12.66-.08.18-.2.78-.91.99-1.22.21-.31.41-.26.69-.15.28.1 1.76.83 2.06.98.3.15.5.22.58.35.07.13.07.76-.17 1.44z"/>
                   </svg>
@@ -69,21 +69,21 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <span className="font-bold text-xl text-white tracking-tight block">Vastu AI</span>
+              <span className="font-bold text-xl text-gray-900 tracking-tight block">Vastu AI</span>
               <span className="text-[10px] text-amber-400 font-bold tracking-[0.2em] uppercase block mt-0.5">By Vastu With Nikhil</span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-10 text-sm font-medium text-slate-300/80">
-            <a href="#features" className="hover:text-emerald-400 transition-colors">Capabilities</a>
-            <a href="#demo" className="hover:text-emerald-400 transition-colors">Simulation</a>
-            <a href="#stats" className="hover:text-emerald-400 transition-colors">Analytics</a>
+          <nav className="hidden md:flex items-center gap-10 text-sm font-medium text-gray-700/80">
+            <a href="#features" className="hover:text-emerald-600 transition-colors">Capabilities</a>
+            <a href="#demo" className="hover:text-emerald-600 transition-colors">Simulation</a>
+            <a href="#stats" className="hover:text-emerald-600 transition-colors">Analytics</a>
           </nav>
 
           <div className="flex items-center gap-4">
             <Link 
               href="/login" 
-              className="text-sm font-medium text-slate-300 hover:text-white px-4 py-2 transition-colors hidden sm:block"
+              className="text-sm font-medium text-gray-700 hover:text-gray-900 px-4 py-2 transition-colors hidden sm:block"
             >
               Log In
             </Link>
@@ -92,9 +92,9 @@ export default function Home() {
               className="relative inline-flex items-center justify-center p-[1px] overflow-hidden rounded-xl group transition-all"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-400 to-amber-400 rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-xy"></span>
-              <span className="relative px-6 py-2.5 bg-[#020617] rounded-xl flex items-center gap-2 group-hover:bg-opacity-0 transition-all duration-300">
-                <span className="font-semibold text-white group-hover:text-gray-900 transition-colors duration-300">Open CRM</span>
-                <svg className="w-4 h-4 text-emerald-400 group-hover:text-gray-900 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <span className="relative px-6 py-2.5 bg-gray-50 rounded-xl flex items-center gap-2 group-hover:bg-opacity-0 transition-all duration-300">
+                <span className="font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors duration-300">Open CRM</span>
+                <svg className="w-4 h-4 text-emerald-600 group-hover:text-emerald-700 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
@@ -109,7 +109,7 @@ export default function Home() {
           <div className="text-center max-w-4xl mx-auto space-y-8">
             
             {/* Animated Pill Badge */}
-            <div className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.05] backdrop-blur-xl shadow-2xl transition-all duration-1000 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-sm border border-gray-200 backdrop-blur-xl shadow-2xl transition-all duration-1000 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <div className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -120,7 +120,7 @@ export default function Home() {
             </div>
 
             {/* Main Headline */}
-            <h1 className={`text-5xl sm:text-7xl md:text-[5.5rem] font-black tracking-tight text-white leading-[1.05] transition-all duration-1000 delay-100 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <h1 className={`text-5xl sm:text-7xl md:text-[5.5rem] font-black tracking-tight text-gray-900 leading-[1.05] transition-all duration-1000 delay-100 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               Convert WhatsApp Chats into <br className="hidden sm:block" />
               <span className="relative inline-block mt-2">
                 <span className="absolute -inset-2 bg-gradient-to-r from-emerald-500/20 to-amber-500/20 blur-2xl rounded-full"></span>
@@ -131,7 +131,7 @@ export default function Home() {
             </h1>
 
             {/* Subtitle */}
-            <p className={`text-lg sm:text-2xl text-slate-400/90 font-medium leading-relaxed max-w-2xl mx-auto transition-all duration-1000 delay-200 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <p className={`text-lg sm:text-2xl text-gray-600/90 font-medium leading-relaxed max-w-2xl mx-auto transition-all duration-1000 delay-200 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               Your 24/7 intelligent agent qualifies buyers, extracts floor plans, and books consultations on autopilot in natural Hinglish.
             </p>
 
@@ -139,7 +139,7 @@ export default function Home() {
             <div className={`flex flex-col sm:flex-row items-center justify-center gap-5 pt-6 transition-all duration-1000 delay-300 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               <Link 
                 href="/dashboard/leads" 
-                className="group relative w-full sm:w-auto px-8 py-4 bg-emerald-500 text-white rounded-2xl font-bold text-lg shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_60px_-10px_rgba(16,185,129,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3"
+                className="group relative w-full sm:w-auto px-8 py-4 bg-emerald-500 text-gray-900 rounded-2xl font-bold text-lg shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] hover:shadow-[0_0_60px_-10px_rgba(16,185,129,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3"
               >
                 Launch Dashboard
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -148,10 +148,10 @@ export default function Home() {
               </Link>
               <a 
                 href="#demo" 
-                className="group w-full sm:w-auto px-8 py-4 bg-white/[0.03] border border-white/[0.1] hover:border-emerald-500/50 text-white rounded-2xl font-bold text-lg backdrop-blur-xl hover:bg-white/[0.05] transition-all duration-300 flex items-center justify-center gap-3"
+                className="group w-full sm:w-auto px-8 py-4 bg-white shadow-sm border border-gray-200 hover:border-emerald-500/50 text-gray-900 rounded-2xl font-bold text-lg backdrop-blur-xl hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-3"
               >
                 Watch Simulation
-                <svg className="w-5 h-5 text-emerald-400 group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-emerald-600 group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </a>
@@ -165,13 +165,13 @@ export default function Home() {
 
       {/* 3. Interactive Simulation Demo Section - Glassmorphism UI */}
       <section id="demo" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-gradient-to-b from-emerald-900/20 to-transparent blur-3xl -z-10 rounded-full"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-gradient-to-b from-emerald-50 to-transparent blur-3xl -z-10 rounded-full"></div>
         
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-gray-900">
             Experience the <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300">AI Magic</span>
           </h2>
-          <p className="text-lg text-slate-400">
+          <p className="text-lg text-gray-600">
             Interact with Kriti, our hyper-realistic Vastu Assistant. Select a scenario below.
           </p>
 
@@ -188,8 +188,8 @@ export default function Home() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-5 py-3 rounded-xl text-sm font-bold transition-all duration-300 border ${
                   activeTab === tab.id 
-                    ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.2)] scale-105' 
-                    : 'bg-white/[0.02] border-white/[0.05] text-slate-400 hover:bg-white/[0.05] hover:text-white'
+                    ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-700 shadow-[0_0_20px_rgba(16,185,129,0.2)] scale-105' 
+                    : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span> {tab.label}
@@ -203,10 +203,10 @@ export default function Home() {
           {/* Outer Glow */}
           <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
           
-          <div className="relative rounded-[2rem] overflow-hidden border border-white/[0.1] bg-[#efeae2] text-gray-900 shadow-2xl flex flex-col h-[600px]">
+          <div className="relative rounded-[2rem] overflow-hidden border border-gray-200 bg-[#efeae2] text-gray-900 shadow-2xl flex flex-col h-[600px]">
             
             {/* Header */}
-            <div className="bg-[#005c4b] text-white p-4 flex items-center justify-between shadow-md z-10">
+            <div className="bg-[#005c4b] text-gray-900 p-4 flex items-center justify-between shadow-md z-10">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-200 flex items-center justify-center font-bold text-gray-900 text-lg shadow-inner">
@@ -254,7 +254,7 @@ export default function Home() {
                 <span>Type a message...</span>
                 <span className="text-gray-400 cursor-not-allowed">📎</span>
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#00a884] text-white flex items-center justify-center shadow-md hover:bg-[#008f6f] transition-colors cursor-not-allowed">
+              <div className="w-12 h-12 rounded-full bg-[#00a884] text-gray-900 flex items-center justify-center shadow-md hover:bg-[#008f6f] transition-colors cursor-not-allowed">
                 <svg className="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
               </div>
             </div>
@@ -266,7 +266,7 @@ export default function Home() {
       <section id="features" className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-gray-900">
               Unfair Advantage for <br className="hidden sm:block"/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300">Vastu Experts</span>
             </h2>
@@ -275,48 +275,48 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Feature 1 */}
-            <div className="col-span-1 md:col-span-2 p-8 sm:p-10 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-emerald-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
+            <div className="col-span-1 md:col-span-2 p-8 sm:p-10 rounded-[2rem] bg-white border border-gray-200 hover:bg-white/[0.04] hover:border-emerald-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -mr-32 -mt-32 transition-transform group-hover:scale-150 duration-700"></div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white mb-8 shadow-lg shadow-emerald-500/25">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-gray-900 mb-8 shadow-lg shadow-emerald-500/25">
                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Smart Lead Gatekeeper</h3>
-              <p className="text-slate-400 leading-relaxed text-lg max-w-lg">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Smart Lead Gatekeeper</h3>
+              <p className="text-gray-600 leading-relaxed text-lg max-w-lg">
                 Filters genuine clients from window-shoppers. Automatically asks for their city, property type, and timeline before passing the lead to you.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="col-span-1 p-8 sm:p-10 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-amber-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
+            <div className="col-span-1 p-8 sm:p-10 rounded-[2rem] bg-white border border-gray-200 hover:bg-white/[0.04] hover:border-amber-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] -mr-32 -mt-32 transition-transform group-hover:scale-150 duration-700"></div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white mb-8 shadow-lg shadow-amber-500/25">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-gray-900 mb-8 shadow-lg shadow-amber-500/25">
                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Floor Plan Parser</h3>
-              <p className="text-slate-400 leading-relaxed text-base">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Floor Plan Parser</h3>
+              <p className="text-gray-600 leading-relaxed text-base">
                 Prompts users to upload floor plans and property photos, organizing them neatly in your CRM.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="col-span-1 p-8 sm:p-10 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-blue-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white mb-8 shadow-lg shadow-blue-500/25">
+            <div className="col-span-1 p-8 sm:p-10 rounded-[2rem] bg-white border border-gray-200 hover:bg-white/[0.04] hover:border-blue-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-gray-900 mb-8 shadow-lg shadow-blue-500/25">
                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Auto-Booking</h3>
-              <p className="text-slate-400 leading-relaxed text-base">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Auto-Booking</h3>
+              <p className="text-gray-600 leading-relaxed text-base">
                 Connects directly to Calendly. Books consultations 24/7 without human intervention.
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="col-span-1 md:col-span-2 p-8 sm:p-10 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-teal-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
+            <div className="col-span-1 md:col-span-2 p-8 sm:p-10 rounded-[2rem] bg-white border border-gray-200 hover:bg-white/[0.04] hover:border-teal-500/30 transition-all duration-500 group backdrop-blur-xl relative overflow-hidden">
                <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px] -ml-32 -mb-32 transition-transform group-hover:scale-150 duration-700"></div>
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white mb-8 shadow-lg shadow-teal-500/25">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-gray-900 mb-8 shadow-lg shadow-teal-500/25">
                 <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Gen-Z Hinglish Personality</h3>
-              <p className="text-slate-400 leading-relaxed text-lg max-w-lg">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Gen-Z Hinglish Personality</h3>
+              <p className="text-gray-600 leading-relaxed text-lg max-w-lg">
                 Speaks like a warm, polite human assistant. Uses emojis naturally ("Got it! ✨", "Zaroor!"). Never sounds like a cold robot.
               </p>
             </div>
@@ -328,14 +328,14 @@ export default function Home() {
       {/* 5. CTA Banner - Glow effect */}
       <section className="py-24 relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-[3rem] p-12 sm:p-20 bg-[#020617] border border-emerald-500/20 text-center space-y-8 shadow-[0_0_100px_-20px_rgba(16,185,129,0.3)] overflow-hidden">
+          <div className="relative rounded-[3rem] p-12 sm:p-20 bg-gray-50 border border-emerald-500/20 text-center space-y-8 shadow-[0_0_100px_-20px_rgba(16,185,129,0.3)] overflow-hidden">
             {/* Background Glows inside CTA */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-emerald-500/10 to-transparent blur-3xl pointer-events-none"></div>
             
-            <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight relative z-10">
+            <h2 className="text-4xl sm:text-6xl font-black text-gray-900 tracking-tight relative z-10">
               Ready to Put Consultations on <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300">Autopilot?</span>
             </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg sm:text-xl relative z-10">
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg sm:text-xl relative z-10">
               Log in to your dashboard to view new leads, review floor plans, and monitor live AI conversations.
             </p>
             <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
@@ -351,23 +351,23 @@ export default function Home() {
       </section>
 
       {/* 6. Footer */}
-      <footer className="py-12 border-t border-white/[0.05] bg-[#020617] text-slate-500 text-sm">
+      <footer className="py-12 border-t border-gray-200 bg-gray-50 text-slate-500 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-500 to-amber-400 p-[1px]">
-                <div className="w-full h-full bg-[#020617] rounded-[7px] flex items-center justify-center">
-                  <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
+                <div className="w-full h-full bg-gray-50 rounded-[7px] flex items-center justify-center">
+                  <svg className="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12c0 2.19.71 4.22 1.91 5.86L2.6 21.4l3.65-1.28A9.957 9.957 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.1 14.1c-.24.68-1.39 1.25-1.95 1.32-.52.06-1.19.16-3.41-.76-2.67-1.11-4.38-3.83-4.51-4.01-.13-.18-1.07-1.43-1.07-2.73 0-1.3.68-1.94.93-2.22.25-.28.55-.35.73-.35.18 0 .37 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.04.07.14.12.3.03.48-.09.18-.14.3-.28.46-.14.16-.3.35-.43.48-.15.15-.31.32-.14.61.17.3 1.3 2.14 2.97 3.63.81.72 1.55 1.05 1.85 1.19.3.15.48.12.66-.08.18-.2.78-.91.99-1.22.21-.31.41-.26.69-.15.28.1 1.76.83 2.06.98.3.15.5.22.58.35.07.13.07.76-.17 1.44z"/>
                   </svg>
                 </div>
               </div>
-            <span className="font-bold text-slate-300">Vastu AI</span>
+            <span className="font-bold text-gray-700">Vastu AI</span>
             <span className="hidden sm:inline">•</span>
             <span>© {new Date().getFullYear()} Vastu With Nikhil.</span>
           </div>
           <div className="flex items-center gap-8 font-medium">
-            <Link href="/login" className="hover:text-emerald-400 transition-colors">Login</Link>
-            <Link href="/dashboard/leads" className="hover:text-emerald-400 transition-colors">Dashboard</Link>
+            <Link href="/login" className="hover:text-emerald-600 transition-colors">Login</Link>
+            <Link href="/dashboard/leads" className="hover:text-emerald-600 transition-colors">Dashboard</Link>
           </div>
         </div>
       </footer>
