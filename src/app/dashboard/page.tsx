@@ -6,7 +6,7 @@ export default function DashboardHome() {
       
       <div className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard Overview</h1>
-        <p className="mt-2 text-gray-600">Welcome to your AI Sales Employee command center.</p>
+        <p className="mt-2 text-gray-600">Welcome to your Kriti AI Employee command center.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

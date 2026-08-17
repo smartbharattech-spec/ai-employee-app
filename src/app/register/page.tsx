@@ -45,7 +45,7 @@ export default function RegisterPage() {
       <div className="max-w-md w-full bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 shadow-2xl">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-white tracking-tight">Create Account</h2>
-          <p className="text-gray-400 mt-2 text-sm">Join the AI Sales platform</p>
+          <p className="text-gray-400 mt-2 text-sm">Join the Kriti AI platform</p>
         </div>
 
         {error && (

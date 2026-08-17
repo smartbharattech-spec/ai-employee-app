@@ -69,7 +69,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <span className="font-bold text-xl text-gray-900 tracking-tight block">Vastu AI</span>
+              <span className="font-bold text-xl text-gray-900 tracking-tight block">Kriti AI</span>
               <span className="text-[10px] text-amber-400 font-bold tracking-[0.2em] uppercase block mt-0.5">By Vastu With Nikhil</span>
             </div>
           </Link>
@@ -115,7 +115,7 @@ export default function Home() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </div>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-slate-300 text-xs font-bold uppercase tracking-widest">
-                Introducing Autonomous Vastu AI
+                Introducing Autonomous Kriti AI
               </span>
             </div>
 
@@ -361,7 +361,7 @@ export default function Home() {
                   </svg>
                 </div>
               </div>
-            <span className="font-bold text-gray-700">Vastu AI</span>
+            <span className="font-bold text-gray-700">Kriti AI</span>
             <span className="hidden sm:inline">•</span>
             <span>© {new Date().getFullYear()} Vastu With Nikhil.</span>
           </div>

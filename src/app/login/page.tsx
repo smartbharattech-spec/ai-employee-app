@@ -40,7 +40,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full bg-white/80 backdrop-blur-xl border border-gray-200 rounded-3xl p-8 shadow-xl">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Welcome Back</h2>
-          <p className="text-gray-500 mt-2 text-sm">Sign in to manage your AI Sales Employee</p>
+          <p className="text-gray-500 mt-2 text-sm">Sign in to manage your Kriti AI Employee</p>
         </div>
 
         {error && (

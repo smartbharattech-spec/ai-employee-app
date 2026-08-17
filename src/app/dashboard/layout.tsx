@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
-            <span className="font-bold text-lg text-gray-900 tracking-tight">AI Sales</span>
+            <span className="font-bold text-lg text-gray-900 tracking-tight">Kriti AI</span>
           </Link>
           <button onClick={() => setIsMobileMenuOpen(false)} className="lg:hidden text-gray-500 hover:text-gray-900">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -82,7 +82,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-500 hover:text-gray-900">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <span className="font-bold text-gray-900">AI Sales</span>
+          <span className="font-bold text-gray-900">Kriti AI</span>
           <div className="w-6"></div> {/* Spacer for centering */}
         </header>
 
