@@ -28,7 +28,7 @@ export default function TeamSettingsPage() {
       .catch(() => setLoading(false));
       
     // Fetch external MySQL team members
-    fetch('https://thesanatangurukul.com/api/marketplace/get_expert_team.php?expert_id=19')
+    fetch('https://thesanatangurukul.com/api/marketplace/get_expert_team.php?expert_id=28')
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success' && data.data) {
