@@ -22,6 +22,10 @@ type Lead = {
   };
   intent?: string;
   last_updated?: string;
+  name?: string;
+  service_type?: string;
+  city?: string;
+  created_at?: string;
 };
 
 const STAGES = ['Cold', 'Warm', 'Hot', 'Followed Up', 'Meeting', 'Won', 'Lost'];
