@@ -281,7 +281,7 @@ export default function NumbersPage() {
                     <th className="px-6 py-4 hidden md:table-cell">Contact</th>
                     <th className="px-6 py-4">Phone Number</th>
                     <th className="px-6 py-4 hidden md:table-cell">Notes</th>
-                    <th className="px-6 py-4 hidden md:table-cell">Messages</th>
+
                     <th className="px-6 py-4 text-right hidden md:table-cell">Actions</th>
                     <th className="px-6 py-4 text-right md:hidden"></th>
                   </tr>
@@ -334,15 +334,7 @@ export default function NumbersPage() {
                             </div>
                           )}
                         </td>
-                        <td className="px-6 py-4 hidden md:table-cell">
-                          {sub.unseen_count > 0 ? (
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-500/30">
-                              {sub.unseen_count} New
-                            </span>
-                          ) : (
-                            <span className="text-gray-500 text-sm">None</span>
-                          )}
-                        </td>
+
                         <td className="px-6 py-4 text-right hidden md:table-cell relative">
                           <button 
                             onClick={() => setOpenDropdownId(openDropdownId === sub.chat_id ? null : sub.chat_id)}
@@ -430,14 +422,6 @@ export default function NumbersPage() {
                               
                               <div className="flex items-center justify-between pt-2 border-t border-gray-800">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Status:</span>
-                                  {sub.unseen_count > 0 ? (
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-500/30">
-                                      {sub.unseen_count} New
-                                    </span>
-                                  ) : (
-                                    <span className="text-gray-500 text-xs">Read</span>
-                                  )}
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
