@@ -15,6 +15,7 @@ export default function NumbersPage() {
   const [callFilter, setCallFilter] = useState('all');
   const [paymentFilter, setPaymentFilter] = useState('all');
   const [conversionFilter, setConversionFilter] = useState('all');
+  const [serviceFilter, setServiceFilter] = useState('all');
   
   // Notes State
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -253,15 +254,30 @@ export default function NumbersPage() {
   });
 
   // Calculate Stats
+  const serviceFilterFn = (s:any, category: string) => {
+      const data = s.crmData?.data || {};
+      const sType = (data.service_type || '').toString().toLowerCase();
+      const pType = (data.planning_type || '').toString().toLowerCase();
+      const pref = (data.consultant_pref || '').toString().toLowerCase();
+      
+      if (category === 'consultation') return sType.includes('consultation') || sType === '1' || pref.includes('consultation') || pref.includes('nikhil');
+      if (category === 'new_house') return sType.includes('house') || sType === '2' || pType.includes('house') || pType.includes('interior');
+      if (category === 'architecture') return sType.includes('architecture') || sType === '3' || sType.includes('partner');
+      return false;
+  };
+
   const qualS = ['Hot', 'Qualified', 'Meeting', 'Won'];
   const stats = {
       total: filteredSubscribers.length,
-      qualified: filteredSubscribers.filter((s:any) => qualS.includes(s.crmData?.status || 'Cold')).length,
-      called: filteredSubscribers.filter((s:any) => (s.crmData?.data?.calls || []).length > 0).length,
-      paid: filteredSubscribers.filter((s:any) => (s.crmData?.data?.payment_status) === 'paid').length,
-      converted: filteredSubscribers.filter((s:any) => (s.crmData?.data?.conversion_status) === 'converted').length,
+      pending: filteredSubscribers.filter((s:any) => !(s.crmData?.data?.calls || []).length).length,
+      followups: filteredSubscribers.filter((s:any) => s.crmData?.data?.conversion_status === 'followup').length,
+      converted: filteredSubscribers.filter((s:any) => s.crmData?.data?.conversion_status === 'converted').length,
+      lost: filteredSubscribers.filter((s:any) => s.crmData?.data?.conversion_status === 'lost').length,
+      
+      consultation: liveStatus.subscribers.filter((s:any) => serviceFilterFn(s, 'consultation')).length,
+      new_house: liveStatus.subscribers.filter((s:any) => serviceFilterFn(s, 'new_house')).length,
+      architecture: liveStatus.subscribers.filter((s:any) => serviceFilterFn(s, 'architecture')).length,
   };
-
 
   // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -276,88 +292,84 @@ export default function NumbersPage() {
   return (
     <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
       
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Contacts & Numbers</h1>
-          <p className="mt-2 text-gray-500">View and manage all your active WhatsApp leads and conversations.</p>
-        </div>
-        
+      
+      <div className="flex justify-end mb-2">
         {/* Status Badge */}
-        <div>
-          {liveStatus.loading ? (
-            <span className="flex items-center text-gray-400 text-sm bg-gray-900/50 px-4 py-2 rounded-xl border border-gray-800">
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-              Syncing Data...
+        {liveStatus.loading ? (
+          <span className="flex items-center text-slate-400 text-sm bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
+            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Syncing Data...
+          </span>
+        ) : liveStatus.connected ? (
+          <span className="flex items-center px-4 py-2 rounded-xl bg-emerald-50 text-emerald-600 text-[13px] font-bold border border-emerald-100 shadow-[0_4px_12px_rgba(16,185,129,0.1)]">
+            <span className="relative flex h-2.5 w-2.5 mr-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-          ) : liveStatus.connected ? (
-            <span className="flex items-center px-4 py-2 rounded-xl bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.2)]">
-              <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-              Live Connection Active
-            </span>
-          ) : (
-            <span className="flex items-center px-4 py-2 rounded-xl bg-red-500/10 text-red-400 text-sm font-medium border border-red-500/20">
-              <span className="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
-              Disconnected
-            </span>
-          )}
-        </div>
+            Live Connection Active
+          </span>
+        ) : null}
       </div>
 
-      <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>\n
-      {/* Stats Cards */}
-      <div className="flex gap-4 flex-wrap mb-6 mt-6">
-          <div className="bg-blue-50 border border-blue-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
-              <div className="w-12 h-12 bg-blue-100 text-blue-500 rounded-xl flex items-center justify-center font-bold">Total</div>
-              <div><p className="text-sm font-semibold text-gray-500">Total Leads</p><p className="text-2xl font-bold text-gray-900">{stats.total}</p></div>
+      <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>
+      
+      {/* Top Cards: 1 line metrics */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
+              <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center font-bold">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Pending Calls</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.pending}</p></div>
           </div>
-          <div className="bg-green-50 border border-green-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
-              <div className="w-12 h-12 bg-green-100 text-green-500 rounded-xl flex items-center justify-center font-bold">Qual</div>
-              <div><p className="text-sm font-semibold text-gray-500">Qualified</p><p className="text-2xl font-bold text-gray-900">{stats.qualified}</p></div>
+          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
+              <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center font-bold">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Followups</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.followups}</p></div>
           </div>
-          <div className="bg-amber-50 border border-amber-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
-              <div className="w-12 h-12 bg-amber-100 text-amber-500 rounded-xl flex items-center justify-center font-bold">Call</div>
-              <div><p className="text-sm font-semibold text-gray-500">Calls Made</p><p className="text-2xl font-bold text-gray-900">{stats.called}</p></div>
+          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
+              <div className="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center font-bold">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Converted</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.converted}</p></div>
           </div>
-          <div className="bg-purple-50 border border-purple-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
-              <div className="w-12 h-12 bg-purple-100 text-purple-500 rounded-xl flex items-center justify-center font-bold">Pay</div>
-              <div><p className="text-sm font-semibold text-gray-500">Payments</p><p className="text-2xl font-bold text-gray-900">{stats.paid}</p></div>
-          </div>
-          <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
-              <div className="w-12 h-12 bg-emerald-100 text-emerald-500 rounded-xl flex items-center justify-center font-bold">Win</div>
-              <div><p className="text-sm font-semibold text-gray-500">Converted</p><p className="text-2xl font-bold text-gray-900">{stats.converted}</p></div>
+          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
+              <div className="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center font-bold">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Lost</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.lost}</p></div>
           </div>
       </div>
 
-      {/* Filters */}
-      <div className="bg-white border border-gray-200 p-4 rounded-2xl mb-6 flex flex-wrap gap-4 items-center shadow-sm">
-          <div className="text-sm font-bold text-gray-500">Filters:</div>
-          <div className="flex gap-1">
-              {['all', 'daily', 'weekly', 'monthly'].map(f => (
-                  <button key={f} onClick={() => setTimeFilter(f)} className={`px-3 py-1.5 text-xs font-bold rounded-lg border ${timeFilter === f ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-500 border-gray-200'}`}>
-                      {f === 'daily' ? 'Today' : f === 'weekly' ? 'Week' : f === 'monthly' ? 'Month' : 'All'}
-                  </button>
-              ))}
+      {/* Service Grouping Cards */}
+      <h3 className="text-[14px] font-extrabold text-slate-800 uppercase tracking-wider mb-3 ml-2">Services Filter</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <button onClick={() => setServiceFilter(serviceFilter === 'consultation' ? 'all' : 'consultation')} className={`text-left p-5 rounded-3xl transition-all border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] ${serviceFilter === 'consultation' ? 'bg-indigo-600 text-white shadow-[0_8px_30px_rgba(79,70,229,0.3)] transform scale-[1.02]' : 'bg-white hover:bg-slate-50'}`}>
+          <div className="flex justify-between items-center mb-2">
+            <h4 className={`font-black text-lg ${serviceFilter === 'consultation' ? 'text-white' : 'text-slate-800'}`}>Consultation</h4>
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${serviceFilter === 'consultation' ? 'bg-indigo-500/30 text-white' : 'bg-indigo-50 text-indigo-600'}`}>{stats.consultation}</span>
           </div>
-          <select value={statusFilter} onChange={e=>setStatusFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
-              <option value="all">All Status</option><option value="qualified">Qualified</option><option value="not_qualified">Not Qualified</option>
-          </select>
-          <select value={callFilter} onChange={e=>setCallFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
-              <option value="all">All Calls</option><option value="called">Called</option><option value="not_called">Not Called</option>
-          </select>
-          <select value={paymentFilter} onChange={e=>setPaymentFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
-              <option value="all">All Pay</option><option value="paid">Paid</option><option value="not_paid">Not Paid</option>
-          </select>
-          <select value={conversionFilter} onChange={e=>setConversionFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
-              <option value="all">All Conv</option><option value="new">New</option><option value="followup">Follow-up</option><option value="converted">Converted</option><option value="lost">Lost</option>
-          </select>
-          {(timeFilter !== 'all' || statusFilter !== 'all' || callFilter !== 'all' || paymentFilter !== 'all' || conversionFilter !== 'all') && (
-              <button onClick={() => { setTimeFilter('all'); setStatusFilter('all'); setCallFilter('all'); setPaymentFilter('all'); setConversionFilter('all'); }} className="text-xs font-bold text-red-500 ml-auto">Clear Filters</button>
-          )}
+          <p className={`text-xs font-semibold ${serviceFilter === 'consultation' ? 'text-indigo-200' : 'text-slate-400'}`}>Team consultation, Nikhil sir consultation</p>
+        </button>
+
+        <button onClick={() => setServiceFilter(serviceFilter === 'new_house' ? 'all' : 'new_house')} className={`text-left p-5 rounded-3xl transition-all border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] ${serviceFilter === 'new_house' ? 'bg-emerald-600 text-white shadow-[0_8px_30px_rgba(5,150,105,0.3)] transform scale-[1.02]' : 'bg-white hover:bg-slate-50'}`}>
+          <div className="flex justify-between items-center mb-2">
+            <h4 className={`font-black text-lg ${serviceFilter === 'new_house' ? 'text-white' : 'text-slate-800'}`}>New House Planning</h4>
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${serviceFilter === 'new_house' ? 'bg-emerald-500/30 text-white' : 'bg-emerald-50 text-emerald-600'}`}>{stats.new_house}</span>
+          </div>
+          <p className={`text-xs font-semibold ${serviceFilter === 'new_house' ? 'text-emerald-200' : 'text-slate-400'}`}>New house planning, interior planning</p>
+        </button>
+
+        <button onClick={() => setServiceFilter(serviceFilter === 'architecture' ? 'all' : 'architecture')} className={`text-left p-5 rounded-3xl transition-all border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] ${serviceFilter === 'architecture' ? 'bg-rose-500 text-white shadow-[0_8px_30px_rgba(244,63,94,0.3)] transform scale-[1.02]' : 'bg-white hover:bg-slate-50'}`}>
+          <div className="flex justify-between items-center mb-2">
+            <h4 className={`font-black text-lg ${serviceFilter === 'architecture' ? 'text-white' : 'text-slate-800'}`}>Architecture</h4>
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${serviceFilter === 'architecture' ? 'bg-rose-500/30 text-white' : 'bg-rose-50 text-rose-600'}`}>{stats.architecture}</span>
+          </div>
+          <p className={`text-xs font-semibold ${serviceFilter === 'architecture' ? 'text-rose-200' : 'text-slate-400'}`}>Partner program</p>
+        </button>
       </div>
 
-
-        {/* Main Content Area */}
+      {/* Main Content Area */}
         <div className="bg-white backdrop-blur-xl border border-gray-200 rounded-3xl overflow-hidden shadow-lg flex flex-col">
           
           {/* Toolbar */}
