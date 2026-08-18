@@ -25,7 +25,7 @@ export default function LoginPage() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        router.push('/dashboard/pipeline');
+        router.push('/dashboard/numbers');
       } else {
         setError(data.message || 'Login failed');
       }

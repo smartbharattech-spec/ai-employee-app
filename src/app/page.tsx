@@ -42,7 +42,7 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <Link href="/login" className="font-medium text-gray-600 hover:text-indigo-600 transition-colors hidden sm:block">Login</Link>
-            <Link href="/dashboard/pipeline" className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+            <Link href="/dashboard/numbers" className="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
               Dashboard
             </Link>
           </div>
@@ -74,7 +74,7 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href="/dashboard/pipeline" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-[0_0_30px_rgba(79,70,229,0.3)] hover:shadow-[0_0_40px_rgba(79,70,229,0.5)] transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+              <Link href="/dashboard/numbers" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-[0_0_30px_rgba(79,70,229,0.3)] hover:shadow-[0_0_40px_rgba(79,70,229,0.5)] transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
                 Hire Kriti Now
               </Link>
               <a href="#demo" className="px-8 py-4 bg-white border-2 border-gray-100 hover:border-gray-200 text-gray-700 font-bold rounded-xl transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
