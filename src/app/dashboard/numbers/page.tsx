@@ -19,6 +19,8 @@ export default function NumbersPage() {
   // Mobile Responsiveness State
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [selectedDetails, setSelectedDetails] = useState<any>(null);
   
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -346,6 +348,13 @@ export default function NumbersPage() {
                           {openDropdownId === sub.chat_id && (
                             <div className="absolute right-6 top-14 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-10 py-1 overflow-hidden">
                               <button 
+                                onClick={() => { setSelectedDetails(sub); setDetailsModalOpen(true); setOpenDropdownId(null); }}
+                                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors flex items-center"
+                              >
+                                <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                View Details
+                              </button>
+                              <button 
                                 onClick={() => { openChat(sub); setOpenDropdownId(null); }}
                                 className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors flex items-center"
                               >
@@ -591,6 +600,80 @@ export default function NumbersPage() {
           </div>
         )}
       </div>
+
+      {/* View Details Modal */}
+      {detailsModalOpen && selectedDetails && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-sm">
+                  {selectedDetails.first_name ? selectedDetails.first_name.charAt(0).toUpperCase() : '?'}
+                </div>
+                Lead Details
+              </h3>
+              <button onClick={() => setDetailsModalOpen(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-gray-500 font-medium mb-1">Phone Number</p>
+                  <p className="text-gray-900 font-mono bg-gray-50 p-2 rounded-lg border border-gray-100">+{selectedDetails.chat_id}</p>
+                </div>
+                
+                {selectedDetails.crmData ? (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-500 font-medium mb-1">Status</p>
+                        <p className="text-gray-900 font-medium">{selectedDetails.crmData.status || 'N/A'}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500 font-medium mb-1">Intent</p>
+                        <p className="text-gray-900 font-medium">{selectedDetails.crmData.intent || 'N/A'}</p>
+                      </div>
+                    </div>
+                    
+                    {selectedDetails.crmData.data && Object.keys(selectedDetails.crmData.data).length > 0 ? (
+                      <div className="mt-6 border-t border-gray-100 pt-4">
+                        <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Collected Information</h4>
+                        <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 space-y-3">
+                          {Object.entries(selectedDetails.crmData.data).map(([key, value]: [string, any]) => (
+                            <div key={key} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-gray-200/50 pb-2 last:border-0 last:pb-0">
+                              <span className="text-sm font-medium text-gray-500 capitalize">{key.replace(/_/g, ' ')}</span>
+                              <span className="text-sm text-gray-900 font-medium">{value !== null && value !== '' ? String(value) : <span className="text-gray-400 italic">Not provided</span>}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 text-center">
+                        <p className="text-gray-500 text-sm">No additional information collected yet.</p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="p-4 bg-amber-50 rounded-xl border border-amber-100 text-amber-800 text-sm">
+                    No CRM data found for this lead.
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div className="p-4 border-t border-gray-100 bg-gray-50 flex justify-end">
+              <button 
+                onClick={() => setDetailsModalOpen(false)}
+                className="px-6 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

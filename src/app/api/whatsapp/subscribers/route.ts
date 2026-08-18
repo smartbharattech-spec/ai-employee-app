@@ -23,16 +23,19 @@ export async function GET(request: Request) {
       const userRole = request.headers.get('x-user-role') || 'agent';
       const userEmail = request.headers.get('x-user-email') || '';
 
-      if (userRole !== 'admin') {
-        const BRIDGE_URL = "https://thesanatangurukul.com/database_bridge.php";
-        const BRIDGE_KEY = "kraya_bridge_key_2026";
-        const resCrm = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
-        const crmDataJson = await resCrm.json();
-        const crmData = crmDataJson.data || {};
+      const BRIDGE_URL = "https://thesanatangurukul.com/database_bridge.php";
+      const BRIDGE_KEY = "kraya_bridge_key_2026";
+      const resCrm = await fetch(`${BRIDGE_URL}?action=get_crm&key=${BRIDGE_KEY}`);
+      const crmDataJson = await resCrm.json();
+      const crmData = crmDataJson.data || {};
 
+      subscribers = subscribers.map((sub: any) => {
+        return { ...sub, crmData: crmData[sub.chat_id] || null };
+      });
+
+      if (userRole !== 'admin') {
         subscribers = subscribers.filter((sub: any) => {
-          const crmLead = crmData[sub.chat_id];
-          return crmLead && crmLead.assigned_to === userEmail;
+          return sub.crmData && sub.crmData.assigned_to === userEmail;
         });
       }
 
