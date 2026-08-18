@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // KRAYA AI FEATURE: Next.js Webhook via Bridge API
-const BRIDGE_URL = "https://thesanatangurukul.com/database_bridge.php";
+const BRIDGE_URL = "https://myvastutool.com/database_bridge.php";
 const BRIDGE_KEY = "kraya_bridge_key_2026";
 
 export async function POST(request: Request) {

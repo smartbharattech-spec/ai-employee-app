@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 const API_KEY = 'kraya_bridge_key_2026';
-const BRIDGE_URL = 'https://thesanatangurukul.com/database_bridge.php';
+const BRIDGE_URL = 'https://myvastutool.com/database_bridge.php';
 
 export async function GET(request: Request) {
   try {
