@@ -22,20 +22,21 @@ export default function TeamSettingsPage() {
           setUsers(data.users || []);
           setDefaultReceiver(data.default_receiver || '');
           setCurrentUserEmail(data.currentUserEmail || '');
+          
+          // Fetch external MySQL team members
+          const userEmailToFetch = data.currentUserEmail || 'nikhilagarwal241195@gmail.com';
+          fetch(`https://myvastutool.com/database_bridge.php?action=get_mysql_team&key=kraya_bridge_key_2026&email=${encodeURIComponent(userEmailToFetch)}`)
+            .then(res => res.json())
+            .then(data2 => {
+              if (data2.success && data2.data) {
+                setMysqlTeam(data2.data);
+              }
+            })
+            .catch(console.error);
         }
         setLoading(false);
       })
       .catch(() => setLoading(false));
-      
-    // Fetch external MySQL team members
-    fetch('https://thesanatangurukul.com/api/marketplace/get_expert_team.php?expert_id=28')
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 'success' && data.data) {
-          setMysqlTeam(data.data);
-        }
-      })
-      .catch(console.error);
   }, []);
 
   const handleSaveUsers = async (updatedUsers: any[]) => {
@@ -188,7 +189,7 @@ export default function TeamSettingsPage() {
                    if(e.target.value) {
                      const selected = mysqlTeam.find(m => m.user_id.toString() === e.target.value);
                      if(selected) {
-                       setNewUser({ ...newUser, name: selected.name, email: selected.at_slug || selected.name.toLowerCase().replace(/\s+/g, '') + '@team.com', password: 'no_password_needed', role: 'agent' });
+                       setNewUser({ ...newUser, name: selected.name, email: selected.email || selected.name.toLowerCase().replace(/\s+/g, '') + '@team.com', password: 'no_password_needed', role: 'agent' });
                      }
                    } else {
                        setNewUser({ ...newUser, name: '', email: '', password: '', role: 'agent' });
