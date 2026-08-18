@@ -65,14 +65,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         <div className="p-4 border-t border-slate-100 flex flex-col gap-2 bg-slate-50/50">
-          <div className={`flex items-center ${isDesktopMenuOpen ? 'px-4' : 'justify-center'} py-3 rounded-2xl bg-white border border-slate-100 shadow-sm`}>
-             <div className="relative flex items-center justify-center">
-               <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full"></div>
-               <div className="absolute w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
-             </div>
-             {isDesktopMenuOpen && <span className="ml-3 text-[12px] font-extrabold text-slate-600 tracking-wide uppercase whitespace-nowrap">Live Connected</span>}
-          </div>
-          
           <button 
             onClick={handleLogout}
             className={`flex items-center ${isDesktopMenuOpen ? 'px-4' : 'justify-center'} py-3.5 text-[14px] font-bold text-slate-400 rounded-2xl hover:bg-red-50 hover:text-red-500 transition-colors group`}

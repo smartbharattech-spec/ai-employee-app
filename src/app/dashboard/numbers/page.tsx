@@ -16,6 +16,7 @@ export default function NumbersPage() {
   const [paymentFilter, setPaymentFilter] = useState('all');
   const [conversionFilter, setConversionFilter] = useState('all');
   const [serviceFilter, setServiceFilter] = useState('all');
+  const [topFilter, setTopFilter] = useState('all');
   
   // Notes State
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -250,6 +251,14 @@ export default function NumbersPage() {
     const conversion = sub.crmData?.data?.conversion_status || 'new';
     if (conversionFilter !== 'all' && conversionFilter !== conversion) return false;
 
+    // Top Filter logic
+    if (topFilter !== 'all') {
+        if (topFilter === 'pending' && calls.length > 0) return false;
+        if (topFilter === 'followups' && conversion !== 'followup') return false;
+        if (topFilter === 'converted' && conversion !== 'converted') return false;
+        if (topFilter === 'lost' && conversion !== 'lost') return false;
+    }
+
     return true;
   });
 
@@ -293,52 +302,40 @@ export default function NumbersPage() {
     <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
       
       
-      <div className="flex justify-end mb-2">
-        {/* Status Badge */}
-        {liveStatus.loading ? (
-          <span className="flex items-center text-slate-400 text-sm bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
-            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            Syncing Data...
-          </span>
-        ) : liveStatus.connected ? (
-          <span className="flex items-center px-4 py-2 rounded-xl bg-emerald-50 text-emerald-600 text-[13px] font-bold border border-emerald-100 shadow-[0_4px_12px_rgba(16,185,129,0.1)]">
-            <span className="relative flex h-2.5 w-2.5 mr-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-            </span>
-            Live Connection Active
-          </span>
-        ) : null}
-      </div>
+      <div className="flex justify-end mb-2"></div>
 
       <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>
       
       {/* Top Cards: 1 line metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center font-bold">
+
+          <button onClick={() => setTopFilter(topFilter === 'pending' ? 'all' : 'pending')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'pending' ? 'bg-blue-600 text-white shadow-[0_8px_30px_rgba(37,99,235,0.3)]' : 'bg-white'}`}>
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'pending' ? 'bg-blue-500/30 text-white' : 'bg-blue-50 text-blue-500'}`}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
               </div>
-              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Pending Calls</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.pending}</p></div>
-          </div>
-          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center font-bold">
+              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'pending' ? 'text-blue-200' : 'text-slate-400'}`}>Pending Calls</p><p className={`text-2xl font-black leading-none ${topFilter === 'pending' ? 'text-white' : 'text-slate-800'}`}>{stats.pending}</p></div>
+          </button>
+          
+          <button onClick={() => setTopFilter(topFilter === 'followups' ? 'all' : 'followups')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'followups' ? 'bg-amber-500 text-white shadow-[0_8px_30px_rgba(245,158,11,0.3)]' : 'bg-white'}`}>
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'followups' ? 'bg-amber-400/30 text-white' : 'bg-amber-50 text-amber-500'}`}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
-              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Followups</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.followups}</p></div>
-          </div>
-          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center font-bold">
+              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'followups' ? 'text-amber-100' : 'text-slate-400'}`}>Followups</p><p className={`text-2xl font-black leading-none ${topFilter === 'followups' ? 'text-white' : 'text-slate-800'}`}>{stats.followups}</p></div>
+          </button>
+          
+          <button onClick={() => setTopFilter(topFilter === 'converted' ? 'all' : 'converted')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'converted' ? 'bg-emerald-500 text-white shadow-[0_8px_30px_rgba(16,185,129,0.3)]' : 'bg-white'}`}>
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'converted' ? 'bg-emerald-400/30 text-white' : 'bg-emerald-50 text-emerald-500'}`}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
-              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Converted</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.converted}</p></div>
-          </div>
-          <div className="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center font-bold">
+              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'converted' ? 'text-emerald-100' : 'text-slate-400'}`}>Converted</p><p className={`text-2xl font-black leading-none ${topFilter === 'converted' ? 'text-white' : 'text-slate-800'}`}>{stats.converted}</p></div>
+          </button>
+          
+          <button onClick={() => setTopFilter(topFilter === 'lost' ? 'all' : 'lost')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'lost' ? 'bg-red-500 text-white shadow-[0_8px_30px_rgba(239,68,68,0.3)]' : 'bg-white'}`}>
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'lost' ? 'bg-red-400/30 text-white' : 'bg-red-50 text-red-500'}`}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
-              <div><p className="text-[12px] font-extrabold text-slate-400 uppercase tracking-wider mb-0.5">Lost</p><p className="text-2xl font-black text-slate-800 leading-none">{stats.lost}</p></div>
-          </div>
+              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'lost' ? 'text-red-100' : 'text-slate-400'}`}>Lost</p><p className={`text-2xl font-black leading-none ${topFilter === 'lost' ? 'text-white' : 'text-slate-800'}`}>{stats.lost}</p></div>
+          </button>
       </div>
 
       {/* Service Grouping Cards */}
