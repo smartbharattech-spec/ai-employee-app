@@ -21,7 +21,7 @@ export default function DashboardHome() {
           <p className="text-gray-400 mb-8">View all your WhatsApp leads, check active conversations, and manage unseen messages.</p>
           <div className="flex gap-4">
             <Link href="/dashboard/numbers" className="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-[0_0_15px_rgba(79,70,229,0.2)]">
-              Open Numbers
+              Open Leads
               <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </Link>
           </div>
