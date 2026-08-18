@@ -21,6 +21,9 @@ export default function NumbersPage() {
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState<any>(null);
+  const [isEditingModal, setIsEditingModal] = useState(false);
+  const [editFormData, setEditFormData] = useState<any>({});
+  const [isSavingCRM, setIsSavingCRM] = useState(false);
   
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -163,11 +166,36 @@ export default function NumbersPage() {
       const data = await res.json();
       if (data.success) {
         alert('Memory wiped successfully for +' + phone);
+        setDetailsModalOpen(false);
       } else {
         alert('Failed to wipe memory: ' + data.message);
       }
     } catch (err) {
       alert('Error wiping memory');
+    }
+  };
+
+  const handleSaveCRM = async () => {
+    if (!selectedDetails) return;
+    setIsSavingCRM(true);
+    try {
+      const res = await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: selectedDetails.chat_id, data: editFormData })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('CRM data saved successfully.');
+        setSelectedDetails({ ...selectedDetails, crmData: { ...selectedDetails.crmData, data: editFormData } });
+        setIsEditingModal(false);
+      } else {
+        alert('Failed to save CRM data: ' + data.message);
+      }
+    } catch (err) {
+      alert('Error saving CRM data');
+    } finally {
+      setIsSavingCRM(false);
     }
   };
 
@@ -348,7 +376,13 @@ export default function NumbersPage() {
                           {openDropdownId === sub.chat_id && (
                             <div className="absolute right-6 top-14 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-10 py-1 overflow-hidden">
                               <button 
-                                onClick={() => { setSelectedDetails(sub); setDetailsModalOpen(true); setOpenDropdownId(null); }}
+                                onClick={() => { 
+                                  setSelectedDetails(sub); 
+                                  setDetailsModalOpen(true); 
+                                  setOpenDropdownId(null);
+                                  setIsEditingModal(false);
+                                  setEditFormData(sub.crmData?.data || {});
+                                }}
                                 className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors flex items-center"
                               >
                                 <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -639,15 +673,38 @@ export default function NumbersPage() {
                     
                     {selectedDetails.crmData.data && Object.keys(selectedDetails.crmData.data).length > 0 ? (
                       <div className="mt-6 border-t border-gray-100 pt-4">
-                        <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-3">Collected Information</h4>
+                        <div className="flex items-center justify-between mb-3">
+                          <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider">Collected Information</h4>
+                          {!isEditingModal ? (
+                            <button onClick={() => setIsEditingModal(true)} className="text-sm text-emerald-600 font-medium hover:text-emerald-700">Edit</button>
+                          ) : (
+                            <button onClick={() => setIsEditingModal(false)} className="text-sm text-gray-500 font-medium hover:text-gray-700">Cancel</button>
+                          )}
+                        </div>
                         <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 space-y-3">
-                          {Object.entries(selectedDetails.crmData.data).map(([key, value]: [string, any]) => (
+                          {Object.entries(isEditingModal ? editFormData : selectedDetails.crmData.data).map(([key, value]: [string, any]) => (
                             <div key={key} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-gray-200/50 pb-2 last:border-0 last:pb-0">
                               <span className="text-sm font-medium text-gray-500 capitalize">{key.replace(/_/g, ' ')}</span>
-                              <span className="text-sm text-gray-900 font-medium">{value !== null && value !== '' ? String(value) : <span className="text-gray-400 italic">Not provided</span>}</span>
+                              {isEditingModal ? (
+                                <input 
+                                  type="text" 
+                                  className="border border-gray-300 rounded px-2 py-1 text-sm flex-1 sm:ml-4"
+                                  value={value || ''}
+                                  onChange={(e) => setEditFormData({ ...editFormData, [key]: e.target.value })}
+                                />
+                              ) : (
+                                <span className="text-sm text-gray-900 font-medium">{value !== null && value !== '' ? String(value) : <span className="text-gray-400 italic">Not provided</span>}</span>
+                              )}
                             </div>
                           ))}
                         </div>
+                        {isEditingModal && (
+                           <div className="mt-3 flex justify-end">
+                             <button onClick={handleSaveCRM} disabled={isSavingCRM} className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 disabled:opacity-50">
+                               {isSavingCRM ? 'Saving...' : 'Save Changes'}
+                             </button>
+                           </div>
+                        )}
                       </div>
                     ) : (
                       <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 text-center">
@@ -663,7 +720,13 @@ export default function NumbersPage() {
               </div>
             </div>
             
-            <div className="p-4 border-t border-gray-100 bg-gray-50 flex justify-end">
+            <div className="p-4 border-t border-gray-100 bg-gray-50 flex justify-between">
+              <button 
+                onClick={() => wipeMemory(selectedDetails.chat_id)}
+                className="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors"
+              >
+                Clear Memory
+              </button>
               <button 
                 onClick={() => setDetailsModalOpen(false)}
                 className="px-6 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
