@@ -10,6 +10,11 @@ export default function NumbersPage() {
     message: ''
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [timeFilter, setTimeFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [callFilter, setCallFilter] = useState('all');
+  const [paymentFilter, setPaymentFilter] = useState('all');
+  const [conversionFilter, setConversionFilter] = useState('all');
   
   // Notes State
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -199,10 +204,64 @@ export default function NumbersPage() {
     }
   };
 
-  const filteredSubscribers = liveStatus.subscribers.filter((sub: any) => 
-    (sub.first_name && sub.first_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-    (sub.chat_id && sub.chat_id.includes(searchTerm))
-  );
+  
+  const filteredSubscribers = liveStatus.subscribers.filter((sub: any) => {
+    // Search Term
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      if (!(sub.first_name && sub.first_name.toLowerCase().includes(term)) && !(sub.chat_id && sub.chat_id.includes(term))) {
+        return false;
+      }
+    }
+    
+    // Time Filter (assuming sub.last_updated exists, fallback to true if not)
+    if (timeFilter !== 'all' && sub.last_updated) {
+        const now = new Date();
+        const updated = new Date(sub.last_updated.replace(' ', 'T'));
+        if (!isNaN(updated.getTime())) {
+            const diffDays = Math.ceil(Math.abs(now.getTime() - updated.getTime()) / (1000 * 60 * 60 * 24));
+            if (timeFilter === 'daily' && diffDays > 1) return false;
+            if (timeFilter === 'weekly' && diffDays > 7) return false;
+            if (timeFilter === 'monthly' && diffDays > 30) return false;
+        }
+    }
+    
+    // Status Filter
+    const qualS = ['Hot', 'Qualified', 'Meeting', 'Won'];
+    const status = sub.crmData?.status || 'Cold';
+    if (statusFilter !== 'all') {
+        if (statusFilter === 'qualified' && !qualS.includes(status)) return false;
+        if (statusFilter === 'not_qualified' && qualS.includes(status)) return false;
+    }
+    
+    // Call Filter
+    const calls = sub.crmData?.data?.calls || [];
+    if (callFilter !== 'all') {
+        if (callFilter === 'called' && calls.length === 0) return false;
+        if (callFilter === 'not_called' && calls.length > 0) return false;
+    }
+    
+    // Payment Filter
+    const payment = sub.crmData?.data?.payment_status || 'not_paid';
+    if (paymentFilter !== 'all' && paymentFilter !== payment) return false;
+    
+    // Conversion Filter
+    const conversion = sub.crmData?.data?.conversion_status || 'new';
+    if (conversionFilter !== 'all' && conversionFilter !== conversion) return false;
+
+    return true;
+  });
+
+  // Calculate Stats
+  const qualS = ['Hot', 'Qualified', 'Meeting', 'Won'];
+  const stats = {
+      total: filteredSubscribers.length,
+      qualified: filteredSubscribers.filter((s:any) => qualS.includes(s.crmData?.status || 'Cold')).length,
+      called: filteredSubscribers.filter((s:any) => (s.crmData?.data?.calls || []).length > 0).length,
+      paid: filteredSubscribers.filter((s:any) => (s.crmData?.data?.payment_status) === 'paid').length,
+      converted: filteredSubscribers.filter((s:any) => (s.crmData?.data?.conversion_status) === 'converted').length,
+  };
+
 
   // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -245,7 +304,59 @@ export default function NumbersPage() {
         </div>
       </div>
 
-      <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>
+      <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>\n
+      {/* Stats Cards */}
+      <div className="flex gap-4 flex-wrap mb-6 mt-6">
+          <div className="bg-blue-50 border border-blue-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
+              <div className="w-12 h-12 bg-blue-100 text-blue-500 rounded-xl flex items-center justify-center font-bold">Total</div>
+              <div><p className="text-sm font-semibold text-gray-500">Total Leads</p><p className="text-2xl font-bold text-gray-900">{stats.total}</p></div>
+          </div>
+          <div className="bg-green-50 border border-green-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
+              <div className="w-12 h-12 bg-green-100 text-green-500 rounded-xl flex items-center justify-center font-bold">Qual</div>
+              <div><p className="text-sm font-semibold text-gray-500">Qualified</p><p className="text-2xl font-bold text-gray-900">{stats.qualified}</p></div>
+          </div>
+          <div className="bg-amber-50 border border-amber-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
+              <div className="w-12 h-12 bg-amber-100 text-amber-500 rounded-xl flex items-center justify-center font-bold">Call</div>
+              <div><p className="text-sm font-semibold text-gray-500">Calls Made</p><p className="text-2xl font-bold text-gray-900">{stats.called}</p></div>
+          </div>
+          <div className="bg-purple-50 border border-purple-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
+              <div className="w-12 h-12 bg-purple-100 text-purple-500 rounded-xl flex items-center justify-center font-bold">Pay</div>
+              <div><p className="text-sm font-semibold text-gray-500">Payments</p><p className="text-2xl font-bold text-gray-900">{stats.paid}</p></div>
+          </div>
+          <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl flex-1 min-w-[150px] flex items-center gap-4">
+              <div className="w-12 h-12 bg-emerald-100 text-emerald-500 rounded-xl flex items-center justify-center font-bold">Win</div>
+              <div><p className="text-sm font-semibold text-gray-500">Converted</p><p className="text-2xl font-bold text-gray-900">{stats.converted}</p></div>
+          </div>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white border border-gray-200 p-4 rounded-2xl mb-6 flex flex-wrap gap-4 items-center shadow-sm">
+          <div className="text-sm font-bold text-gray-500">Filters:</div>
+          <div className="flex gap-1">
+              {['all', 'daily', 'weekly', 'monthly'].map(f => (
+                  <button key={f} onClick={() => setTimeFilter(f)} className={`px-3 py-1.5 text-xs font-bold rounded-lg border ${timeFilter === f ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-500 border-gray-200'}`}>
+                      {f === 'daily' ? 'Today' : f === 'weekly' ? 'Week' : f === 'monthly' ? 'Month' : 'All'}
+                  </button>
+              ))}
+          </div>
+          <select value={statusFilter} onChange={e=>setStatusFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
+              <option value="all">All Status</option><option value="qualified">Qualified</option><option value="not_qualified">Not Qualified</option>
+          </select>
+          <select value={callFilter} onChange={e=>setCallFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
+              <option value="all">All Calls</option><option value="called">Called</option><option value="not_called">Not Called</option>
+          </select>
+          <select value={paymentFilter} onChange={e=>setPaymentFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
+              <option value="all">All Pay</option><option value="paid">Paid</option><option value="not_paid">Not Paid</option>
+          </select>
+          <select value={conversionFilter} onChange={e=>setConversionFilter(e.target.value)} className="text-xs font-bold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none">
+              <option value="all">All Conv</option><option value="new">New</option><option value="followup">Follow-up</option><option value="converted">Converted</option><option value="lost">Lost</option>
+          </select>
+          {(timeFilter !== 'all' || statusFilter !== 'all' || callFilter !== 'all' || paymentFilter !== 'all' || conversionFilter !== 'all') && (
+              <button onClick={() => { setTimeFilter('all'); setStatusFilter('all'); setCallFilter('all'); setPaymentFilter('all'); setConversionFilter('all'); }} className="text-xs font-bold text-red-500 ml-auto">Clear Filters</button>
+          )}
+      </div>
+
+
         {/* Main Content Area */}
         <div className="bg-white backdrop-blur-xl border border-gray-200 rounded-3xl overflow-hidden shadow-lg flex flex-col">
           
