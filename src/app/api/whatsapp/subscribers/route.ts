@@ -23,7 +23,7 @@ export async function GET(request: Request) {
       const userRole = request.headers.get('x-user-role') || 'agent';
       const userEmail = request.headers.get('x-user-email') || '';
 
-      let crmData = {};
+      let crmData: any = {};
       try {
         const BRIDGE_URL = "https://thesanatangurukul.com/database_bridge.php";
         const BRIDGE_KEY = "kraya_bridge_key_2026";
