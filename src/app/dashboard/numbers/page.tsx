@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Toaster, toast } from 'react-hot-toast';
 
 export default function NumbersPage() {
   const [liveStatus, setLiveStatus] = useState<{ connected: boolean; subscribers: any[]; loading: boolean; message: string }>({
@@ -185,14 +186,15 @@ export default function NumbersPage() {
   const handleQuickStatusChange = async (chat_id: string, newStatus: string, existingCrmData: any) => {
     try {
       const updatedData = { ...(existingCrmData?.data || {}), conversion_status: newStatus };
+      const fullPayload = { ...(existingCrmData || {}), data: updatedData };
       const res = await fetch('/api/crm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone_number: chat_id, data: updatedData })
+        body: JSON.stringify({ phone_number: chat_id, data: fullPayload })
       });
       const data = await res.json();
       if (data.success) {
-        // Update local state without refreshing
+        toast.success('Status updated successfully');
         setLiveStatus(prev => ({
           ...prev,
           subscribers: prev.subscribers.map(s => {
@@ -203,10 +205,10 @@ export default function NumbersPage() {
           })
         }));
       } else {
-        alert('Failed to update status: ' + data.message);
+        toast.error('Failed to update status: ' + data.message);
       }
     } catch (err) {
-      alert('Error updating status');
+      toast.error('Error updating status');
     }
   };
 
@@ -214,21 +216,22 @@ export default function NumbersPage() {
     if (!selectedDetails) return;
     setIsSavingCRM(true);
     try {
+      const fullPayload = { ...(selectedDetails.crmData || {}), data: editFormData };
       const res = await fetch('/api/crm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone_number: selectedDetails.chat_id, data: editFormData })
+        body: JSON.stringify({ phone_number: selectedDetails.chat_id, data: fullPayload })
       });
       const data = await res.json();
       if (data.success) {
-        alert('CRM data saved successfully.');
+        toast.success('CRM data saved successfully.');
         setSelectedDetails({ ...selectedDetails, crmData: { ...selectedDetails.crmData, data: editFormData } });
         setIsEditingModal(false);
       } else {
-        alert('Failed to save CRM data: ' + data.message);
+        toast.error('Failed to save CRM data: ' + data.message);
       }
     } catch (err) {
-      alert('Error saving CRM data');
+      toast.error('Error saving CRM data');
     } finally {
       setIsSavingCRM(false);
     }

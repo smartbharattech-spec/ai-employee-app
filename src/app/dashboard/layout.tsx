@@ -35,9 +35,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className={`fixed inset-y-0 left-0 z-50 ${isDesktopMenuOpen ? 'w-64' : 'w-20'} bg-white shadow-[4px_0_24px_rgba(0,0,0,0.02)] border-r border-slate-100 transition-all duration-300 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <div className="flex items-center justify-between h-20 px-6 border-b border-slate-100 bg-white">
           <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden">
-            <div className="w-8 h-8 flex-shrink-0 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </div>
+            <img src="/kriti-logo.png" alt="Kriti AI" className="w-8 h-8 flex-shrink-0 rounded-xl object-cover shadow-sm" />
             {isDesktopMenuOpen && <span className="font-extrabold text-lg text-slate-800 tracking-tight whitespace-nowrap">Kriti AI</span>}
           </Link>
           <button onClick={() => setIsMobileMenuOpen(false)} className="lg:hidden text-slate-400 hover:text-slate-700">
