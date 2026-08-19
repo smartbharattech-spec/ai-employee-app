@@ -551,16 +551,14 @@ export default function NumbersPage() {
                           )}
                         </td>
 
-                        <td className="px-6 py-4 text-right hidden md:table-cell relative">
+                        <td className="px-6 py-4 text-right hidden md:table-cell relative group/action">
                           <button 
-                            onClick={() => setOpenDropdownId(openDropdownId === sub.chat_id ? null : sub.chat_id)}
                             className="p-2 text-gray-500 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
                           </button>
                           
-                          {openDropdownId === sub.chat_id && (
-                            <div className="absolute right-6 top-14 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-10 py-1 overflow-hidden">
+                          <div className="absolute right-6 top-10 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-20 py-1 overflow-hidden opacity-0 invisible group-hover/action:opacity-100 group-hover/action:visible transition-all">
                               <button 
                                 onClick={() => { 
                                   setSelectedDetails(sub); 
@@ -589,7 +587,6 @@ export default function NumbersPage() {
                                 Clear Memory
                               </button>
                             </div>
-                          )}
                         </td>
                         <td className="px-6 py-4 text-right md:hidden">
                           <button 
