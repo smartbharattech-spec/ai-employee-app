@@ -562,15 +562,18 @@ export default function NumbersPage() {
                           </button>
                           
                           <div className="absolute right-6 top-10 mt-1 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-20 py-1 overflow-hidden opacity-0 invisible group-hover/action:opacity-100 group-hover/action:visible transition-all">
-                              <div className="px-3 py-2 border-b border-gray-100 bg-gray-50/50">
-                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Change Status</span>
-                                <div className="flex flex-col gap-1">
+                              <details className="group/details border-b border-gray-100 bg-gray-50/50 px-3 py-2">
+                                <summary className="text-[11px] font-bold text-gray-500 uppercase tracking-wider cursor-pointer flex items-center justify-between list-none hover:text-gray-700 [&::-webkit-details-marker]:hidden transition-colors">
+                                  <span>Change Status</span>
+                                  <svg className="w-3.5 h-3.5 text-gray-400 group-open/details:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
+                                </summary>
+                                <div className="flex flex-col gap-1 mt-2">
                                   <button onClick={(e) => { e.stopPropagation(); handleQuickStatusChange(sub.chat_id, 'new', sub.crmData); }} className={`w-full text-left text-[11px] px-3 py-2 rounded-md font-medium flex items-center justify-between transition-colors ${(sub.crmData?.data?.conversion_status || 'new') === 'new' ? 'bg-slate-200 text-slate-800' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>New Lead</button>
                                   <button onClick={(e) => { e.stopPropagation(); handleQuickStatusChange(sub.chat_id, 'followup', sub.crmData); }} className={`w-full text-left text-[11px] px-3 py-2 rounded-md font-medium flex items-center justify-between transition-colors ${sub.crmData?.data?.conversion_status === 'followup' ? 'bg-amber-200 text-amber-800' : 'bg-amber-50 text-amber-600 hover:bg-amber-100'}`}>Follow-up</button>
                                   <button onClick={(e) => { e.stopPropagation(); handleQuickStatusChange(sub.chat_id, 'converted', sub.crmData); }} className={`w-full text-left text-[11px] px-3 py-2 rounded-md font-medium flex items-center justify-between transition-colors ${sub.crmData?.data?.conversion_status === 'converted' ? 'bg-emerald-200 text-emerald-800' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'}`}>Converted</button>
                                   <button onClick={(e) => { e.stopPropagation(); handleQuickStatusChange(sub.chat_id, 'lost', sub.crmData); }} className={`w-full text-left text-[11px] px-3 py-2 rounded-md font-medium flex items-center justify-between transition-colors ${sub.crmData?.data?.conversion_status === 'lost' ? 'bg-red-200 text-red-800' : 'bg-red-50 text-red-600 hover:bg-red-100'}`}>Lost</button>
                                 </div>
-                              </div>
+                              </details>
                               <button 
                                 onClick={() => { 
                                   setSelectedDetails(sub); 
