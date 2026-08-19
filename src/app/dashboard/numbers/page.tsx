@@ -183,8 +183,18 @@ export default function NumbersPage() {
   };
 
   const handleQuickStatusChange = async (chat_id: string, newStatus: string, existingCrmData: any) => {
+    let amount = '';
+    if (newStatus === 'converted') {
+      const input = window.prompt("Enter the amount (₹) for closing this lead:");
+      if (input === null) return; // User cancelled
+      amount = input;
+    }
+
     try {
       const updatedData = { ...(existingCrmData?.data || {}), conversion_status: newStatus };
+      if (newStatus === 'converted') {
+        updatedData.payment_amount = amount;
+      }
       const fullPayload = { ...(existingCrmData || {}), data: updatedData };
       const res = await fetch('/api/crm', {
         method: 'POST',
@@ -739,33 +749,6 @@ export default function NumbersPage() {
                 </tbody>
               </table>
             )}
-          </div>
-          
-          {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="p-4 border-t border-gray-800 bg-gray-900/30 flex items-center justify-between">
-              <button 
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                className="px-4 py-2 rounded-lg border border-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                Previous
-              </button>
-              <div className="text-sm text-gray-400">
-                Page {currentPage} of {totalPages}
-              </div>
-              <button 
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-lg border border-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* Chat History Drawer */}
       <div 
         className={`fixed top-0 right-0 h-full w-full md:w-[400px] bg-gray-950 border-l border-gray-800 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isChatOpen ? 'translate-x-0' : 'translate-x-full'}`}
