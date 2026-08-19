@@ -2,19 +2,7 @@ const fs = require('fs');
 const path = 'src/app/dashboard/numbers/page.tsx';
 let content = fs.readFileSync(path, 'utf8');
 
-const target = `<div className="relative w-full max-w-md">
-              <svg className="absolute left-4 top-3 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-              <input 
-                type="text" 
-                placeholder="Search by name or number..." 
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1); // Reset to first page on search
-                }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
-              />
-            </div>`;
+const targetRegex = /<div className="relative w-full max-w-md">[\s\S]*?<input[\s\S]*?className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2\.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500\/50 focus:border-emerald-500 transition-all"[\s\S]*?\/>\s*<\/div>/;
 
 const replacement = `<div className="flex flex-1 items-center gap-4 w-full max-w-2xl">
               <div className="relative w-full max-w-md">
@@ -51,6 +39,10 @@ const replacement = `<div className="flex flex-1 items-center gap-4 w-full max-w
               )}
             </div>`;
 
-content = content.replace(target, replacement);
-fs.writeFileSync(path, content);
-console.log('Clear Filters button added');
+if(targetRegex.test(content)) { 
+  content = content.replace(targetRegex, replacement); 
+  fs.writeFileSync(path, content); 
+  console.log('Replaced successfully!'); 
+} else { 
+  console.log('Regex did not match!'); 
+}

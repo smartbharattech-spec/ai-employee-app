@@ -39,7 +39,8 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center p-6 selection:bg-indigo-500/30">
       <div className="max-w-md w-full bg-white/80 backdrop-blur-xl border border-gray-200 rounded-3xl p-8 shadow-xl">
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 flex flex-col items-center">
+          <img src="/kriti-logo.png" alt="Kriti AI" className="w-16 h-16 rounded-full object-cover mb-4 shadow-md" />
           <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Welcome Back</h2>
           <p className="text-gray-500 mt-2 text-sm">Sign in to manage your Kriti AI Employee</p>
         </div>
