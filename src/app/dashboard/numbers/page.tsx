@@ -14,7 +14,6 @@ export default function NumbersPage() {
   const [timeFilter, setTimeFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [callFilter, setCallFilter] = useState('all');
-  const [paymentFilter, setPaymentFilter] = useState('all');
   const [conversionFilter, setConversionFilter] = useState('all');
   const [serviceFilter, setServiceFilter] = useState('all');
   const [topFilter, setTopFilter] = useState('all');
@@ -273,11 +272,6 @@ export default function NumbersPage() {
         if (callFilter === 'called' && calls.length === 0) return false;
         if (callFilter === 'not_called' && calls.length > 0) return false;
     }
-    
-    // Payment Filter
-    const payment = sub.crmData?.data?.payment_status || 'not_paid';
-    if (paymentFilter !== 'all' && paymentFilter !== payment) return false;
-    
     // Conversion Filter
     const conversion = sub.crmData?.data?.conversion_status || 'new';
     if (conversionFilter !== 'all' && conversionFilter !== conversion) return false;
@@ -448,7 +442,7 @@ export default function NumbersPage() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
                 />
               </div>
-              {(serviceFilter !== 'all' || topFilter !== 'all' || searchTerm !== '' || timeFilter !== 'all' || statusFilter !== 'all' || callFilter !== 'all' || paymentFilter !== 'all' || conversionFilter !== 'all') && (
+              {(serviceFilter !== 'all' || topFilter !== 'all' || searchTerm !== '' || timeFilter !== 'all' || statusFilter !== 'all' || callFilter !== 'all' || conversionFilter !== 'all') && (
                 <button 
                   onClick={() => {
                     setSearchTerm('');
@@ -457,7 +451,6 @@ export default function NumbersPage() {
                     setTimeFilter('all');
                     setStatusFilter('all');
                     setCallFilter('all');
-                    setPaymentFilter('all');
                     setConversionFilter('all');
                     setCurrentPage(1);
                   }}
@@ -544,9 +537,9 @@ export default function NumbersPage() {
                               const curr = sub.crmData?.data?.conversion_status || 'new';
                               let badgeClass = "bg-slate-100 text-slate-600 border-slate-200";
                               let label = "New Lead";
-                              if (curr === 'followup') { badgeClass = "bg-amber-50 text-amber-600 border-amber-200"; label = "Follow-up 🔄"; }
-                              else if (curr === 'converted') { badgeClass = "bg-emerald-50 text-emerald-600 border-emerald-200"; label = "Converted ✅"; }
-                              else if (curr === 'lost') { badgeClass = "bg-red-50 text-red-600 border-red-200"; label = "Lost ❌"; }
+                              if (curr === 'followup') { badgeClass = "bg-amber-50 text-amber-600 border-amber-200"; label = "Follow-up"; }
+                              else if (curr === 'converted') { badgeClass = "bg-emerald-50 text-emerald-600 border-emerald-200"; label = "Converted"; }
+                              else if (curr === 'lost') { badgeClass = "bg-red-50 text-red-600 border-red-200"; label = "Lost"; }
                               
                               return (
                                 <div className={`inline-flex items-center justify-between w-32 px-3 py-1.5 rounded-lg border text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-colors ${badgeClass}`}>
@@ -560,9 +553,9 @@ export default function NumbersPage() {
                             <div className="absolute left-0 top-full mt-1 w-36 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover/status:opacity-100 group-hover/status:visible transition-all z-20 overflow-hidden flex flex-col p-1">
                               {[
                                 { value: 'new', label: 'New Lead' },
-                                { value: 'followup', label: 'Follow-up 🔄' },
-                                { value: 'converted', label: 'Converted ✅' },
-                                { value: 'lost', label: 'Lost ❌' }
+                                { value: 'followup', label: 'Follow-up' },
+                                { value: 'converted', label: 'Converted' },
+                                { value: 'lost', label: 'Lost' }
                               ].map(opt => (
                                 <button
                                   key={opt.value}
@@ -959,7 +952,7 @@ export default function NumbersPage() {
                       <select value={call.status} onChange={(e) => {
                           const newCalls = [...editFormData.calls]; newCalls[index].status = e.target.value; setEditFormData({...editFormData, calls: newCalls});
                       }} className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500 w-full">
-                          <option value="connected">Connected ✅</option><option value="not_connected">Not Connected ❌</option><option value="busy">Busy 🔴</option><option value="no_answer">No Answer 📵</option><option value="switched_off">Switched Off ⚫</option>
+                          <option value="connected">Connected</option><option value="not_connected">Not Connected</option><option value="busy">Busy</option><option value="no_answer">No Answer</option><option value="switched_off">Switched Off</option>
                       </select>
                     </div>
                     <textarea placeholder="Response / Baat kya hui" value={call.response} onChange={(e) => {
@@ -972,40 +965,17 @@ export default function NumbersPage() {
                 )}
               </div>
 
-              {/* Payment & Conversion Status */}
+              {/* Conversion Status */}
               <div className="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] p-6">
-                <h4 className="text-[13px] font-extrabold text-slate-600 mb-6 uppercase tracking-wider">Payment & Conversion Status</h4>
+                <h4 className="text-[13px] font-extrabold text-slate-600 mb-6 uppercase tracking-wider">Conversion Status</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
-                    <h5 className="text-[13px] font-extrabold text-slate-600 mb-4 tracking-wider">Payment Status</h5>
-                    <div className="flex flex-col gap-4">
-                      <label className="flex items-center gap-3 cursor-pointer group">
-                        <div className="relative flex items-center justify-center">
-                          <input type="radio" name="payment_status" className="peer appearance-none w-5 h-5 border-2 border-slate-300 rounded-full checked:border-orange-500 transition-colors cursor-pointer" checked={editFormData.payment_status === 'paid'} onChange={() => setEditFormData({...editFormData, payment_status: 'paid'})} />
-                          <div className="absolute w-2.5 h-2.5 bg-orange-500 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"></div>
-                        </div>
-                        <span className="text-[14px] font-semibold text-slate-900 group-hover:text-orange-500 transition-colors">Paid ✅</span>
-                      </label>
-                      <label className="flex items-center gap-3 cursor-pointer group">
-                        <div className="relative flex items-center justify-center">
-                          <input type="radio" name="payment_status" className="peer appearance-none w-5 h-5 border-2 border-slate-300 rounded-full checked:border-orange-500 transition-colors cursor-pointer" checked={editFormData.payment_status !== 'paid'} onChange={() => setEditFormData({...editFormData, payment_status: 'not_paid'})} />
-                          <div className="absolute w-2.5 h-2.5 bg-orange-500 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"></div>
-                        </div>
-                        <span className="text-[14px] font-semibold text-slate-900 group-hover:text-orange-500 transition-colors">Not Paid</span>
-                      </label>
-                    </div>
-                    {editFormData.payment_status === 'paid' && (
-                        <input type="number" placeholder="Amount (₹)" value={editFormData.payment_amount || ''} onChange={(e) => setEditFormData({...editFormData, payment_amount: e.target.value})} className="border border-slate-200 rounded-xl px-4 py-2 text-sm mt-4 w-full focus:outline-none focus:border-blue-500" />
-                    )}
-                  </div>
-                  <div>
-                    <h5 className="text-[13px] font-extrabold text-slate-600 mb-4 tracking-wider">Conversion Status</h5>
                     <div className="flex flex-col gap-4">
                       {[
                         { value: 'new', label: 'New Lead' },
-                        { value: 'followup', label: 'Follow-up 🔄' },
-                        { value: 'converted', label: 'Converted ✅' },
-                        { value: 'lost', label: 'Lost ❌' }
+                        { value: 'followup', label: 'Follow-up' },
+                        { value: 'converted', label: 'Converted' },
+                        { value: 'lost', label: 'Lost' }
                       ].map(opt => (
                         <label key={opt.value} className="flex items-center gap-3 cursor-pointer group">
                           <div className="relative flex items-center justify-center">
@@ -1016,6 +986,14 @@ export default function NumbersPage() {
                         </label>
                       ))}
                     </div>
+                  </div>
+                  <div>
+                    {editFormData.conversion_status === 'converted' && (
+                        <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+                          <h5 className="text-[13px] font-extrabold text-slate-600 mb-4 tracking-wider">Amount (₹)</h5>
+                          <input type="number" placeholder="Enter amount" value={editFormData.payment_amount || ''} onChange={(e) => setEditFormData({...editFormData, payment_amount: e.target.value})} className="border border-slate-200 rounded-xl px-4 py-3 text-sm w-full focus:outline-none focus:border-blue-500" />
+                        </div>
+                    )}
                   </div>
                 </div>
                 <textarea placeholder="Notes" value={editFormData.notes || ''} onChange={(e) => setEditFormData({...editFormData, notes: e.target.value})} className="border border-slate-200 rounded-xl px-4 py-3 text-sm mt-8 w-full focus:outline-none focus:border-blue-500" rows={3} />

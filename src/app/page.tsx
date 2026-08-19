@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Zap, Brain, Handshake } from 'lucide-react';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -92,7 +93,7 @@ export default function Home() {
                 <div className="p-4 space-y-4 bg-gray-50/50 h-full">
                   <div className="flex justify-start">
                     <div className="bg-white border border-gray-100 shadow-sm rounded-2xl rounded-tl-sm p-3 max-w-[85%]">
-                      <p className="text-sm text-gray-700">Hi! Are you looking to book a consultation today? 👋</p>
+                      <p className="text-sm text-gray-700">Hi! Are you looking to book a consultation today?</p>
                     </div>
                   </div>
                   <div className="flex justify-end">
@@ -102,7 +103,7 @@ export default function Home() {
                   </div>
                   <div className="flex justify-start">
                     <div className="bg-white border border-gray-100 shadow-sm rounded-2xl rounded-tl-sm p-3 max-w-[85%]">
-                      <p className="text-sm text-gray-700">Great! I've qualified your request and assigned an expert. ✨</p>
+                      <p className="text-sm text-gray-700">Great! I've qualified your request and assigned an expert.</p>
                     </div>
                   </div>
                 </div>
@@ -139,9 +140,9 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: '24/7 Omnichannel', desc: 'Instantly replies on WhatsApp, converting traffic into qualified prospects at any hour.', icon: '⚡' },
-              { title: 'Smart Qualification', desc: 'Gathers names, requirements, and intent, automatically updating your pipeline.', icon: '🧠' },
-              { title: 'Handoff Mode', desc: 'Seamlessly passes hot leads to a human expert without breaking the conversation flow.', icon: '🤝' }
+              { title: '24/7 Omnichannel', desc: 'Instantly replies on WhatsApp, converting traffic into qualified prospects at any hour.', icon: <Zap className="w-8 h-8 text-indigo-500" /> },
+              { title: 'Smart Qualification', desc: 'Gathers names, requirements, and intent, automatically updating your pipeline.', icon: <Brain className="w-8 h-8 text-indigo-500" /> },
+              { title: 'Handoff Mode', desc: 'Seamlessly passes hot leads to a human expert without breaking the conversation flow.', icon: <Handshake className="w-8 h-8 text-indigo-500" /> }
             ].map((feat, idx) => (
               <div 
                 key={idx}
@@ -211,7 +212,7 @@ export default function Home() {
                     <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-3 text-sm max-w-[80%] text-gray-800">Hi, I want to buy a subscription.</div>
                   </div>
                   <div className="flex justify-end">
-                    <div className="bg-indigo-600 rounded-2xl rounded-tr-sm p-3 text-sm max-w-[80%] text-white">Awesome! To suggest the best plan, could you tell me how many users are in your team? 🚀</div>
+                    <div className="bg-indigo-600 rounded-2xl rounded-tr-sm p-3 text-sm max-w-[80%] text-white">Awesome! To suggest the best plan, could you tell me how many users are in your team?</div>
                   </div>
                   <div className="flex justify-start">
                     <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-3 text-sm max-w-[80%] text-gray-800">We are a team of 15 people.</div>
