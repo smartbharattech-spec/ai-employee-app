@@ -26,7 +26,7 @@ export default function LoginPage() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        window.location.href = '/dashboard/pipeline';
+        window.location.href = '/dashboard/numbers';
       } else {
         setError(data.message || 'Login failed');
       }
