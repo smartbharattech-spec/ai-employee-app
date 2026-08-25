@@ -85,7 +85,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50/50">
+      <main className={`flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50/50 transition-all duration-300 ${isDesktopMenuOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
         
         {/* Mobile header */}
         <header className="lg:hidden flex items-center justify-between h-16 px-4 border-b border-gray-200 bg-slate-50/50/90 backdrop-blur-md">
