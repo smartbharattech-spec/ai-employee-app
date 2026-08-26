@@ -21,7 +21,15 @@ export async function middleware(request: NextRequest) {
     try {
       const payload = JSON.parse(atob(token));
       if (!payload.email) throw new Error('Invalid payload');
-      
+      const userRole = payload.role || 'agent';
+      const userEmail = payload.email;
+
+      const isAdmin = userEmail === 'nikhilagarwal241195@gmail.com' || userEmail === 'nikhil@gmail.com' || userEmail === 'vastuwithnikhil@gmail.com';
+
+      if (pathname.startsWith('/dashboard/settings') && !isAdmin) {
+        return NextResponse.redirect(new URL('/dashboard/numbers', request.url));
+      }
+
       // Pass user info to headers so API routes can access it
       const response = NextResponse.next();
       response.headers.set('x-user-email', payload.email);
