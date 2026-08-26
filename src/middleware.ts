@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const protectedRoutes = ['/settings', '/dashboard', '/numbers', '/api/config', '/api/whatsapp', '/api/pipeline'];
+const protectedRoutes = ['/settings', '/dashboard', '/numbers', '/api/config', '/api/whatsapp', '/api/pipeline', '/api/auth/me'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -52,5 +52,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/settings', '/dashboard/:path*', '/numbers', '/api/config', '/api/whatsapp/:path*', '/api/pipeline/:path*', '/api/pipeline'],
+  matcher: ['/settings', '/dashboard/:path*', '/numbers', '/api/config', '/api/whatsapp/:path*', '/api/pipeline/:path*', '/api/pipeline', '/api/auth/:path*'],
 };
