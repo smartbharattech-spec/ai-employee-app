@@ -180,33 +180,44 @@ export default function TeamSettingsPage() {
 
         {/* Add User Form */}
         <form onSubmit={handleAddUser} className="mt-8 pt-6 border-t border-gray-200 space-y-4">
-          <h4 className="text-lg font-medium text-gray-700">Add New Member (Select from Vastu Tool Team)</h4>
-          <div className="grid grid-cols-1 gap-4">
-             {mysqlTeam.length > 0 ? (
-               <select 
-                 className="w-full bg-white border border-gray-300 text-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
-                 onChange={(e) => {
-                   if(e.target.value) {
-                     const selected = mysqlTeam.find(m => m.user_id.toString() === e.target.value);
-                     if(selected) {
-                       setNewUser({ ...newUser, name: selected.name, email: selected.email || selected.name.toLowerCase().replace(/\s+/g, '') + '@team.com', password: 'no_password_needed', role: 'agent' });
-                     }
-                   } else {
-                       setNewUser({ ...newUser, name: '', email: '', password: '', role: 'agent' });
-                   }
-                 }}
-               >
-                 <option value="">-- Select from Vastu Tool Team --</option>
-                 {mysqlTeam.map((m: any) => (
-                   <option key={m.user_id} value={m.user_id}>{m.name}</option>
-                 ))}
-               </select>
-             ) : (
-                <div className="text-gray-500 p-3 bg-gray-50 border border-gray-200 rounded-xl">No team members found in The Sanatan Gurukul database.</div>
-             )}
+          <h4 className="text-lg font-medium text-gray-700">Add New Team Member</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Name</label>
+              <input 
+                type="text" 
+                required
+                value={newUser.name}
+                onChange={e => setNewUser({ ...newUser, name: e.target.value })}
+                className="w-full bg-white border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none"
+                placeholder="e.g. Ramesh"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Email (Login ID)</label>
+              <input 
+                type="email" 
+                required
+                value={newUser.email}
+                onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                className="w-full bg-white border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none"
+                placeholder="ramesh@team.com"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Password</label>
+              <input 
+                type="text" 
+                required
+                value={newUser.password}
+                onChange={e => setNewUser({ ...newUser, password: e.target.value })}
+                className="w-full bg-white border border-gray-300 text-gray-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none"
+                placeholder="Enter a strong password"
+              />
+            </div>
           </div>
-          <button type="submit" className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-lg">
-            Add Team Member
+          <button type="submit" className="w-full md:w-auto px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-lg mt-4">
+            Create Login ID
           </button>
         </form>
       </div>
