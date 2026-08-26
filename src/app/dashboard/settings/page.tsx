@@ -6,11 +6,74 @@ export default function SettingsPage() {
   const [config, setConfig] = useState({
     wm_api_token: '',
     wm_phone_number_id: '',
-    gemini_api_key: ''
+    gemini_api_key: '',
+    service_categories: '[]'
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
+
+  const [categories, setCategories] = useState<{id:string, name:string, steps:string[]}[]>([]);
+  
+  useEffect(() => {
+    try {
+      if (config.service_categories) {
+        setCategories(JSON.parse(config.service_categories));
+      }
+    } catch(e) {}
+  }, [config.service_categories]);
+
+  const updateConfigCategories = (newCats: any) => {
+    setCategories(newCats);
+    setConfig(prev => ({ ...prev, service_categories: JSON.stringify(newCats) }));
+  };
+
+  const addCategory = () => {
+    const newCats = [...categories, { id: 'cat_' + Date.now(), name: 'New Category', steps: ['Step 1'] }];
+    updateConfigCategories(newCats);
+  };
+
+  const removeCategory = (id: string) => {
+    const newCats = categories.filter(c => c.id !== id);
+    updateConfigCategories(newCats);
+  };
+
+  const updateCategoryName = (id: string, name: string) => {
+    const newCats = categories.map(c => c.id === id ? { ...c, name } : c);
+    updateConfigCategories(newCats);
+  };
+
+  const addStep = (id: string) => {
+    const newCats = categories.map(c => {
+      if (c.id === id) return { ...c, steps: [...c.steps, 'New Step'] };
+      return c;
+    });
+    updateConfigCategories(newCats);
+  };
+
+  const updateStep = (catId: string, stepIndex: number, val: string) => {
+    const newCats = categories.map(c => {
+      if (c.id === catId) {
+        const newSteps = [...c.steps];
+        newSteps[stepIndex] = val;
+        return { ...c, steps: newSteps };
+      }
+      return c;
+    });
+    updateConfigCategories(newCats);
+  };
+
+  const removeStep = (catId: string, stepIndex: number) => {
+    const newCats = categories.map(c => {
+      if (c.id === catId) {
+        const newSteps = c.steps.filter((_, i) => i !== stepIndex);
+        return { ...c, steps: newSteps };
+      }
+      return c;
+    });
+    updateConfigCategories(newCats);
+  };
+
 
   useEffect(() => {
     fetch('/api/config')
@@ -140,6 +203,61 @@ export default function SettingsPage() {
                 placeholder="Enter your Gemini API key"
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder-gray-400"
               />
+            </div>
+          </div>
+
+
+          <div className="space-y-5 pt-2 border-t border-gray-200 mt-8">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-medium text-gray-900 pb-3 flex items-center">
+                <svg className="w-5 h-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                Service Categories & Flows
+              </h3>
+              <button type="button" onClick={addCategory} className="text-sm bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg font-bold hover:bg-emerald-200 transition-colors">
+                + Add Category
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {categories.length === 0 ? (
+                <p className="text-sm text-gray-500 italic">No categories defined yet.</p>
+              ) : categories.map(cat => (
+                <div key={cat.id} className="p-4 border border-gray-200 rounded-xl bg-gray-50 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <input 
+                      type="text" 
+                      value={cat.name} 
+                      onChange={e => updateCategoryName(cat.id, e.target.value)}
+                      className="flex-1 bg-white border border-gray-300 rounded-lg px-3 py-2 font-bold text-gray-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                      placeholder="Category Name (e.g. Vastu Consultation)"
+                    />
+                    <button type="button" onClick={() => removeCategory(cat.id)} className="text-red-500 hover:text-red-700 p-2">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  </div>
+                  
+                  <div className="pl-4 border-l-2 border-emerald-200 space-y-2">
+                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Delivery Steps</h4>
+                    {cat.steps.map((step, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-emerald-600 bg-emerald-100 w-6 h-6 flex items-center justify-center rounded-full">{idx + 1}</span>
+                        <input 
+                          type="text"
+                          value={step}
+                          onChange={e => updateStep(cat.id, idx, e.target.value)}
+                          className="flex-1 bg-white border border-gray-200 rounded-md px-2 py-1.5 text-sm text-gray-700 focus:outline-none focus:border-emerald-500"
+                        />
+                        <button type="button" onClick={() => removeStep(cat.id, idx)} className="text-gray-400 hover:text-red-500">
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => addStep(cat.id)} className="text-xs text-emerald-600 hover:text-emerald-700 font-bold mt-2">
+                      + Add Step
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

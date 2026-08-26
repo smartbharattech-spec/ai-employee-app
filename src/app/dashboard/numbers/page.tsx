@@ -208,6 +208,39 @@ export default function NumbersPage() {
     }
   };
 
+
+  const handleCategoryChange = async (chat_id: string, categoryId: string, existingCrmData: any) => {
+    try {
+      const updatedData = { ...(existingCrmData?.data || {}), service_category: categoryId, service_step: 0 };
+      const fullPayload = { ...(existingCrmData || {}), data: updatedData };
+      const res = await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: chat_id, data: fullPayload })
+      });
+      if ((await res.json()).success) {
+        toast.success('Category updated');
+        checkLiveStatus();
+      }
+    } catch(e) { toast.error('Failed to update category'); }
+  };
+
+  const handleStepChange = async (chat_id: string, stepIdx: number, existingCrmData: any) => {
+    try {
+      const updatedData = { ...(existingCrmData?.data || {}), service_step: stepIdx };
+      const fullPayload = { ...(existingCrmData || {}), data: updatedData };
+      const res = await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: chat_id, data: fullPayload })
+      });
+      if ((await res.json()).success) {
+        toast.success('Step updated');
+        checkLiveStatus();
+      }
+    } catch(e) { toast.error('Failed to update step'); }
+  };
+
   const handleQuickStatusChange = async (chat_id: string, newStatus: string, existingCrmData: any) => {
     let amount = '';
     if (newStatus === 'converted') {
@@ -654,6 +687,7 @@ export default function NumbersPage() {
                     <th className="px-6 py-4 hidden md:table-cell">Contact</th>
                     <th className="px-6 py-4">Phone Number</th>
                     <th className="px-6 py-4 hidden md:table-cell">Status</th>
+                    {topFilter === 'converted' && <th className="px-6 py-4 hidden md:table-cell">Delivery Flow</th>}
                     <th className="px-6 py-4 hidden md:table-cell">Notes</th>
 
                     <th className="px-6 py-4 text-right hidden md:table-cell">Actions</th>
