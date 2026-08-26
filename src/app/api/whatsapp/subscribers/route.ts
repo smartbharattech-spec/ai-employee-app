@@ -43,11 +43,8 @@ export async function GET(request: Request) {
         return { ...sub, crmData: crmData[sub.chat_id] || null };
       });
 
-      if (userRole !== 'admin') {
-        subscribers = subscribers.filter((sub: any) => {
-          return sub.crmData && sub.crmData.assigned_to === userEmail;
-        });
-      }
+      // All users can see all leads for now
+      // Removed filtering based on userRole and assigned_to
 
       return NextResponse.json({ 
         success: true, 

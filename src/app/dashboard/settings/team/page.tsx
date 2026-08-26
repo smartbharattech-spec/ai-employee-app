@@ -106,7 +106,7 @@ export default function TeamSettingsPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Team Management</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Users Management</h1>
         <p className="mt-2 text-gray-500">Manage your CRM users and lead assignment rules.</p>
       </div>
 
