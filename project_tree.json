@@ -1,0 +1,3592 @@
+{
+  "name": "ai salesman employee",
+  "type": "directory",
+  "children": [
+    {
+      "name": ".env",
+      "type": "file",
+      "path": ".env"
+    },
+    {
+      "name": ".gitignore",
+      "type": "file",
+      "path": ".gitignore"
+    },
+    {
+      "name": ".next",
+      "type": "directory",
+      "children": [
+        {
+          "name": "build-manifest.json",
+          "type": "file",
+          "path": "build-manifest.json"
+        },
+        {
+          "name": "cache",
+          "type": "directory",
+          "children": [
+            {
+              "name": ".previewinfo",
+              "type": "file",
+              "path": ".previewinfo"
+            },
+            {
+              "name": ".rscinfo",
+              "type": "file",
+              "path": ".rscinfo"
+            },
+            {
+              "name": ".tsbuildinfo",
+              "type": "file",
+              "path": ".tsbuildinfo"
+            },
+            {
+              "name": "webpack",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "client-production",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "0.pack",
+                      "type": "file",
+                      "path": "0.pack"
+                    },
+                    {
+                      "name": "1.pack",
+                      "type": "file",
+                      "path": "1.pack"
+                    },
+                    {
+                      "name": "10.pack",
+                      "type": "file",
+                      "path": "10.pack"
+                    },
+                    {
+                      "name": "2.pack",
+                      "type": "file",
+                      "path": "2.pack"
+                    },
+                    {
+                      "name": "3.pack",
+                      "type": "file",
+                      "path": "3.pack"
+                    },
+                    {
+                      "name": "4.pack",
+                      "type": "file",
+                      "path": "4.pack"
+                    },
+                    {
+                      "name": "5.pack",
+                      "type": "file",
+                      "path": "5.pack"
+                    },
+                    {
+                      "name": "6.pack",
+                      "type": "file",
+                      "path": "6.pack"
+                    },
+                    {
+                      "name": "7.pack",
+                      "type": "file",
+                      "path": "7.pack"
+                    },
+                    {
+                      "name": "8.pack",
+                      "type": "file",
+                      "path": "8.pack"
+                    },
+                    {
+                      "name": "9.pack",
+                      "type": "file",
+                      "path": "9.pack"
+                    },
+                    {
+                      "name": "index.pack",
+                      "type": "file",
+                      "path": "index.pack"
+                    },
+                    {
+                      "name": "index.pack.old",
+                      "type": "file",
+                      "path": "index.pack.old"
+                    }
+                  ]
+                },
+                {
+                  "name": "edge-server-production",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "0.pack",
+                      "type": "file",
+                      "path": "0.pack"
+                    },
+                    {
+                      "name": "1.pack",
+                      "type": "file",
+                      "path": "1.pack"
+                    },
+                    {
+                      "name": "2.pack",
+                      "type": "file",
+                      "path": "2.pack"
+                    },
+                    {
+                      "name": "3.pack",
+                      "type": "file",
+                      "path": "3.pack"
+                    },
+                    {
+                      "name": "4.pack",
+                      "type": "file",
+                      "path": "4.pack"
+                    },
+                    {
+                      "name": "index.pack",
+                      "type": "file",
+                      "path": "index.pack"
+                    },
+                    {
+                      "name": "index.pack.old",
+                      "type": "file",
+                      "path": "index.pack.old"
+                    }
+                  ]
+                },
+                {
+                  "name": "server-production",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "0.pack",
+                      "type": "file",
+                      "path": "0.pack"
+                    },
+                    {
+                      "name": "1.pack",
+                      "type": "file",
+                      "path": "1.pack"
+                    },
+                    {
+                      "name": "10.pack",
+                      "type": "file",
+                      "path": "10.pack"
+                    },
+                    {
+                      "name": "2.pack",
+                      "type": "file",
+                      "path": "2.pack"
+                    },
+                    {
+                      "name": "3.pack",
+                      "type": "file",
+                      "path": "3.pack"
+                    },
+                    {
+                      "name": "4.pack",
+                      "type": "file",
+                      "path": "4.pack"
+                    },
+                    {
+                      "name": "5.pack",
+                      "type": "file",
+                      "path": "5.pack"
+                    },
+                    {
+                      "name": "6.pack",
+                      "type": "file",
+                      "path": "6.pack"
+                    },
+                    {
+                      "name": "7.pack",
+                      "type": "file",
+                      "path": "7.pack"
+                    },
+                    {
+                      "name": "8.pack",
+                      "type": "file",
+                      "path": "8.pack"
+                    },
+                    {
+                      "name": "9.pack",
+                      "type": "file",
+                      "path": "9.pack"
+                    },
+                    {
+                      "name": "index.pack",
+                      "type": "file",
+                      "path": "index.pack"
+                    },
+                    {
+                      "name": "index.pack.old",
+                      "type": "file",
+                      "path": "index.pack.old"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dev",
+          "type": "directory",
+          "children": [
+            {
+              "name": "build-manifest.json",
+              "type": "file",
+              "path": "build-manifest.json"
+            },
+            {
+              "name": "cache",
+              "type": "directory",
+              "children": [
+                {
+                  "name": ".rscinfo",
+                  "type": "file",
+                  "path": ".rscinfo"
+                },
+                {
+                  "name": "chrome-devtools-workspace-uuid",
+                  "type": "file",
+                  "path": "chrome-devtools-workspace-uuid"
+                },
+                {
+                  "name": "next-devtools-config.json",
+                  "type": "file",
+                  "path": "next-devtools-config.json"
+                },
+                {
+                  "name": "webpack",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "client-development",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "0.pack.gz",
+                          "type": "file",
+                          "path": "0.pack.gz"
+                        },
+                        {
+                          "name": "1.pack.gz",
+                          "type": "file",
+                          "path": "1.pack.gz"
+                        },
+                        {
+                          "name": "10.pack.gz",
+                          "type": "file",
+                          "path": "10.pack.gz"
+                        },
+                        {
+                          "name": "11.pack.gz",
+                          "type": "file",
+                          "path": "11.pack.gz"
+                        },
+                        {
+                          "name": "12.pack.gz",
+                          "type": "file",
+                          "path": "12.pack.gz"
+                        },
+                        {
+                          "name": "13.pack.gz",
+                          "type": "file",
+                          "path": "13.pack.gz"
+                        },
+                        {
+                          "name": "14.pack.gz",
+                          "type": "file",
+                          "path": "14.pack.gz"
+                        },
+                        {
+                          "name": "15.pack.gz",
+                          "type": "file",
+                          "path": "15.pack.gz"
+                        },
+                        {
+                          "name": "16.pack.gz",
+                          "type": "file",
+                          "path": "16.pack.gz"
+                        },
+                        {
+                          "name": "17.pack.gz",
+                          "type": "file",
+                          "path": "17.pack.gz"
+                        },
+                        {
+                          "name": "18.pack.gz",
+                          "type": "file",
+                          "path": "18.pack.gz"
+                        },
+                        {
+                          "name": "19.pack.gz",
+                          "type": "file",
+                          "path": "19.pack.gz"
+                        },
+                        {
+                          "name": "2.pack.gz",
+                          "type": "file",
+                          "path": "2.pack.gz"
+                        },
+                        {
+                          "name": "20.pack.gz",
+                          "type": "file",
+                          "path": "20.pack.gz"
+                        },
+                        {
+                          "name": "21.pack.gz",
+                          "type": "file",
+                          "path": "21.pack.gz"
+                        },
+                        {
+                          "name": "22.pack.gz",
+                          "type": "file",
+                          "path": "22.pack.gz"
+                        },
+                        {
+                          "name": "23.pack.gz",
+                          "type": "file",
+                          "path": "23.pack.gz"
+                        },
+                        {
+                          "name": "3.pack.gz",
+                          "type": "file",
+                          "path": "3.pack.gz"
+                        },
+                        {
+                          "name": "4.pack.gz",
+                          "type": "file",
+                          "path": "4.pack.gz"
+                        },
+                        {
+                          "name": "5.pack.gz",
+                          "type": "file",
+                          "path": "5.pack.gz"
+                        },
+                        {
+                          "name": "6.pack.gz",
+                          "type": "file",
+                          "path": "6.pack.gz"
+                        },
+                        {
+                          "name": "7.pack.gz",
+                          "type": "file",
+                          "path": "7.pack.gz"
+                        },
+                        {
+                          "name": "8.pack.gz",
+                          "type": "file",
+                          "path": "8.pack.gz"
+                        },
+                        {
+                          "name": "9.pack.gz",
+                          "type": "file",
+                          "path": "9.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz",
+                          "type": "file",
+                          "path": "index.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz.old",
+                          "type": "file",
+                          "path": "index.pack.gz.old"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "client-development-fallback",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "0.pack.gz",
+                          "type": "file",
+                          "path": "0.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz",
+                          "type": "file",
+                          "path": "index.pack.gz"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "edge-server-development",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "0.pack.gz",
+                          "type": "file",
+                          "path": "0.pack.gz"
+                        },
+                        {
+                          "name": "1.pack.gz",
+                          "type": "file",
+                          "path": "1.pack.gz"
+                        },
+                        {
+                          "name": "2.pack.gz",
+                          "type": "file",
+                          "path": "2.pack.gz"
+                        },
+                        {
+                          "name": "3.pack.gz",
+                          "type": "file",
+                          "path": "3.pack.gz"
+                        },
+                        {
+                          "name": "4.pack.gz",
+                          "type": "file",
+                          "path": "4.pack.gz"
+                        },
+                        {
+                          "name": "5.pack.gz",
+                          "type": "file",
+                          "path": "5.pack.gz"
+                        },
+                        {
+                          "name": "6.pack.gz",
+                          "type": "file",
+                          "path": "6.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz",
+                          "type": "file",
+                          "path": "index.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz.old",
+                          "type": "file",
+                          "path": "index.pack.gz.old"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "server-development",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "0.pack.gz",
+                          "type": "file",
+                          "path": "0.pack.gz"
+                        },
+                        {
+                          "name": "1.pack.gz",
+                          "type": "file",
+                          "path": "1.pack.gz"
+                        },
+                        {
+                          "name": "10.pack.gz",
+                          "type": "file",
+                          "path": "10.pack.gz"
+                        },
+                        {
+                          "name": "11.pack.gz",
+                          "type": "file",
+                          "path": "11.pack.gz"
+                        },
+                        {
+                          "name": "12.pack.gz",
+                          "type": "file",
+                          "path": "12.pack.gz"
+                        },
+                        {
+                          "name": "13.pack.gz",
+                          "type": "file",
+                          "path": "13.pack.gz"
+                        },
+                        {
+                          "name": "14.pack.gz",
+                          "type": "file",
+                          "path": "14.pack.gz"
+                        },
+                        {
+                          "name": "15.pack.gz",
+                          "type": "file",
+                          "path": "15.pack.gz"
+                        },
+                        {
+                          "name": "16.pack.gz",
+                          "type": "file",
+                          "path": "16.pack.gz"
+                        },
+                        {
+                          "name": "17.pack.gz",
+                          "type": "file",
+                          "path": "17.pack.gz"
+                        },
+                        {
+                          "name": "18.pack.gz",
+                          "type": "file",
+                          "path": "18.pack.gz"
+                        },
+                        {
+                          "name": "19.pack.gz",
+                          "type": "file",
+                          "path": "19.pack.gz"
+                        },
+                        {
+                          "name": "2.pack.gz",
+                          "type": "file",
+                          "path": "2.pack.gz"
+                        },
+                        {
+                          "name": "20.pack.gz",
+                          "type": "file",
+                          "path": "20.pack.gz"
+                        },
+                        {
+                          "name": "21.pack.gz",
+                          "type": "file",
+                          "path": "21.pack.gz"
+                        },
+                        {
+                          "name": "22.pack.gz",
+                          "type": "file",
+                          "path": "22.pack.gz"
+                        },
+                        {
+                          "name": "23.pack.gz",
+                          "type": "file",
+                          "path": "23.pack.gz"
+                        },
+                        {
+                          "name": "24.pack.gz",
+                          "type": "file",
+                          "path": "24.pack.gz"
+                        },
+                        {
+                          "name": "25.pack.gz",
+                          "type": "file",
+                          "path": "25.pack.gz"
+                        },
+                        {
+                          "name": "26.pack.gz",
+                          "type": "file",
+                          "path": "26.pack.gz"
+                        },
+                        {
+                          "name": "3.pack.gz",
+                          "type": "file",
+                          "path": "3.pack.gz"
+                        },
+                        {
+                          "name": "4.pack.gz",
+                          "type": "file",
+                          "path": "4.pack.gz"
+                        },
+                        {
+                          "name": "5.pack.gz",
+                          "type": "file",
+                          "path": "5.pack.gz"
+                        },
+                        {
+                          "name": "6.pack.gz",
+                          "type": "file",
+                          "path": "6.pack.gz"
+                        },
+                        {
+                          "name": "7.pack.gz",
+                          "type": "file",
+                          "path": "7.pack.gz"
+                        },
+                        {
+                          "name": "8.pack.gz",
+                          "type": "file",
+                          "path": "8.pack.gz"
+                        },
+                        {
+                          "name": "9.pack.gz",
+                          "type": "file",
+                          "path": "9.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz",
+                          "type": "file",
+                          "path": "index.pack.gz"
+                        },
+                        {
+                          "name": "index.pack.gz.old",
+                          "type": "file",
+                          "path": "index.pack.gz.old"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "logs",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "next-development.log",
+                  "type": "file",
+                  "path": "next-development.log"
+                }
+              ]
+            },
+            {
+              "name": "package.json",
+              "type": "file",
+              "path": "package.json"
+            },
+            {
+              "name": "prerender-manifest.json",
+              "type": "file",
+              "path": "prerender-manifest.json"
+            },
+            {
+              "name": "react-loadable-manifest.json",
+              "type": "file",
+              "path": "react-loadable-manifest.json"
+            },
+            {
+              "name": "routes-manifest.json",
+              "type": "file",
+              "path": "routes-manifest.json"
+            },
+            {
+              "name": "server",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "app",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "api",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "auth",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "login",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.js",
+                                  "type": "file",
+                                  "path": "route.js"
+                                },
+                                {
+                                  "name": "route_client-reference-manifest.js",
+                                  "type": "file",
+                                  "path": "route_client-reference-manifest.js"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "notes",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "pipeline",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "whatsapp",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "chat",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.js",
+                                  "type": "file",
+                                  "path": "route.js"
+                                },
+                                {
+                                  "name": "route_client-reference-manifest.js",
+                                  "type": "file",
+                                  "path": "route_client-reference-manifest.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "subscribers",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.js",
+                                  "type": "file",
+                                  "path": "route.js"
+                                },
+                                {
+                                  "name": "route_client-reference-manifest.js",
+                                  "type": "file",
+                                  "path": "route_client-reference-manifest.js"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "dashboard",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "numbers",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.js",
+                              "type": "file",
+                              "path": "page.js"
+                            },
+                            {
+                              "name": "page_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "page_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "pipeline",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.js",
+                              "type": "file",
+                              "path": "page.js"
+                            },
+                            {
+                              "name": "page_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "page_client-reference-manifest.js"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "login",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.js",
+                          "type": "file",
+                          "path": "page.js"
+                        },
+                        {
+                          "name": "page_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "page_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "page.js",
+                      "type": "file",
+                      "path": "page.js"
+                    },
+                    {
+                      "name": "page_client-reference-manifest.js",
+                      "type": "file",
+                      "path": "page_client-reference-manifest.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "app-paths-manifest.json",
+                  "type": "file",
+                  "path": "app-paths-manifest.json"
+                },
+                {
+                  "name": "edge-runtime-webpack.js",
+                  "type": "file",
+                  "path": "edge-runtime-webpack.js"
+                },
+                {
+                  "name": "interception-route-rewrite-manifest.js",
+                  "type": "file",
+                  "path": "interception-route-rewrite-manifest.js"
+                },
+                {
+                  "name": "middleware-build-manifest.js",
+                  "type": "file",
+                  "path": "middleware-build-manifest.js"
+                },
+                {
+                  "name": "middleware-manifest.json",
+                  "type": "file",
+                  "path": "middleware-manifest.json"
+                },
+                {
+                  "name": "middleware-react-loadable-manifest.js",
+                  "type": "file",
+                  "path": "middleware-react-loadable-manifest.js"
+                },
+                {
+                  "name": "middleware.js",
+                  "type": "file",
+                  "path": "middleware.js"
+                },
+                {
+                  "name": "next-font-manifest.js",
+                  "type": "file",
+                  "path": "next-font-manifest.js"
+                },
+                {
+                  "name": "next-font-manifest.json",
+                  "type": "file",
+                  "path": "next-font-manifest.json"
+                },
+                {
+                  "name": "pages-manifest.json",
+                  "type": "file",
+                  "path": "pages-manifest.json"
+                },
+                {
+                  "name": "server-reference-manifest.js",
+                  "type": "file",
+                  "path": "server-reference-manifest.js"
+                },
+                {
+                  "name": "server-reference-manifest.json",
+                  "type": "file",
+                  "path": "server-reference-manifest.json"
+                },
+                {
+                  "name": "static",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "webpack",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "633457081244afec._.hot-update.json",
+                          "type": "file",
+                          "path": "633457081244afec._.hot-update.json"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "vendor-chunks",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "@babel.js",
+                      "type": "file",
+                      "path": "@babel.js"
+                    },
+                    {
+                      "name": "@react-dnd.js",
+                      "type": "file",
+                      "path": "@react-dnd.js"
+                    },
+                    {
+                      "name": "@swc.js",
+                      "type": "file",
+                      "path": "@swc.js"
+                    },
+                    {
+                      "name": "aws-ssl-profiles.js",
+                      "type": "file",
+                      "path": "aws-ssl-profiles.js"
+                    },
+                    {
+                      "name": "denque.js",
+                      "type": "file",
+                      "path": "denque.js"
+                    },
+                    {
+                      "name": "dnd-core.js",
+                      "type": "file",
+                      "path": "dnd-core.js"
+                    },
+                    {
+                      "name": "fast-deep-equal.js",
+                      "type": "file",
+                      "path": "fast-deep-equal.js"
+                    },
+                    {
+                      "name": "generate-function.js",
+                      "type": "file",
+                      "path": "generate-function.js"
+                    },
+                    {
+                      "name": "iconv-lite.js",
+                      "type": "file",
+                      "path": "iconv-lite.js"
+                    },
+                    {
+                      "name": "is-property.js",
+                      "type": "file",
+                      "path": "is-property.js"
+                    },
+                    {
+                      "name": "long.js",
+                      "type": "file",
+                      "path": "long.js"
+                    },
+                    {
+                      "name": "lru.min.js",
+                      "type": "file",
+                      "path": "lru.min.js"
+                    },
+                    {
+                      "name": "lucide-react.js",
+                      "type": "file",
+                      "path": "lucide-react.js"
+                    },
+                    {
+                      "name": "mysql2.js",
+                      "type": "file",
+                      "path": "mysql2.js"
+                    },
+                    {
+                      "name": "named-placeholders.js",
+                      "type": "file",
+                      "path": "named-placeholders.js"
+                    },
+                    {
+                      "name": "next.js",
+                      "type": "file",
+                      "path": "next.js"
+                    },
+                    {
+                      "name": "react-dnd-html5-backend.js",
+                      "type": "file",
+                      "path": "react-dnd-html5-backend.js"
+                    },
+                    {
+                      "name": "react-dnd.js",
+                      "type": "file",
+                      "path": "react-dnd.js"
+                    },
+                    {
+                      "name": "redux.js",
+                      "type": "file",
+                      "path": "redux.js"
+                    },
+                    {
+                      "name": "safer-buffer.js",
+                      "type": "file",
+                      "path": "safer-buffer.js"
+                    },
+                    {
+                      "name": "sql-escaper.js",
+                      "type": "file",
+                      "path": "sql-escaper.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "webpack-runtime.js",
+                  "type": "file",
+                  "path": "webpack-runtime.js"
+                }
+              ]
+            },
+            {
+              "name": "static",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "chunks",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js",
+                      "type": "file",
+                      "path": "_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
+                    },
+                    {
+                      "name": "app",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "api",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "auth",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "login",
+                                  "type": "directory",
+                                  "children": [
+                                    {
+                                      "name": "route.js",
+                                      "type": "file",
+                                      "path": "route.js"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "notes",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.js",
+                                  "type": "file",
+                                  "path": "route.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "pipeline",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.js",
+                                  "type": "file",
+                                  "path": "route.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "whatsapp",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "chat",
+                                  "type": "directory",
+                                  "children": [
+                                    {
+                                      "name": "route.js",
+                                      "type": "file",
+                                      "path": "route.js"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "subscribers",
+                                  "type": "directory",
+                                  "children": [
+                                    {
+                                      "name": "route.js",
+                                      "type": "file",
+                                      "path": "route.js"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "dashboard",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "layout.js",
+                              "type": "file",
+                              "path": "layout.js"
+                            },
+                            {
+                              "name": "numbers",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "page.js",
+                                  "type": "file",
+                                  "path": "page.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "pipeline",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "page.js",
+                                  "type": "file",
+                                  "path": "page.js"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "layout.js",
+                          "type": "file",
+                          "path": "layout.js"
+                        },
+                        {
+                          "name": "login",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.js",
+                              "type": "file",
+                              "path": "page.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "page.js",
+                          "type": "file",
+                          "path": "page.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "app-pages-internals.js",
+                      "type": "file",
+                      "path": "app-pages-internals.js"
+                    },
+                    {
+                      "name": "main-app.js",
+                      "type": "file",
+                      "path": "main-app.js"
+                    },
+                    {
+                      "name": "polyfills.js",
+                      "type": "file",
+                      "path": "polyfills.js"
+                    },
+                    {
+                      "name": "webpack.js",
+                      "type": "file",
+                      "path": "webpack.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "css",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "app",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "layout.css",
+                          "type": "file",
+                          "path": "layout.css"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "development",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "_buildManifest.js",
+                      "type": "file",
+                      "path": "_buildManifest.js"
+                    },
+                    {
+                      "name": "_ssgManifest.js",
+                      "type": "file",
+                      "path": "_ssgManifest.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "webpack",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "389977e04613b557.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "389977e04613b557.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "62c77a928586b550.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "62c77a928586b550.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "633457081244afec._.hot-update.json",
+                      "type": "file",
+                      "path": "633457081244afec._.hot-update.json"
+                    },
+                    {
+                      "name": "9b2a684d9aa21833.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "9b2a684d9aa21833.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "db40f87bafb4a651.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "db40f87bafb4a651.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "dff200d4b3300c97.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "dff200d4b3300c97.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "ebb1897a9a35be32.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "ebb1897a9a35be32.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "ebd5eb5a8c0181d7.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "ebd5eb5a8c0181d7.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "f16baf4ca46b403a.webpack.hot-update.json",
+                      "type": "file",
+                      "path": "f16baf4ca46b403a.webpack.hot-update.json"
+                    },
+                    {
+                      "name": "webpack.389977e04613b557.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.389977e04613b557.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.62c77a928586b550.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.62c77a928586b550.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.9b2a684d9aa21833.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.9b2a684d9aa21833.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.db40f87bafb4a651.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.db40f87bafb4a651.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.dff200d4b3300c97.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.dff200d4b3300c97.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.ebb1897a9a35be32.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.ebb1897a9a35be32.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.ebd5eb5a8c0181d7.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.ebd5eb5a8c0181d7.hot-update.js"
+                    },
+                    {
+                      "name": "webpack.f16baf4ca46b403a.hot-update.js",
+                      "type": "file",
+                      "path": "webpack.f16baf4ca46b403a.hot-update.js"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "trace",
+              "type": "file",
+              "path": "trace"
+            },
+            {
+              "name": "types",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "app",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "api",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "auth",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "login",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.ts",
+                                  "type": "file",
+                                  "path": "route.ts"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "notes",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "pipeline",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "whatsapp",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "chat",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.ts",
+                                  "type": "file",
+                                  "path": "route.ts"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "subscribers",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route.ts",
+                                  "type": "file",
+                                  "path": "route.ts"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "dashboard",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "layout.ts",
+                          "type": "file",
+                          "path": "layout.ts"
+                        },
+                        {
+                          "name": "numbers",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.ts",
+                              "type": "file",
+                              "path": "page.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "pipeline",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.ts",
+                              "type": "file",
+                              "path": "page.ts"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "layout.ts",
+                      "type": "file",
+                      "path": "layout.ts"
+                    },
+                    {
+                      "name": "login",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.ts",
+                          "type": "file",
+                          "path": "page.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "page.ts",
+                      "type": "file",
+                      "path": "page.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "cache-life.d.ts",
+                  "type": "file",
+                  "path": "cache-life.d.ts"
+                },
+                {
+                  "name": "package.json",
+                  "type": "file",
+                  "path": "package.json"
+                },
+                {
+                  "name": "root-params.d.ts",
+                  "type": "file",
+                  "path": "root-params.d.ts"
+                },
+                {
+                  "name": "routes.d.ts",
+                  "type": "file",
+                  "path": "routes.d.ts"
+                },
+                {
+                  "name": "validator.ts",
+                  "type": "file",
+                  "path": "validator.ts"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diagnostics",
+          "type": "directory",
+          "children": [
+            {
+              "name": "build-diagnostics.json",
+              "type": "file",
+              "path": "build-diagnostics.json"
+            },
+            {
+              "name": "framework.json",
+              "type": "file",
+              "path": "framework.json"
+            }
+          ]
+        },
+        {
+          "name": "package.json",
+          "type": "file",
+          "path": "package.json"
+        },
+        {
+          "name": "react-loadable-manifest.json",
+          "type": "file",
+          "path": "react-loadable-manifest.json"
+        },
+        {
+          "name": "server",
+          "type": "directory",
+          "children": [
+            {
+              "name": "app",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "_global-error",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.js",
+                      "type": "file",
+                      "path": "page.js"
+                    },
+                    {
+                      "name": "page.js.nft.json",
+                      "type": "file",
+                      "path": "page.js.nft.json"
+                    },
+                    {
+                      "name": "page_client-reference-manifest.js",
+                      "type": "file",
+                      "path": "page_client-reference-manifest.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "_not-found",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.js",
+                      "type": "file",
+                      "path": "page.js"
+                    },
+                    {
+                      "name": "page.js.nft.json",
+                      "type": "file",
+                      "path": "page.js.nft.json"
+                    },
+                    {
+                      "name": "page_client-reference-manifest.js",
+                      "type": "file",
+                      "path": "page_client-reference-manifest.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "api",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "auth",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "login",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "me",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "register",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "clear-memory",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "config",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "crm",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "cron",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "followup",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "notes",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "pipeline",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "start-call",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "team",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "webhook",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.js",
+                          "type": "file",
+                          "path": "route.js"
+                        },
+                        {
+                          "name": "route.js.nft.json",
+                          "type": "file",
+                          "path": "route.js.nft.json"
+                        },
+                        {
+                          "name": "route_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "route_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "whatsapp",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "chat",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "status",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "subscribers",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "webhook",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.js",
+                              "type": "file",
+                              "path": "route.js"
+                            },
+                            {
+                              "name": "route.js.nft.json",
+                              "type": "file",
+                              "path": "route.js.nft.json"
+                            },
+                            {
+                              "name": "route_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "route_client-reference-manifest.js"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "dashboard",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "numbers",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.js",
+                          "type": "file",
+                          "path": "page.js"
+                        },
+                        {
+                          "name": "page.js.nft.json",
+                          "type": "file",
+                          "path": "page.js.nft.json"
+                        },
+                        {
+                          "name": "page_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "page_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "page.js",
+                      "type": "file",
+                      "path": "page.js"
+                    },
+                    {
+                      "name": "page.js.nft.json",
+                      "type": "file",
+                      "path": "page.js.nft.json"
+                    },
+                    {
+                      "name": "page_client-reference-manifest.js",
+                      "type": "file",
+                      "path": "page_client-reference-manifest.js"
+                    },
+                    {
+                      "name": "pipeline",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.js",
+                          "type": "file",
+                          "path": "page.js"
+                        },
+                        {
+                          "name": "page.js.nft.json",
+                          "type": "file",
+                          "path": "page.js.nft.json"
+                        },
+                        {
+                          "name": "page_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "page_client-reference-manifest.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "settings",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.js",
+                          "type": "file",
+                          "path": "page.js"
+                        },
+                        {
+                          "name": "page.js.nft.json",
+                          "type": "file",
+                          "path": "page.js.nft.json"
+                        },
+                        {
+                          "name": "page_client-reference-manifest.js",
+                          "type": "file",
+                          "path": "page_client-reference-manifest.js"
+                        },
+                        {
+                          "name": "team",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.js",
+                              "type": "file",
+                              "path": "page.js"
+                            },
+                            {
+                              "name": "page.js.nft.json",
+                              "type": "file",
+                              "path": "page.js.nft.json"
+                            },
+                            {
+                              "name": "page_client-reference-manifest.js",
+                              "type": "file",
+                              "path": "page_client-reference-manifest.js"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "icon.png",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.js",
+                      "type": "file",
+                      "path": "route.js"
+                    },
+                    {
+                      "name": "route.js.nft.json",
+                      "type": "file",
+                      "path": "route.js.nft.json"
+                    }
+                  ]
+                },
+                {
+                  "name": "login",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.js",
+                      "type": "file",
+                      "path": "page.js"
+                    },
+                    {
+                      "name": "page.js.nft.json",
+                      "type": "file",
+                      "path": "page.js.nft.json"
+                    },
+                    {
+                      "name": "page_client-reference-manifest.js",
+                      "type": "file",
+                      "path": "page_client-reference-manifest.js"
+                    }
+                  ]
+                },
+                {
+                  "name": "page.js",
+                  "type": "file",
+                  "path": "page.js"
+                },
+                {
+                  "name": "page.js.nft.json",
+                  "type": "file",
+                  "path": "page.js.nft.json"
+                },
+                {
+                  "name": "page_client-reference-manifest.js",
+                  "type": "file",
+                  "path": "page_client-reference-manifest.js"
+                },
+                {
+                  "name": "register",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.js",
+                      "type": "file",
+                      "path": "page.js"
+                    },
+                    {
+                      "name": "page.js.nft.json",
+                      "type": "file",
+                      "path": "page.js.nft.json"
+                    },
+                    {
+                      "name": "page_client-reference-manifest.js",
+                      "type": "file",
+                      "path": "page_client-reference-manifest.js"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "app-paths-manifest.json",
+              "type": "file",
+              "path": "app-paths-manifest.json"
+            },
+            {
+              "name": "chunks",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "430.js",
+                  "type": "file",
+                  "path": "430.js"
+                },
+                {
+                  "name": "445.js",
+                  "type": "file",
+                  "path": "445.js"
+                },
+                {
+                  "name": "491.js",
+                  "type": "file",
+                  "path": "491.js"
+                },
+                {
+                  "name": "714.js",
+                  "type": "file",
+                  "path": "714.js"
+                },
+                {
+                  "name": "813.js",
+                  "type": "file",
+                  "path": "813.js"
+                },
+                {
+                  "name": "88.js",
+                  "type": "file",
+                  "path": "88.js"
+                }
+              ]
+            },
+            {
+              "name": "edge-runtime-webpack.js",
+              "type": "file",
+              "path": "edge-runtime-webpack.js"
+            },
+            {
+              "name": "edge-runtime-webpack.js.map",
+              "type": "file",
+              "path": "edge-runtime-webpack.js.map"
+            },
+            {
+              "name": "interception-route-rewrite-manifest.js",
+              "type": "file",
+              "path": "interception-route-rewrite-manifest.js"
+            },
+            {
+              "name": "middleware-build-manifest.js",
+              "type": "file",
+              "path": "middleware-build-manifest.js"
+            },
+            {
+              "name": "middleware-manifest.json",
+              "type": "file",
+              "path": "middleware-manifest.json"
+            },
+            {
+              "name": "middleware-react-loadable-manifest.js",
+              "type": "file",
+              "path": "middleware-react-loadable-manifest.js"
+            },
+            {
+              "name": "next-font-manifest.js",
+              "type": "file",
+              "path": "next-font-manifest.js"
+            },
+            {
+              "name": "next-font-manifest.json",
+              "type": "file",
+              "path": "next-font-manifest.json"
+            },
+            {
+              "name": "pages-manifest.json",
+              "type": "file",
+              "path": "pages-manifest.json"
+            },
+            {
+              "name": "server-reference-manifest.js",
+              "type": "file",
+              "path": "server-reference-manifest.js"
+            },
+            {
+              "name": "server-reference-manifest.json",
+              "type": "file",
+              "path": "server-reference-manifest.json"
+            },
+            {
+              "name": "src",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "middleware.js",
+                  "type": "file",
+                  "path": "middleware.js"
+                },
+                {
+                  "name": "middleware.js.map",
+                  "type": "file",
+                  "path": "middleware.js.map"
+                }
+              ]
+            },
+            {
+              "name": "webpack-runtime.js",
+              "type": "file",
+              "path": "webpack-runtime.js"
+            }
+          ]
+        },
+        {
+          "name": "static",
+          "type": "directory",
+          "children": [
+            {
+              "name": "8bdKzYpg2aMoKO0KJRG5U",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "_buildManifest.js",
+                  "type": "file",
+                  "path": "_buildManifest.js"
+                },
+                {
+                  "name": "_ssgManifest.js",
+                  "type": "file",
+                  "path": "_ssgManifest.js"
+                }
+              ]
+            },
+            {
+              "name": "chunks",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "339-f36b351aa08fbc52.js",
+                  "type": "file",
+                  "path": "339-f36b351aa08fbc52.js"
+                },
+                {
+                  "name": "4bd1b696-92152b0f5947070d.js",
+                  "type": "file",
+                  "path": "4bd1b696-92152b0f5947070d.js"
+                },
+                {
+                  "name": "500-b13bb91f5a6311b6.js",
+                  "type": "file",
+                  "path": "500-b13bb91f5a6311b6.js"
+                },
+                {
+                  "name": "794-d2f4a544a61ef54e.js",
+                  "type": "file",
+                  "path": "794-d2f4a544a61ef54e.js"
+                },
+                {
+                  "name": "899.5ce6b3cbad015b59.js",
+                  "type": "file",
+                  "path": "899.5ce6b3cbad015b59.js"
+                },
+                {
+                  "name": "966.1775eb621d8d3e09.js",
+                  "type": "file",
+                  "path": "966.1775eb621d8d3e09.js"
+                },
+                {
+                  "name": "app",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "_global-error",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page-51e9ebfee99b42d0.js",
+                          "type": "file",
+                          "path": "page-51e9ebfee99b42d0.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "_not-found",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page-e8517369bae46593.js",
+                          "type": "file",
+                          "path": "page-e8517369bae46593.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "api",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "auth",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "login",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "me",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "register",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "clear-memory",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "config",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "crm",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "cron",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "followup",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "notes",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "pipeline",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "start-call",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "team",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "webhook",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route-51e9ebfee99b42d0.js",
+                              "type": "file",
+                              "path": "route-51e9ebfee99b42d0.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "whatsapp",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "chat",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "status",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "subscribers",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            },
+                            {
+                              "name": "webhook",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "route-51e9ebfee99b42d0.js",
+                                  "type": "file",
+                                  "path": "route-51e9ebfee99b42d0.js"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "dashboard",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "layout-318f76ef52bae023.js",
+                          "type": "file",
+                          "path": "layout-318f76ef52bae023.js"
+                        },
+                        {
+                          "name": "numbers",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page-73031206fe249b8f.js",
+                              "type": "file",
+                              "path": "page-73031206fe249b8f.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "page-815397dda01aea35.js",
+                          "type": "file",
+                          "path": "page-815397dda01aea35.js"
+                        },
+                        {
+                          "name": "pipeline",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page-143fb28ee3ea33c4.js",
+                              "type": "file",
+                              "path": "page-143fb28ee3ea33c4.js"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "settings",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page-7b532c3e57c3ba80.js",
+                              "type": "file",
+                              "path": "page-7b532c3e57c3ba80.js"
+                            },
+                            {
+                              "name": "team",
+                              "type": "directory",
+                              "children": [
+                                {
+                                  "name": "page-b34d6847ac87f706.js",
+                                  "type": "file",
+                                  "path": "page-b34d6847ac87f706.js"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "layout-100d32b9cb88d209.js",
+                      "type": "file",
+                      "path": "layout-100d32b9cb88d209.js"
+                    },
+                    {
+                      "name": "login",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page-b50fcc065f12b2ca.js",
+                          "type": "file",
+                          "path": "page-b50fcc065f12b2ca.js"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "page-9a0aed7243a2ddd3.js",
+                      "type": "file",
+                      "path": "page-9a0aed7243a2ddd3.js"
+                    },
+                    {
+                      "name": "register",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page-4a7a5cc92cb0cb17.js",
+                          "type": "file",
+                          "path": "page-4a7a5cc92cb0cb17.js"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "framework-6860ebc283a60d07.js",
+                  "type": "file",
+                  "path": "framework-6860ebc283a60d07.js"
+                },
+                {
+                  "name": "main-app-8ee2582ddad61196.js",
+                  "type": "file",
+                  "path": "main-app-8ee2582ddad61196.js"
+                },
+                {
+                  "name": "main-d7070fecb2f07ecc.js",
+                  "type": "file",
+                  "path": "main-d7070fecb2f07ecc.js"
+                },
+                {
+                  "name": "next",
+                  "type": "directory",
+                  "children": []
+                },
+                {
+                  "name": "polyfills-42372ed130431b0a.js",
+                  "type": "file",
+                  "path": "polyfills-42372ed130431b0a.js"
+                },
+                {
+                  "name": "webpack-2e6d542718637292.js",
+                  "type": "file",
+                  "path": "webpack-2e6d542718637292.js"
+                }
+              ]
+            },
+            {
+              "name": "css",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "e68916529965a57e.css",
+                  "type": "file",
+                  "path": "e68916529965a57e.css"
+                }
+              ]
+            },
+            {
+              "name": "media",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "19cfc7226ec3afaa-s.woff2",
+                  "type": "file",
+                  "path": "19cfc7226ec3afaa-s.woff2"
+                },
+                {
+                  "name": "21350d82a1f187e9-s.woff2",
+                  "type": "file",
+                  "path": "21350d82a1f187e9-s.woff2"
+                },
+                {
+                  "name": "8e9860b6e62d6359-s.woff2",
+                  "type": "file",
+                  "path": "8e9860b6e62d6359-s.woff2"
+                },
+                {
+                  "name": "ba9851c3c22cd980-s.woff2",
+                  "type": "file",
+                  "path": "ba9851c3c22cd980-s.woff2"
+                },
+                {
+                  "name": "c5fe6dc8356a8c31-s.woff2",
+                  "type": "file",
+                  "path": "c5fe6dc8356a8c31-s.woff2"
+                },
+                {
+                  "name": "df0a9ae256c0569c-s.woff2",
+                  "type": "file",
+                  "path": "df0a9ae256c0569c-s.woff2"
+                },
+                {
+                  "name": "e4af272ccee01ff0-s.p.woff2",
+                  "type": "file",
+                  "path": "e4af272ccee01ff0-s.p.woff2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "trace",
+          "type": "file",
+          "path": "trace"
+        },
+        {
+          "name": "trace-build",
+          "type": "file",
+          "path": "trace-build"
+        },
+        {
+          "name": "types",
+          "type": "directory",
+          "children": [
+            {
+              "name": "app",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "api",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "auth",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "login",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "me",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "register",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "clear-memory",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "config",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "crm",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "cron",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "followup",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "notes",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "pipeline",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "start-call",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "team",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "webhook",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "whatsapp",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "chat",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "status",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "subscribers",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "webhook",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "route.ts",
+                              "type": "file",
+                              "path": "route.ts"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "dashboard",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "numbers",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.ts",
+                          "type": "file",
+                          "path": "page.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "page.ts",
+                      "type": "file",
+                      "path": "page.ts"
+                    },
+                    {
+                      "name": "pipeline",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.ts",
+                          "type": "file",
+                          "path": "page.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "settings",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.ts",
+                          "type": "file",
+                          "path": "page.ts"
+                        },
+                        {
+                          "name": "team",
+                          "type": "directory",
+                          "children": [
+                            {
+                              "name": "page.ts",
+                              "type": "file",
+                              "path": "page.ts"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "layout.ts",
+                  "type": "file",
+                  "path": "layout.ts"
+                },
+                {
+                  "name": "login",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.ts",
+                      "type": "file",
+                      "path": "page.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "page.ts",
+                  "type": "file",
+                  "path": "page.ts"
+                },
+                {
+                  "name": "register",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.ts",
+                      "type": "file",
+                      "path": "page.ts"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "cache-life.d.ts",
+              "type": "file",
+              "path": "cache-life.d.ts"
+            },
+            {
+              "name": "package.json",
+              "type": "file",
+              "path": "package.json"
+            },
+            {
+              "name": "root-params.d.ts",
+              "type": "file",
+              "path": "root-params.d.ts"
+            },
+            {
+              "name": "routes.d.ts",
+              "type": "file",
+              "path": "routes.d.ts"
+            },
+            {
+              "name": "validator.ts",
+              "type": "file",
+              "path": "validator.ts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AGENTS.md",
+      "type": "file",
+      "path": "AGENTS.md"
+    },
+    {
+      "name": "CLAUDE.md",
+      "type": "file",
+      "path": "CLAUDE.md"
+    },
+    {
+      "name": "README.md",
+      "type": "file",
+      "path": "README.md"
+    },
+    {
+      "name": "action_menu_hover.cjs",
+      "type": "file",
+      "path": "action_menu_hover.cjs"
+    },
+    {
+      "name": "action_menu_status.cjs",
+      "type": "file",
+      "path": "action_menu_status.cjs"
+    },
+    {
+      "name": "add_amount_prompt.cjs",
+      "type": "file",
+      "path": "add_amount_prompt.cjs"
+    },
+    {
+      "name": "add_clear_filters.cjs",
+      "type": "file",
+      "path": "add_clear_filters.cjs"
+    },
+    {
+      "name": "add_inline_status.cjs",
+      "type": "file",
+      "path": "add_inline_status.cjs"
+    },
+    {
+      "name": "add_toaster.cjs",
+      "type": "file",
+      "path": "add_toaster.cjs"
+    },
+    {
+      "name": "apply_ui_tweaks.cjs",
+      "type": "file",
+      "path": "apply_ui_tweaks.cjs"
+    },
+    {
+      "name": "change_status_style.cjs",
+      "type": "file",
+      "path": "change_status_style.cjs"
+    },
+    {
+      "name": "change_to_accordion.cjs",
+      "type": "file",
+      "path": "change_to_accordion.cjs"
+    },
+    {
+      "name": "change_to_list.cjs",
+      "type": "file",
+      "path": "change_to_list.cjs"
+    },
+    {
+      "name": "check_render.py",
+      "type": "file",
+      "path": "check_render.py"
+    },
+    {
+      "name": "db_init.js",
+      "type": "file",
+      "path": "db_init.js"
+    },
+    {
+      "name": "eslint.config.mjs",
+      "type": "file",
+      "path": "eslint.config.mjs"
+    },
+    {
+      "name": "fix_stats.cjs",
+      "type": "file",
+      "path": "fix_stats.cjs"
+    },
+    {
+      "name": "fix_toaster_payload.cjs",
+      "type": "file",
+      "path": "fix_toaster_payload.cjs"
+    },
+    {
+      "name": "layout.tsx.bak",
+      "type": "file",
+      "path": "layout.tsx.bak"
+    },
+    {
+      "name": "modify_layout.cjs",
+      "type": "file",
+      "path": "modify_layout.cjs"
+    },
+    {
+      "name": "next-env.d.ts",
+      "type": "file",
+      "path": "next-env.d.ts"
+    },
+    {
+      "name": "next.config.ts",
+      "type": "file",
+      "path": "next.config.ts"
+    },
+    {
+      "name": "package-lock.json",
+      "type": "file",
+      "path": "package-lock.json"
+    },
+    {
+      "name": "package.json",
+      "type": "file",
+      "path": "package.json"
+    },
+    {
+      "name": "page.tsx.bak",
+      "type": "file",
+      "path": "page.tsx.bak"
+    },
+    {
+      "name": "postcss.config.mjs",
+      "type": "file",
+      "path": "postcss.config.mjs"
+    },
+    {
+      "name": "public",
+      "type": "directory",
+      "children": [
+        {
+          "name": "file.svg",
+          "type": "file",
+          "path": "file.svg"
+        },
+        {
+          "name": "globe.svg",
+          "type": "file",
+          "path": "globe.svg"
+        },
+        {
+          "name": "kriti-logo.png",
+          "type": "file",
+          "path": "kriti-logo.png"
+        },
+        {
+          "name": "next.svg",
+          "type": "file",
+          "path": "next.svg"
+        },
+        {
+          "name": "vercel.svg",
+          "type": "file",
+          "path": "vercel.svg"
+        },
+        {
+          "name": "window.svg",
+          "type": "file",
+          "path": "window.svg"
+        }
+      ]
+    },
+    {
+      "name": "remove_payment_filter.cjs",
+      "type": "file",
+      "path": "remove_payment_filter.cjs"
+    },
+    {
+      "name": "reset_lead.cjs",
+      "type": "file",
+      "path": "reset_lead.cjs"
+    },
+    {
+      "name": "rewrite_modal_tailwind.cjs",
+      "type": "file",
+      "path": "rewrite_modal_tailwind.cjs"
+    },
+    {
+      "name": "scripts",
+      "type": "directory",
+      "children": [
+        {
+          "name": "setup_users.js",
+          "type": "file",
+          "path": "setup_users.js"
+        }
+      ]
+    },
+    {
+      "name": "src",
+      "type": "directory",
+      "children": [
+        {
+          "name": "app",
+          "type": "directory",
+          "children": [
+            {
+              "name": "api",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "auth",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "login",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "me",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "register",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "clear-memory",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "config",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "crm",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "cron",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "followup",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "notes",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "pipeline",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "start-call",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "team",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "webhook",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "route.ts",
+                      "type": "file",
+                      "path": "route.ts"
+                    }
+                  ]
+                },
+                {
+                  "name": "whatsapp",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "chat",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "status",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "subscribers",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "webhook",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "route.ts",
+                          "type": "file",
+                          "path": "route.ts"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "dashboard",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "layout.tsx",
+                  "type": "file",
+                  "path": "layout.tsx"
+                },
+                {
+                  "name": "numbers",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.tsx",
+                      "type": "file",
+                      "path": "page.tsx"
+                    }
+                  ]
+                },
+                {
+                  "name": "page.tsx",
+                  "type": "file",
+                  "path": "page.tsx"
+                },
+                {
+                  "name": "pipeline",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.tsx",
+                      "type": "file",
+                      "path": "page.tsx"
+                    }
+                  ]
+                },
+                {
+                  "name": "settings",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "page.tsx",
+                      "type": "file",
+                      "path": "page.tsx"
+                    },
+                    {
+                      "name": "team",
+                      "type": "directory",
+                      "children": [
+                        {
+                          "name": "page.tsx",
+                          "type": "file",
+                          "path": "page.tsx"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "globals.css",
+              "type": "file",
+              "path": "globals.css"
+            },
+            {
+              "name": "icon.png",
+              "type": "file",
+              "path": "icon.png"
+            },
+            {
+              "name": "layout.tsx",
+              "type": "file",
+              "path": "layout.tsx"
+            },
+            {
+              "name": "login",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file",
+                  "path": "page.tsx"
+                }
+              ]
+            },
+            {
+              "name": "page.tsx",
+              "type": "file",
+              "path": "page.tsx"
+            },
+            {
+              "name": "register",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "page.tsx",
+                  "type": "file",
+                  "path": "page.tsx"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "lib",
+          "type": "directory",
+          "children": [
+            {
+              "name": "db.ts",
+              "type": "file",
+              "path": "db.ts"
+            }
+          ]
+        },
+        {
+          "name": "middleware.ts",
+          "type": "file",
+          "path": "middleware.ts"
+        }
+      ]
+    },
+    {
+      "name": "test_api.js",
+      "type": "file",
+      "path": "test_api.js"
+    },
+    {
+      "name": "tsconfig.json",
+      "type": "file",
+      "path": "tsconfig.json"
+    },
+    {
+      "name": "update_card_badges.cjs",
+      "type": "file",
+      "path": "update_card_badges.cjs"
+    },
+    {
+      "name": "update_filters.cjs",
+      "type": "file",
+      "path": "update_filters.cjs"
+    },
+    {
+      "name": "update_numbers_page.cjs",
+      "type": "file",
+      "path": "update_numbers_page.cjs"
+    },
+    {
+      "name": "update_numbers_page_safe.cjs",
+      "type": "file",
+      "path": "update_numbers_page_safe.cjs"
+    },
+    {
+      "name": "voice_agent",
+      "type": "directory",
+      "children": [
+        {
+          "name": "agent.py",
+          "type": "file",
+          "path": "agent.py"
+        },
+        {
+          "name": "config.py",
+          "type": "file",
+          "path": "config.py"
+        },
+        {
+          "name": "requirements.txt",
+          "type": "file",
+          "path": "requirements.txt"
+        }
+      ]
+    }
+  ]
+}

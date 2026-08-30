@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 
-export default function NumbersPage() {
+export default function ClientFollowupsPage() {
   const [liveStatus, setLiveStatus] = useState<{ connected: boolean; subscribers: any[]; loading: boolean; message: string }>({
     connected: false,
     subscribers: [],
@@ -16,7 +16,7 @@ export default function NumbersPage() {
   const [callFilter, setCallFilter] = useState('all');
   const [conversionFilter, setConversionFilter] = useState('all');
   const [serviceFilter, setServiceFilter] = useState('all');
-  const [topFilter, setTopFilter] = useState('all');
+  const [topFilter, setTopFilter] = useState('converted');
   
   // Notes State
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -26,6 +26,43 @@ export default function NumbersPage() {
   // Mobile Responsiveness State
   const [expandedRowId, setExpandedRowId] = useState<string | null>(null);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
+  const [openStepDropdownId, setOpenStepDropdownId] = useState<string | null>(null);
+  const [serviceCategories, setServiceCategories] = useState<any[]>([]);
+  
+  useEffect(() => {
+    fetch('/api/config')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data && data.data.service_categories) {
+          try {
+            setServiceCategories(JSON.parse(data.data.service_categories));
+          } catch(e) {}
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleStepChange = async (chat_id: string, stepLabel: string, existingCrmData: any) => {
+    setIsSavingCRM(true);
+    try {
+        let updatedData = { ...(existingCrmData?.data || {}), service_step_name: stepLabel };
+        const fullPayload = { ...(existingCrmData || {}), data: updatedData };
+        
+        const res = await fetch('/api/crm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone_number: chat_id, data: fullPayload })
+        });
+        if (res.ok) {
+            fetchSubscribers();
+        }
+    } catch (err) {
+        console.error(err);
+    } finally {
+        setIsSavingCRM(false);
+        setOpenStepDropdownId(null);
+    }
+  };
   const [openStatusMenuId, setOpenStatusMenuId] = useState<string | null>(null);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState<any>(null);
@@ -422,100 +459,42 @@ export default function NumbersPage() {
     } catch(e) { toast.error('Failed to update category'); }
   };
 
-  const handleStepChange = async (chat_id: string, stepIdx: number, existingCrmData: any) => {
-    try {
-      const updatedData = { ...(existingCrmData?.data || {}), service_step: stepIdx };
-      const fullPayload = { ...(existingCrmData || {}), data: updatedData };
-      const res = await fetch('/api/crm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone_number: chat_id, data: fullPayload })
-      });
-      if ((await res.json()).success) {
-        toast.success('Step updated');
-        checkLiveStatus();
-      }
-    } catch(e) { toast.error('Failed to update step'); }
-  };
 
   const currentItems = liveStatus.subscribers;
   const totalPages = Math.ceil(totalContacts / itemsPerPage) || 1;
 
   return (
     <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 relative">
-      
-      
       <div className="flex justify-end mb-2"></div>
-
       <div className={`transition-all duration-300 ${isChatOpen ? 'md:pr-[400px]' : ''}`}>
       
-      {/* Top Cards: 1 line metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-
-          <button onClick={() => setTopFilter(topFilter === 'pending' ? 'all' : 'pending')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'pending' ? 'bg-blue-600 text-white shadow-[0_8px_30px_rgba(37,99,235,0.3)]' : 'bg-white'}`}>
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'pending' ? 'bg-blue-500/30 text-white' : 'bg-blue-50 text-blue-500'}`}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              </div>
-              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'pending' ? 'text-blue-200' : 'text-slate-400'}`}>Pending Calls</p><p className={`text-2xl font-black leading-none ${topFilter === 'pending' ? 'text-white' : 'text-slate-800'}`}>{stats.pending}</p></div>
-          </button>
+      {/* Premium Converted Leads Banner */}
+      <div className="mb-8">
+        <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl p-6 md:p-8 shadow-[0_8px_30px_rgba(16,185,129,0.3)] text-white flex flex-col md:flex-row items-start md:items-center justify-between relative overflow-hidden">
           
-          <button onClick={() => setTopFilter(topFilter === 'followups' ? 'all' : 'followups')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'followups' ? 'bg-amber-500 text-white shadow-[0_8px_30px_rgba(245,158,11,0.3)]' : 'bg-white'}`}>
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'followups' ? 'bg-amber-400/30 text-white' : 'bg-amber-50 text-amber-500'}`}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'followups' ? 'text-amber-100' : 'text-slate-400'}`}>Followups</p><p className={`text-2xl font-black leading-none ${topFilter === 'followups' ? 'text-white' : 'text-slate-800'}`}>{stats.followups}</p></div>
-          </button>
+          {/* Decorative background circles */}
+          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-20 -mb-8 w-24 h-24 bg-teal-300 opacity-20 rounded-full blur-xl pointer-events-none"></div>
           
-          <button onClick={() => setTopFilter(topFilter === 'converted' ? 'all' : 'converted')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'converted' ? 'bg-emerald-500 text-white shadow-[0_8px_30px_rgba(16,185,129,0.3)]' : 'bg-white'}`}>
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'converted' ? 'bg-emerald-400/30 text-white' : 'bg-emerald-50 text-emerald-500'}`}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'converted' ? 'text-emerald-100' : 'text-slate-400'}`}>Converted</p><p className={`text-2xl font-black leading-none ${topFilter === 'converted' ? 'text-white' : 'text-slate-800'}`}>{stats.converted}</p>{stats.totalCollection > 0 && <p className={`text-[11px] font-bold mt-1 ${topFilter === 'converted' ? 'text-emerald-200' : 'text-emerald-500'}`}>₹{stats.totalCollection.toLocaleString('en-IN')}</p>}</div>
-          </button>
-          
-          <button onClick={() => setTopFilter(topFilter === 'lost' ? 'all' : 'lost')} className={`shadow-[0_4px_20px_rgba(0,0,0,0.03)] border-none p-5 rounded-3xl flex items-center gap-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${topFilter === 'lost' ? 'bg-red-500 text-white shadow-[0_8px_30px_rgba(239,68,68,0.3)]' : 'bg-white'}`}>
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold ${topFilter === 'lost' ? 'bg-red-400/30 text-white' : 'bg-red-50 text-red-500'}`}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <div><p className={`text-[12px] font-extrabold uppercase tracking-wider mb-0.5 ${topFilter === 'lost' ? 'text-red-100' : 'text-slate-400'}`}>Lost</p><p className={`text-2xl font-black leading-none ${topFilter === 'lost' ? 'text-white' : 'text-slate-800'}`}>{stats.lost}</p></div>
-          </button>
-      </div>
-
-      {/* Service Grouping Cards */}
-      <h3 className="text-[14px] font-extrabold text-slate-800 uppercase tracking-wider mb-3 ml-2">Services Filter</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className={`p-5 rounded-3xl transition-all border shadow-[0_4px_20px_rgba(0,0,0,0.03)] ${['consultation', 'team_consultation', 'nikhil_consultation'].includes(serviceFilter) ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-transparent'}`}>
-          <button onClick={() => setServiceFilter(serviceFilter === 'consultation' ? 'all' : 'consultation')} className="w-full text-left flex justify-between items-center mb-3 group">
-            <h4 className={`font-black text-lg transition-colors group-hover:text-indigo-600 ${['consultation', 'team_consultation', 'nikhil_consultation'].includes(serviceFilter) ? 'text-indigo-700' : 'text-slate-800'}`}>Consultation</h4>
-          </button>
-          <div className="flex flex-wrap gap-2">
-            <button onClick={(e) => { e.stopPropagation(); setServiceFilter(serviceFilter === 'team_consultation' ? 'all' : 'team_consultation'); }} className={`text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors ${serviceFilter === 'team_consultation' ? 'bg-indigo-600 text-white shadow-md' : 'bg-indigo-100/50 text-indigo-600 hover:bg-indigo-100'}`}>Team Consultation ({stats.team_consultation})</button>
-            <button onClick={(e) => { e.stopPropagation(); setServiceFilter(serviceFilter === 'nikhil_consultation' ? 'all' : 'nikhil_consultation'); }} className={`text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors ${serviceFilter === 'nikhil_consultation' ? 'bg-indigo-600 text-white shadow-md' : 'bg-indigo-100/50 text-indigo-600 hover:bg-indigo-100'}`}>Nikhil Sir ({stats.nikhil_consultation})</button>
+          <div className="flex items-center gap-5 relative z-10">
+            <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm shadow-inner border border-white/20">
+              <svg className="w-8 h-8 text-white drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <h2 className="text-4xl font-black tracking-tight drop-shadow-sm">{stats.converted || 0}</h2>
+              <p className="text-emerald-50 font-bold tracking-widest uppercase text-xs mt-1 opacity-90">Converted Leads</p>
+            </div>
           </div>
-        </div>
-
-        <div className={`p-5 rounded-3xl transition-all border shadow-[0_4px_20px_rgba(0,0,0,0.03)] ${['new_house', 'new_house_planning', 'interior_planning'].includes(serviceFilter) ? 'bg-emerald-50 border-emerald-200' : 'bg-white border-transparent'}`}>
-          <button onClick={() => setServiceFilter(serviceFilter === 'new_house' ? 'all' : 'new_house')} className="w-full text-left flex justify-between items-center mb-3 group">
-            <h4 className={`font-black text-lg transition-colors group-hover:text-emerald-600 ${['new_house', 'new_house_planning', 'interior_planning'].includes(serviceFilter) ? 'text-emerald-700' : 'text-slate-800'}`}>New House Planning</h4>
-          </button>
-          <div className="flex flex-wrap gap-2">
-            <button onClick={(e) => { e.stopPropagation(); setServiceFilter(serviceFilter === 'new_house_planning' ? 'all' : 'new_house_planning'); }} className={`text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors ${serviceFilter === 'new_house_planning' ? 'bg-emerald-600 text-white shadow-md' : 'bg-emerald-100/50 text-emerald-600 hover:bg-emerald-100'}`}>New house ({stats.new_house_planning})</button>
-            <button onClick={(e) => { e.stopPropagation(); setServiceFilter(serviceFilter === 'interior_planning' ? 'all' : 'interior_planning'); }} className={`text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors ${serviceFilter === 'interior_planning' ? 'bg-emerald-600 text-white shadow-md' : 'bg-emerald-100/50 text-emerald-600 hover:bg-emerald-100'}`}>Interior planning ({stats.interior_planning})</button>
-          </div>
-        </div>
-
-        <div className={`p-5 rounded-3xl transition-all border shadow-[0_4px_20px_rgba(0,0,0,0.03)] ${serviceFilter === 'architecture' ? 'bg-rose-50 border-rose-200' : 'bg-white border-transparent'}`}>
-          <button onClick={() => setServiceFilter(serviceFilter === 'architecture' ? 'all' : 'architecture')} className="w-full text-left flex justify-between items-center mb-3 group">
-            <h4 className={`font-black text-lg transition-colors group-hover:text-rose-600 ${serviceFilter === 'architecture' ? 'text-rose-700' : 'text-slate-800'}`}>Architecture</h4>
-          </button>
-          <div className="flex flex-wrap gap-2">
-            <button onClick={(e) => { e.stopPropagation(); setServiceFilter(serviceFilter === 'architecture' ? 'all' : 'architecture'); }} className={`text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors ${serviceFilter === 'architecture' ? 'bg-rose-600 text-white shadow-md' : 'bg-rose-100/50 text-rose-600 hover:bg-rose-100'}`}>Partner program ({stats.architecture})</button>
+          
+          <div className="mt-6 md:mt-0 md:text-right px-6 py-4 bg-black/10 rounded-2xl backdrop-blur-md border border-white/10 relative z-10 shadow-inner">
+            <p className="text-emerald-100 text-[10px] font-extrabold uppercase tracking-widest mb-1 opacity-80">Total Collection</p>
+            <p className="text-2xl font-black drop-shadow-sm">₹{(stats.totalCollection || 0).toLocaleString('en-IN')}</p>
           </div>
         </div>
       </div>
 
       {/* Main Content Area */}
-        <div className="bg-white backdrop-blur-xl border border-gray-200 rounded-3xl overflow-hidden shadow-lg flex flex-col">
+      <div className="bg-white backdrop-blur-xl border border-gray-200 rounded-3xl overflow-hidden shadow-lg flex flex-col">
           
           {/* Toolbar */}
           <div className="p-6 border-b border-gray-100 bg-white flex flex-wrap items-center justify-between gap-4">
@@ -533,12 +512,12 @@ export default function NumbersPage() {
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
                 />
               </div>
-              {(serviceFilter !== 'all' || topFilter !== 'all' || searchTerm !== '' || timeFilter !== 'all' || statusFilter !== 'all' || callFilter !== 'all' || conversionFilter !== 'all') && (
+              {(serviceFilter !== 'all' || topFilter !== 'converted' || searchTerm !== '' || timeFilter !== 'all' || statusFilter !== 'all' || callFilter !== 'all' || conversionFilter !== 'all') && (
                 <button 
                   onClick={() => {
                     setSearchTerm('');
                     setServiceFilter('all');
-                    setTopFilter('all');
+                    setTopFilter('converted');
                     setTimeFilter('all');
                     setStatusFilter('all');
                     setCallFilter('all');
@@ -599,7 +578,7 @@ export default function NumbersPage() {
                     <th className="px-6 py-4 hidden md:table-cell">Contact</th>
                     <th className="px-6 py-4">Phone Number</th>
                     <th className="px-6 py-4 hidden md:table-cell">Status</th>
-                    {topFilter === 'converted' && <th className="px-6 py-4 hidden md:table-cell">Delivery Flow</th>}
+                    {topFilter === 'converted' && <th className="px-6 py-4 hidden md:table-cell">Delivery Step</th>}
                     <th className="px-6 py-4 hidden md:table-cell">Notes</th>
 
                     <th className="px-6 py-4 text-right hidden md:table-cell">Actions</th>
@@ -660,6 +639,46 @@ export default function NumbersPage() {
                             </div>
                           </div>
                         </td>
+
+                        {/* Delivery Step Column */}
+                        {topFilter === 'converted' && (
+                          <td className="px-6 py-4 hidden md:table-cell">
+                            <div className="relative action-menu-container">
+                                <div 
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setOpenStepDropdownId(openStepDropdownId === sub.chat_id ? null : sub.chat_id);
+                                    }}
+                                    className="inline-flex items-center justify-between w-32 px-3 py-1.5 rounded-lg border text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-colors bg-teal-50 text-teal-600 border-teal-200 hover:bg-teal-100"
+                                >
+                                    <span className="truncate">{sub.crmData?.data?.service_step_name || 'Select Step'}</span>
+                                    <svg className="w-3 h-3 ml-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                                
+                                <div className={`absolute left-0 top-full mt-1 w-48 bg-white border border-gray-100 rounded-xl shadow-lg transition-all z-20 overflow-hidden flex flex-col p-1 ${openStepDropdownId === sub.chat_id ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                                    <div className="max-h-48 overflow-y-auto">
+                                      {(() => {
+                                        const leadService = sub.crmData?.data?.service_type || sub.crmData?.data?.service_category || 'consultation';
+                                        const cat = serviceCategories.find(c => c.name.toLowerCase() === leadService.toLowerCase() || c.id === leadService) || serviceCategories[0];
+                                        const stepsToRender = cat?.steps || ['Step 1', 'Step 2', 'Step 3'];
+                                        
+                                        return stepsToRender.map((step: string, i: number) => (
+                                          <button
+                                              key={i}
+                                              onClick={(e) => { e.stopPropagation(); handleStepChange(sub.chat_id, step, sub.crmData); }}
+                                              className={`w-full text-left px-3 py-2 text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors ${sub.crmData?.data?.service_step_name === step ? 'bg-teal-50 text-teal-900' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'}`}
+                                          >
+                                              {step}
+                                          </button>
+                                        ));
+                                      })()}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                          </td>
+                        )}
+
                         <td className="px-6 py-4 max-w-[200px] md:max-w-xs hidden md:table-cell">
                           {editingNoteFor === sub.chat_id ? (
                             <div className="flex items-center gap-2">
@@ -768,7 +787,8 @@ export default function NumbersPage() {
                         </td>
                       </tr>
                       
-                      {/* Mobile Expanded Row */}
+                      
+{/* Mobile Expanded Row */}
                       {expandedRowId === sub.chat_id && (
                         <tr className="md:hidden bg-gray-900/30">
                           <td colSpan={2} className="px-6 py-4 border-b border-gray-800">
@@ -1157,6 +1177,7 @@ export default function NumbersPage() {
           </div>
         </div>
       )}
+
 
       {/* Followup Modal - WhatsApp Style */}
       {followupModalOpen && (
